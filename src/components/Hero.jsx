@@ -1,6 +1,7 @@
 
 import image from '../../images/heroleft.png'
 import Button from './Button';
+import { toast } from "react-toastify";
 const HeroSection = () => {
     return (
         <div className="max-w-screen 2xl:max-w-[1800px] mx-auto flex flex-col lg:flex-row justify-between p-5 lg:p-2 ">
@@ -25,7 +26,7 @@ const HeroSection = () => {
             </div>
             </h1>
             <div className='flex w-full justify-center lg:justify-start items-center lg:items-start mt-6 lg:mt-9 lg:ml-1 gap-4 lg:gap-7'>
-                <Button variant="primary" size="lg" className="before:bg-white  rounded-lg outline-blue-400 flex gap-2 items-center">
+                <Button onClick = {() => (toast.info("Full detailed guide coming soon !")} variant="primary" size="lg" className="before:bg-white  rounded-lg outline-blue-400 flex gap-2 items-center">
                 Get Started
                 </Button>
                 <Button onClick={() => {
