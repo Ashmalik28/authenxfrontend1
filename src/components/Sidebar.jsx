@@ -67,7 +67,7 @@ import AdminCheck from '../protectedRoute/AdminProtectedRoute';
 const Sidebar = () => {
   const location = useLocation();
   const check = AdminCheck();
-  const isAdmin = localStorage.getItem("Admin");
+  const isAdmin = localStorage.getItem("Admin") === "true";
   const storedType = localStorage.getItem("userType"); 
 
     const organizationItems = isAdmin
