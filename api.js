@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL : "https://authenxbackend-production.up.railway.app/"
+    baseURL : "authenx.up.railway.app"
 });
 
 API.interceptors.request.use((config) => {
