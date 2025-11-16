@@ -55,11 +55,26 @@ const Verify = () => {
     return cidV1;
     };
 
-    const handleAutoVerification = async (hash) => {
-    const {walletAddress} = await getWallet(hash);
-    const result = await verifyDocument(walletAddress , hash);
-    setVerified(result ? true : false);
-    };
+   const handleAutoVerification = async (hash) => {
+  try {
+    const { walletAddress } = await getWallet(hash);
+    const result = await verifyDocument(walletAddress, hash);
+
+    console.log("AUTO VERIFY RESULT:", result);
+
+    const isValid =
+      result === true ||
+      result === "true" ||
+      result === 1 ||
+      result === "1" ||
+      result === "Verified" ||
+      result === "Document exists";
+
+    setVerified(isValid);
+  } catch (err) {
+    setVerified(false);
+  }
+};
 
     const handleVerify = async () => {
     try {
