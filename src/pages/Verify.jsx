@@ -58,7 +58,7 @@ const Verify = () => {
     const handleAutoVerification = async (hash) => {
     const {walletAddress} = await getWallet(hash);
     const result = await verifyDocument(walletAddress , hash);
-    setVerified(result);
+    setVerified(result ? true : false);
     };
 
     const handleVerify = async () => {
