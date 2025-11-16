@@ -338,7 +338,7 @@ const Dashboard = () => {
 
 
                         </div>
-                        <div className='flex xl:flex-col rounded-xl 2xl:gap-10 h-fit md:gap-5 xs:mr-5 lg:mr-0'>
+                        <div className='flex xl:flex-col rounded-xl 2xl:gap-10 h-full md:gap-5 xs:mr-5 lg:mr-0'>
                                 <div className='flex-1 bg-white rounded-xl 2xl:p-10 p-5 '>
                                 <div className='text-black xs:font-semibold font-bold flex justify-center 2xl:text-4xl text-2xl xs:text-3xl'>Welcome , {userName}</div>
                                 <div className="text-sm text-white bg-black p-3 rounded-2xl 2xl:mt-7 mt-3 flex justify-around">
