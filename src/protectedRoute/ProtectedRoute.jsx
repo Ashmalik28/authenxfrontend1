@@ -1,25 +1,37 @@
-import {useEffect , useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import API from "../../api";
 
-const ProtectedRoute = ({children}) => {
-    const [isAuthorized , setIsAuthorized] = useState(null);
-    const checkAuth = async () => {
-        try {
-            await API.get("/auth/check");
-            setIsAuthorized(true);
-        }catch (err){
-           localStorage.removeItem("token");
-           setIsAuthorized(false);
-        }    
+const ProtectedRoute = ({ children }) => {
+  const [isAuthorized, setIsAuthorized] = useState(null);
+  const location = useLocation();
+
+  const params = new URLSearchParams(location.search);
+  const hash = params.get("hash");
+
+  if (location.pathname === "/verify" && hash) {
+    return children; 
+  }
+
+  const checkAuth = async () => {
+    try {
+      await API.get("/auth/check");
+      setIsAuthorized(true);
+    } catch (err) {
+      localStorage.removeItem("token");
+      setIsAuthorized(false);
     }
-    useEffect(() => {
-        checkAuth();
-    },[])
-    if(isAuthorized === null){
-        return <div>Loading ...</div>
-    }
-    return isAuthorized ? children : <Navigate to = "/signup" replace/>;
-}
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  if (isAuthorized === null) {
+    return <div>Loading...</div>;
+  }
+
+  return isAuthorized ? children : <Navigate to="/signup" replace />;
+};
 
 export default ProtectedRoute;
