@@ -3,6 +3,7 @@ import "react-phone-input-2/lib/style.css";
 import { useState } from "react";
 import Button from "./Button";
 import emailjs from '@emailjs/browser';
+import { toast } from 'react-toastify';
 
 const countries = [
   { code: "sg", dialCode: "+65", flag: "🇸🇬", name: "Singapore" },
@@ -57,7 +58,7 @@ const Support = () => {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !phone || !formData.message) {
-    alert("Please fill out all required fields.");
+    toast.error("Please fill out all required fields.");
     return;
     }
 
@@ -89,14 +90,14 @@ const Support = () => {
       );
     })
     .then(() => {
-      alert("Your message has been sent! We’ve also sent you a confirmation email.");
+      toast.success("Your message has been sent! We’ve also sent you a confirmation email.");
       setFormData({ name: "", email: "", message: "" });
       setPhone("");
       setSelectedInterest({ id: null, label: "Select your interest" });
     })
     .catch((error) => {
       console.error("FAILED...", error);
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     })
     .finally(() => setIsLoading(false));
    };
