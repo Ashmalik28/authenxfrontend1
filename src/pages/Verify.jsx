@@ -290,7 +290,7 @@ const Verify = () => {
                      ) : (
                     <div className='flex flex-col items-center'>
                       <div className="flex justify-center w-full mt-8">
-                        <QRCodeDisplay url={`http://localhost:5173/verify?hash=${docHash}`} />
+                        <QRCodeDisplay url={`https://authenxfrontend1-6zj4otc70-ashyams-projects.vercel.app/verify?hash=${docHash}`} />
                       </div>
                       <p className="mt-8 w-2/3 text-gray-600 text-center text-sm">
                         Scan this to instantly verify the document on our website
