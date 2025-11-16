@@ -83,7 +83,7 @@ const IssueDoc = () => {
     formData.append("file", selectedFile);
 
     try {
-        const res = await fetch("http://localhost:3000/upload", {
+        const res = await fetch("https://authenxbackend-production.up.railway.app/upload", {
         method: "POST",
         body: formData,
         });
