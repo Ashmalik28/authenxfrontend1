@@ -70,6 +70,15 @@ const OrgKYC = () => {
     const [personalEmail, setPersonalEmail] = useState("");
     const [loading , setLoading] = useState(false);
 
+    useEffect(() => {
+  const userType = localStorage.getItem("userType"); 
+
+  if (userType !== "organization" && userType !== "admin") {
+    toast.error("To register as an organization login as an organization !");
+    navigate("/dashboard");
+  }
+  }, []);
+
 
 
     const handleSubmit = async (e) => {
