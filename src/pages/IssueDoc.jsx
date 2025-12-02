@@ -44,6 +44,15 @@ const IssueDoc = () => {
     const [orgName ,setOrgName] = useState("");
     const [docHash , setdocHash] = useState(null);
 
+  useEffect(() => {
+  const userType = localStorage.getItem("userType"); 
+
+  if (userType !== "organization" && userType !== "admin") {
+    toast.error("You are not authorized to access this page!");
+    navigate("/dashboard");
+  }
+  }, []);
+
     useEffect(() => {
     const fetchDetails = async () => {
     try {
