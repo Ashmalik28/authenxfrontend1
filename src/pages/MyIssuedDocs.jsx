@@ -52,6 +52,15 @@ const MyIssuedDocs = () => {
         };
         };
 
+useEffect(() => {
+  const userType = localStorage.getItem("userType"); 
+
+  if (userType !== "organization" && userType !== "admin") {
+    toast.error("Verifier cannot issue a document !");
+    navigate("/dashboard");
+  }
+  }, []);
+
     useEffect(() => {
     const fetchDocs = async () => {
       if (!currentAccount) return;
