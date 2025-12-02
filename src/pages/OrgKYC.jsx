@@ -9,6 +9,7 @@ import {shortenAddress} from "../utils/shortenAddress"
 import { submitKYC } from '../../api';
 import Loader from '../components/Loader';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const OrgType = [
   { id: 1, label: "Private Limited" },
@@ -69,6 +70,7 @@ const OrgKYC = () => {
     const [contactNo, setContactNo] = useState("");
     const [personalEmail, setPersonalEmail] = useState("");
     const [loading , setLoading] = useState(false);
+   const navigate = useNavigate();
 
     useEffect(() => {
   const userType = localStorage.getItem("userType"); 
