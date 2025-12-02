@@ -48,7 +48,7 @@ const IssueDoc = () => {
   const userType = localStorage.getItem("userType"); 
 
   if (userType !== "organization" && userType !== "admin") {
-    toast.error("You are not authorized to access this page!");
+    toast.error("Verifiers cannot issue a document !");
     navigate("/dashboard");
   }
   }, []);
