@@ -52,6 +52,8 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/verify' element={<ProtectedRoute><Verify /></ProtectedRoute>} />
           <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path='/orgkyc' element={<ProtectedRoute><OrgKYC /></ProtectedRoute>} />
+          <Route path='/issue' element={<ProtectedRoute><IssueDoc /></ProtectedRoute>} />
 
           {userType === "organization" || userType === "admin" ? (
             <>
