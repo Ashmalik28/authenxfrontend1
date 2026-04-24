@@ -88,7 +88,7 @@ const getTransactionHistory = async () => {
 
       setCurrentAccount(address);
 
-      const { data } = await axios.post("https://authenx.up.railway.app/nonce",{ 
+      const { data } = await axios.post("https://authenx1.up.railway.app/nonce",{ 
       walletAddress: address 
       });
 
@@ -96,7 +96,7 @@ const getTransactionHistory = async () => {
 
       const signature = await signer.signMessage(nonce);
 
-      const res = await axios.post("https://authenx.up.railway.app/walletverify", {
+      const res = await axios.post("https://authenx1.up.railway.app/walletverify", {
         walletAddress: address,
         signature,
       });
