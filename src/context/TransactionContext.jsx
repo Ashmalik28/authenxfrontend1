@@ -4,6 +4,7 @@ import axios from "axios";
 import {contractABI , contractAddress} from "../utils/constants"
 import { toast } from "react-toastify";
 const DEPLOY_BLOCK = 9458691;
+import { saveTransaction } from "../../api";
 
 export const TransactionContext = React.createContext();
 
@@ -181,16 +182,38 @@ const getTransactionHistory = async () => {
   };
 
   // 📌 Issue Document
-  const issueDocument = async (personName, personWallet, docType, docHash) => {
+  const issueDocument = async (personName, personWallet, docType, orgName , docHash) => {
     try {
       const contract = await createEthereumContract();
-      const tx = await contract.issueDocument(personName, personWallet, docType, docHash);
       setIsLoading(true);
+      const tx = await contract.issueDocument(personName, personWallet, docType, docHash);
       const receipt = await tx.wait();
+
+      await saveTransaction({
+        action: "Document Issued",
+        status: "Success",
+
+        txHash: receipt.hash,
+        blockNumber: receipt.blockNumber,
+
+        personName,
+        personWallet,
+
+        orgName,
+
+        docType,
+        docHash,
+      });
+
       console.log("Transaction confirmed:", receipt);
+
       setIsLoading(false);
+
       console.log("✅ Document issued!");
-      return receipt; 
+
+      return receipt;
+      
+      
     } catch (error) {
       console.error("issueDocument error:", error);
     }

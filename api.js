@@ -77,4 +77,9 @@ export const fetchUserType = async () => {
   return res.data;
 };
 
+export const saveTransaction = async (data) => {
+    const res = await API.post("/transactions", data);
+    return res.data;
+};
+
 export default API;

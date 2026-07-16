@@ -128,7 +128,7 @@ const IssueDoc = () => {
         return;
       }
 
-      const tx = await issueDocument(personName, personWallet, selectedInterest.label, docHash);
+      const tx = await issueDocument(personName, personWallet, selectedInterest.label,orgName , docHash);
       console.log("Transaction Result :" , tx);
 
       if (tx) {
