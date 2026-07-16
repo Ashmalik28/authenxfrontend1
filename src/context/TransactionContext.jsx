@@ -3,8 +3,26 @@ import { ethers } from "ethers";
 import axios from "axios";
 import {contractABI , contractAddress} from "../utils/constants"
 import { toast } from "react-toastify";
+const DEPLOY_BLOCK = 9458691;
 
 export const TransactionContext = React.createContext();
+
+const getEventsInChunks = async (contract, filter, provider) => {
+  const latestBlock = await provider.getBlockNumber();
+  const CHUNK_SIZE = 10000;
+
+  let events = [];
+
+  for (let fromBlock = DEPLOY_BLOCK; fromBlock <= latestBlock; fromBlock += CHUNK_SIZE) {
+    const toBlock = Math.min(fromBlock + CHUNK_SIZE - 1, latestBlock);
+
+    const chunk = await contract.queryFilter(filter, fromBlock, toBlock);
+
+    events.push(...chunk);
+  }
+
+  return events;
+};
 
 export const createEthereumContract = async () => {
   if (typeof window === "undefined" || !window.ethereum) {
@@ -34,12 +52,29 @@ const getTransactionHistory = async () => {
     const contract = await createEthereumContract();
     const provider = new ethers.BrowserProvider(window.ethereum);
 
-    const [approveEvents, revokeEvents, issueEvents, docRevokeEvents] = await Promise.all([
-      contract.queryFilter('OrgApproved'),
-      contract.queryFilter('OrgRevoked'),
-      contract.queryFilter('DocumentIssued'),
-      contract.queryFilter('DocumentRevoked'),
-    ]);
+    const [approveEvents, revokeEvents, issueEvents, docRevokeEvents] =
+  await Promise.all([
+    getEventsInChunks(
+      contract,
+      contract.filters.OrgApproved(),
+      provider
+    ),
+    getEventsInChunks(
+      contract,
+      contract.filters.OrgRevoked(),
+      provider
+    ),
+    getEventsInChunks(
+      contract,
+      contract.filters.DocumentIssued(),
+      provider
+    ),
+    getEventsInChunks(
+      contract,
+      contract.filters.DocumentRevoked(),
+      provider
+    ),
+  ]);
 
     const allEvents = [...approveEvents, ...revokeEvents, ...issueEvents, ...docRevokeEvents];
 
