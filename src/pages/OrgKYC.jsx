@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
-import { Button } from '../components';
 
-import logo from "../../images/AuthenXLogo.png"
+import logo from "../../images/AuthenXLogo.webp"
 import Sidebar from '../components/Sidebar';
 import { useState , useEffect } from 'react';
 import { TransactionContext } from '../context/TransactionContext';

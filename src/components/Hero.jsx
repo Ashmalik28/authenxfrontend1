@@ -1,5 +1,5 @@
 
-import image from '../../images/heroleft.png'
+import image from '../../images/heroleft.webp'
 import Button from './Button';
 import { toast } from "react-toastify";
 const HeroSection = () => {
@@ -40,7 +40,7 @@ const HeroSection = () => {
             </div>
             </div>
             <div className='flex justify-center lg:justify-start items-center mt-5 lg:mt-30 xl:mt-38 lg:pr-8 xl:pr-20 '>
-                <img className='max-w-80% sm:max-w-sm lg:max-w-sm xl:max-w-lg 2xl:max-w-2xl' src={image} alt="hero" />
+                <img loading='lazy' className='max-w-80% sm:max-w-sm lg:max-w-sm xl:max-w-lg 2xl:max-w-2xl' src={image} alt="hero" />
             </div>
 
         </div>

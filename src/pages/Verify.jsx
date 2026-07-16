@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Button } from '../components';
 import * as Hash from 'ipfs-only-hash'; 
-import logo from "../../images/AuthenXLogo.png"
+import logo from "../../images/AuthenXLogo.webp"
 import Sidebar from '../components/Sidebar';
 import { useState , useEffect , useRef } from 'react';
 import { TransactionContext } from '../context/TransactionContext';

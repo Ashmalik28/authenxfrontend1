@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import logo from "../../images/AuthenXLogo.png"
+import logo from "../../images/AuthenXLogo.webp"
 import {shortenAddress} from "../utils/shortenAddress"
 import { TransactionContext } from '../context/TransactionContext';
 import { useContext , useState } from 'react'

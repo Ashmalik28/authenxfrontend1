@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Faqimage from "../../images/FAQ/FAQ.png"
+import Faqimage from "../../images/FAQ/FAQ.webp"
 
 const FAQitem = ({question , answer }) => {
     const [open , setOpen] = useState(false)

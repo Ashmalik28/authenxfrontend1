@@ -1,12 +1,12 @@
-import logo from "../../images/AuthenXLogo.png"
+import logo from "../../images/AuthenXLogo.webp"
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components";
-import Verifier from "../../images/Signup/verifier.png"
-import Org from "../../images/Signup/Org.png"
+import Verifier from "../../images/Signup/verifier.webp"
+import Org from "../../images/Signup/Org.webp"
 import { useState } from "react";
 import ticon from "../../images/Signup/tw.png"
 import cbicon from "../../images/Signup/cb.png"
-import wcicon from "../../images/Signup/wc.png"
+import wcicon from "../../images/Signup/wc.webp"
 import { signin} from "../../api";
 import { useContext } from "react";
 import { TransactionContext } from "../context/TransactionContext";

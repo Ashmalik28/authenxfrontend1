@@ -1,13 +1,12 @@
 import React, { useContext } from 'react'
-import { Button } from '../components';
-import logo from "../../images/AuthenXLogo.png"
+import logo from "../../images/AuthenXLogo.webp"
 import Sidebar from '../components/Sidebar';
 import { useState , useEffect } from 'react';
 import { TransactionContext } from '../context/TransactionContext';
 import {shortenAddress} from "../utils/shortenAddress"
 import { viewDocument } from '../../api';
 import Loader from '../components/Loader';
-import resultImage from "../../images/MyIssuedDocs/result.png"
+import resultImage from "../../images/MyIssuedDocs/result.webp"
 import { toast } from 'react-toastify';
 
 const MyIssuedDocs = () => {

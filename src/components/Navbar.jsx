@@ -1,4 +1,4 @@
-import logo from "../../images/AuthenXLogo.png"
+import logo from "../../images/AuthenXLogo.webp"
 import Button from "./Button"
 import { RiAdminFill } from "react-icons/ri";
 import { MdSupportAgent } from "react-icons/md";

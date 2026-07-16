@@ -1,13 +1,13 @@
-import loginimage from "../../images/HowItWorks/login1.png"
-import uploadimage from "../../images/HowItWorks/upload.png"
-import blockchainimage from "../../images/HowItWorks/BVerify.png"
-import happyimg from "../../images/HowItWorks/happy.png"
+import loginimage from "../../images/HowItWorks/login1.webp"
+import uploadimage from "../../images/HowItWorks/upload.webp"
+import blockchainimage from "../../images/HowItWorks/BVerify.webp"
+import happyimg from "../../images/HowItWorks/happy.webp"
 import { useRef, useState } from "react"
-import connectW from "../../images/HowItWorks/connect.png"
-import registerOrg from "../../images/HowItWorks/register.png"
-import issueDoc from "../../images/HowItWorks/IssueDoc.png"
-import verifyDoc from "../../images/HowItWorks/VerifyDoc.png"
-import management from "../../images/HowItWorks/manage.png"
+import connectW from "../../images/HowItWorks/connect.webp"
+import registerOrg from "../../images/HowItWorks/register.webp"
+import issueDoc from "../../images/HowItWorks/IssueDoc.webp"
+import verifyDoc from "../../images/HowItWorks/VerifyDoc.webp"
+import management from "../../images/HowItWorks/manage.webp"
 
 const HowItWorksCard = ({cardNo , image , heading , subheading}) => {
     return (
