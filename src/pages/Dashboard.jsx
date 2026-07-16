@@ -151,7 +151,7 @@ const Dashboard = () => {
     const StatusBadge = ({ status }) => {
     const baseClasses = "px-3 py-1 text-sm 2xl:text-lg font-medium rounded-full inline-block";
     const statusClasses = {
-        Approved: "bg-green-100 text-green-800",
+        Success: "bg-green-100 text-green-800",
         Failed: "bg-red-100 text-red-800",
     };
 
