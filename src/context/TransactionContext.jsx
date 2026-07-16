@@ -1,29 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 import axios from "axios";
-import {contractABI , contractAddress} from "../utils/constants"
+import { contractABI, contractAddress } from "../utils/constants";
 import { toast } from "react-toastify";
-const DEPLOY_BLOCK = 9458691;
+import { fetchTransactions } from "../../api";
 import { saveTransaction } from "../../api";
 
 export const TransactionContext = React.createContext();
-
-const getEventsInChunks = async (contract, filter, provider) => {
-  const latestBlock = await provider.getBlockNumber();
-  const CHUNK_SIZE = 10000;
-
-  let events = [];
-
-  for (let fromBlock = DEPLOY_BLOCK; fromBlock <= latestBlock; fromBlock += CHUNK_SIZE) {
-    const toBlock = Math.min(fromBlock + CHUNK_SIZE - 1, latestBlock);
-
-    const chunk = await contract.queryFilter(filter, fromBlock, toBlock);
-
-    events.push(...chunk);
-  }
-
-  return events;
-};
 
 export const createEthereumContract = async () => {
   if (typeof window === "undefined" || !window.ethereum) {
@@ -37,156 +20,156 @@ export const createEthereumContract = async () => {
 
 export const createReadOnlyContract = () => {
   const provider = new ethers.JsonRpcProvider(
-    `https://eth-sepolia.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_KEY}`
+    `https://eth-sepolia.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_KEY}`,
   );
   return new ethers.Contract(contractAddress, contractABI, provider);
 };
-
 
 export const TransactionsProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-
-const getTransactionHistory = async () => {
+  const getTransactionHistory = async () => {
   try {
-    const contract = await createEthereumContract();
-    const provider = new ethers.BrowserProvider(window.ethereum);
+    const transactions = await fetchTransactions();
 
-    const [approveEvents, revokeEvents, issueEvents, docRevokeEvents] =
-  await Promise.all([
-    getEventsInChunks(
-      contract,
-      contract.filters.OrgApproved(),
-      provider
-    ),
-    getEventsInChunks(
-      contract,
-      contract.filters.OrgRevoked(),
-      provider
-    ),
-    getEventsInChunks(
-      contract,
-      contract.filters.DocumentIssued(),
-      provider
-    ),
-    getEventsInChunks(
-      contract,
-      contract.filters.DocumentRevoked(),
-      provider
-    ),
-  ]);
-
-    const allEvents = [...approveEvents, ...revokeEvents, ...issueEvents, ...docRevokeEvents];
-
-    const transactions = await Promise.all(
-      allEvents.map(async (event) => {
-        try {
-          const tx = await provider.getTransaction(event.transactionHash);
-          const receipt = await provider.getTransactionReceipt(event.transactionHash);
-          const block = await provider.getBlock(event.blockNumber);
-
-          const actionName = event.fragment.name; 
-
-          return {
-            date: new Date(block.timestamp * 1000).toLocaleDateString(),
-            action: actionName, 
-            status: receipt
-              ? receipt.status === 1
-                ? 'Approved'
-                : 'Failed'
-              : 'Pending',
-            walletAddress: tx.from,
-          };
-        } catch (error) {
-          console.error('Event processing error:', error);
-          return null;
-        }
-      })
-    );
-    return transactions.filter(Boolean).sort((b,a) => new Date(a.date) - new Date(b.date));
+    return transactions.map((tx) => ({
+      date: new Date(tx.createdAt).toLocaleDateString(),
+      action: tx.action,
+      status: tx.status,
+      walletAddress: tx.walletAddress,
+    }));
   } catch (error) {
-    console.error('getTransactionHistory error:', error);
+    console.error("getTransactionHistory error:", error);
     return [];
   }
 };
 
-
- const connectWallet = async () => {
-    try{
+  const connectWallet = async () => {
+    try {
       if (!window.ethereum) {
-      return alert("MetaMask not detected. Install MetaMask to continue.");
+        return alert("MetaMask not detected. Install MetaMask to continue.");
       }
       const provider = new ethers.BrowserProvider(window.ethereum);
-      const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts",
+      });
       const signer = await provider.getSigner();
       const address = accounts[0];
 
       setCurrentAccount(address);
 
-      const { data } = await axios.post("https://authenx1.up.railway.app/nonce",{ 
-      walletAddress: address 
-      });
+      const { data } = await axios.post(
+        "https://authenx1.up.railway.app/nonce",
+        {
+          walletAddress: address,
+        },
+      );
 
       const nonce = data.nonce;
 
       const signature = await signer.signMessage(nonce);
 
-      const res = await axios.post("https://authenx1.up.railway.app/walletverify", {
-        walletAddress: address,
-        signature,
-      });
-  
+      const res = await axios.post(
+        "https://authenx1.up.railway.app/walletverify",
+        {
+          walletAddress: address,
+          signature,
+        },
+      );
+
       localStorage.setItem("token", res.data.token);
       toast.success("Login Successful");
       window.location.href = "/dashboard";
-  } catch (error) {
-    console.error("Wallet connection error:", error);
-    toast.error("Connection failed. Please try again.");
-  }
-};
+    } catch (error) {
+      console.error("Wallet connection error:", error);
+      toast.error("Connection failed. Please try again.");
+    }
+  };
 
   const approveOrg = async (orgAddress, orgName) => {
     try {
       const contract = await createEthereumContract();
 
-      console.log("⛓ Approving organization on blockchain...");
       setIsLoading(true);
 
       const tx = await contract.approveOrg(orgAddress, orgName);
-      await tx.wait();
 
-      toast.success("Organization approved on blockchain:");
+      const receipt = await tx.wait();
+
+      await saveTransaction({
+        action: "Organization Approved",
+        status: "Success",
+
+        txHash: receipt.hash,
+        blockNumber: receipt.blockNumber,
+        orgName,
+      });
+
+      toast.success("Organization approved on blockchain");
+
       setIsLoading(false);
-      
+
       return true;
     } catch (error) {
-      console.error("❌ approveOrg error:", error);
+      console.error("approveOrg error:", error);
+
       setIsLoading(false);
+
       return false;
     }
   };
 
   // 📌 Revoke Organization
-  const revokeOrg = async (orgAddress) => {
-    try {
-      const contract = await createEthereumContract();
-      const tx = await contract.revokeOrg(orgAddress);
-      setIsLoading(true);
-      await tx.wait();
-      setIsLoading(false);
-      toast.success("Organization revoked:");
-    } catch (error) {
-      console.error("revokeOrg error:", error);
-    }
-  };
+  const revokeOrg = async (orgAddress, orgName) => {
+  try {
+    const contract = await createEthereumContract();
+
+    setIsLoading(true);
+
+    const tx = await contract.revokeOrg(orgAddress);
+
+    const receipt = await tx.wait();
+
+    await saveTransaction({
+      action: "Organization Revoked",
+      status: "Success",
+
+      txHash: receipt.hash,
+      blockNumber: receipt.blockNumber,
+
+      orgName,
+    });
+
+    setIsLoading(false);
+
+    toast.success("Organization revoked");
+
+    return true;
+  } catch (error) {
+    console.error("revokeOrg error:", error);
+    setIsLoading(false);
+    return false;
+  }
+};
 
   // 📌 Issue Document
-  const issueDocument = async (personName, personWallet, docType, orgName , docHash) => {
+  const issueDocument = async (
+    personName,
+    personWallet,
+    docType,
+    orgName,
+    docHash,
+  ) => {
     try {
       const contract = await createEthereumContract();
       setIsLoading(true);
-      const tx = await contract.issueDocument(personName, personWallet, docType, docHash);
+      const tx = await contract.issueDocument(
+        personName,
+        personWallet,
+        docType,
+        docHash,
+      );
       const receipt = await tx.wait();
 
       await saveTransaction({
@@ -212,18 +195,18 @@ const getTransactionHistory = async () => {
       console.log("✅ Document issued!");
 
       return receipt;
-      
-      
     } catch (error) {
       console.error("issueDocument error:", error);
-    }
+      setIsLoading(false);
+      throw error;
+     }
   };
 
   // 📌 Verify Document
-  const verifyDocument = async (personWallet , docHash) => {
+  const verifyDocument = async (personWallet, docHash) => {
     try {
       const contract = await createReadOnlyContract();
-      return await contract.verifyDocument(personWallet , docHash);
+      return await contract.verifyDocument(personWallet, docHash);
     } catch (error) {
       console.error("verifyDocument error:", error);
       return false;
@@ -279,17 +262,18 @@ const getTransactionHistory = async () => {
 
   // 📌 Auto-check wallet
   const checkIfWalletIsConnected = async () => {
-  try {
-    if (!window.ethereum) return; 
-    const accounts = await window.ethereum.request({ method: "eth_accounts" });
-    if (accounts.length) {
-      setCurrentAccount(accounts[0]);
+    try {
+      if (!window.ethereum) return;
+      const accounts = await window.ethereum.request({
+        method: "eth_accounts",
+      });
+      if (accounts.length) {
+        setCurrentAccount(accounts[0]);
+      }
+    } catch (error) {
+      console.error("checkIfWalletIsConnected error:", error);
     }
-  } catch (error) {
-    console.error("checkIfWalletIsConnected error:", error);
-  }
-};
-
+  };
 
   useEffect(() => {
     checkIfWalletIsConnected();

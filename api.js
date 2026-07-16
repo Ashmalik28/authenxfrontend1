@@ -82,4 +82,9 @@ export const saveTransaction = async (data) => {
     return res.data;
 };
 
+export const fetchTransactions = async () => {
+  const res = await API.get("/transactions");
+  return res.data.transactions;
+};
+
 export default API;
