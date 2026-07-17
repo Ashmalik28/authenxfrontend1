@@ -2,7 +2,37 @@
 import image from '../../images/heroleft.webp'
 import Button from './Button';
 import { toast } from "react-toastify";
+import { motion } from "motion/react"
+import { useState, useEffect } from "react";
+
+
+
 const HeroSection = () => {
+
+    const words = ["Instantly.", "Securely.", "On-Chain." , "Globally."];
+
+        const [displayText, setDisplayText] = useState("");
+        const [wordIndex, setWordIndex] = useState(0);
+
+        useEffect(() => {
+        let currentIndex = 0;
+
+        const interval = setInterval(() => {
+            setDisplayText(words[wordIndex].slice(0, currentIndex + 1));
+            currentIndex++;
+
+            if (currentIndex === words[wordIndex].length) {
+            clearInterval(interval);
+
+            setTimeout(() => {
+                setDisplayText("");
+                setWordIndex((prev) => (prev + 1) % words.length);
+            }, 1800);
+            }
+        }, 90);
+
+        return () => clearInterval(interval);
+        }, [wordIndex]);
     return (
         <div className="max-w-screen 2xl:max-w-[1800px] mx-auto flex flex-col lg:flex-row justify-between p-5 lg:p-2 ">
             <div className='flex flex-col sm:items-center lg:items-start justify-center lg:pl-8 xl:pl-20 lg:mt-10  xl:mt-26 mb-5 lg:mb-10'>
@@ -19,8 +49,27 @@ const HeroSection = () => {
             Verify any document,
             </div>
             <div className="text-xl xs:text-2xl sm:text-4xl xl:text-5xl 2xl:text-6xl lg:mt-3 gap-2 flex">
-            <div className='text-black'>Anywhere ,</div><span className='text-white bg-black rounded-md px-0.5'>Instantly.</span> 
-            </div>
+                <div className="text-black">Anywhere,</div>
+
+                <motion.span
+                    className="text-white bg-black rounded-md px-1 min-w-[118px] xs:min-w-[140px] sm:min-w-[210px] lg:min-w-[273px] 2xl:min-w-[340px]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    {displayText}
+
+                    <motion.span
+                    animate={{ opacity: [1, 0, 1] }}
+                    transition={{
+                        duration: 0.8,
+                        repeat: Infinity,
+                    }}
+                    >
+                    |
+                    </motion.span>
+                </motion.span>
+                </div>
             <div className='text-gray-500 w-[95%] sm:w-[80%] text-center lg:text-start text-xs xs:text-sm lg:text-base 2xl:text-xl mt-2 lg:mt-4 2xl:mt-5 lg:w-[70%] '>
                 AuthenX uses blockchain to make academic, legal, and professional documents tamper-proof and easy to verify across institutions
             </div>
