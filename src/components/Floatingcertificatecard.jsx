@@ -126,7 +126,7 @@ export default function FloatingCertificateCard() {
               </span>
             </div>
             <div className="xs:w-10 xs:h-10 sm:h-12 sm:w-12 w-8 h-8 border-2 flex justify-center border-[#cad5fe] items-center border-dashed rounded-full bg-[#eff5fd]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="lg:w-37 lg:h-37">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" className="lg:w-37 lg:h-37 w-[25px] h-[25px] xs:w-[30px] xs:h-[30px] md:w-[40px] md:h-[40px] ">
 
               <path d="M 62 118 L 30 148 L 62 154 L 78 182 L 100 138 Z" fill="#000000"/>
               <path d="M 138 118 L 170 148 L 138 154 L 122 182 L 100 138 Z" fill="#000000"/>
