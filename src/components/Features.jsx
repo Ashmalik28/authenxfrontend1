@@ -1,4 +1,4 @@
-
+import {motion} from "motion/react";
 
 const FeatureCard = ({svg , headline ,  text , stats , stattext , width , bgcolor}) => {
     return <div className={`${width} 2xl:h-96  lg:h-80 flex flex-col hover:scale-110 justify-between 2xl:p-6 p-4 transition-all duration-300 ease-in-out ${bgcolor} rounded-2xl`}>
@@ -66,7 +66,12 @@ const FeatureCardLowerData = [
 ]
 const Features = () => {
     return (
-        <span className="max-w-screen flex flex-col items-center">
+        <motion.span
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8 }}
+         className="max-w-screen flex flex-col items-center">
             <div className="flex w-full flex-col items-center mt-8">
                 <span className="xs:text-4xl 2xl:text-5xl text-2xl mb-1" >
                     🚀
@@ -123,7 +128,7 @@ const Features = () => {
             </div>
 
             </div>
-        </span>
+        </motion.span>
     )
 };
 

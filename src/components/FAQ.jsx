@@ -165,7 +165,7 @@ const FAQ = () => {
     return (
         <div className="max-w-screen min-h-full flex justify-center bg-black pt-2 mt-10">
             <div className="max-w-full 2xl:w-[1800px] 2xl:ml-3 flex lg:flex-row flex-col bg-gray-100 h-full mt-10 rounded-xl">
-            <div className="w-full lg:w-1/2 items-center lg:items-start pt-15 lg:pl-15 flex flex-col gap-2">
+            <div className="w-full md:w-[700px] lg:w-1/2 items-center lg:items-start pt-15 lg:pl-15 flex flex-col gap-2">
             <span className="bg-blue-500 w-15 text-white flex justify-center pt-1 pb-1 rounded-2xl mb-3">FAQ</span>
             <span className="lg:text-5xl text-2xl xs:text-3xl sm:text-4xl font-semibold">What would you like to</span>
             <span className="lg:text-5xl text-2xl xs:text-3xl sm:text-4xl font-semibold mb-3">know about AuthenX ?</span>

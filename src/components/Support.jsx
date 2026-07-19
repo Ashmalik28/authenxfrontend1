@@ -1,9 +1,10 @@
 
 import "react-phone-input-2/lib/style.css";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Button from "./Button";
 import emailjs from '@emailjs/browser';
 import { toast } from 'react-toastify';
+import { motion } from "motion/react";
 
 const countries = [
   { code: "sg", dialCode: "+65", flag: "🇸🇬", name: "Singapore" },
@@ -53,6 +54,28 @@ const Support = () => {
     message: "",
     });
    const [isLoading, setIsLoading] = useState(false);
+   const interestRef = useRef(null);
+   const countryRef = useRef(null);
+
+   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        interestRef.current &&
+        !interestRef.current.contains(event.target)
+      ) {
+        setInterestOpen(false);
+      }
+      if (countryRef.current && !countryRef.current.contains(event.target)) {
+       setIsOpen(false);
+     }
+    };
+
+    document.addEventListener("pointerdown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("pointerdown", handleClickOutside);
+    };
+  }, []);
 
    const handleSendMessage = (e) => {
     e.preventDefault();
@@ -103,24 +126,29 @@ const Support = () => {
    };
 
     return (
-        <div className="flex flex-col max-w-screen items-center justify-center ">
+        <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.8 }}
+         className="flex flex-col max-w-screen items-center justify-center ">
             <div className="flex flex-col items-center justify-center">
             <span className="text-3xl xs:text-4xl lg:text-6xl font-semibold mt-10">Get in Touch with Us</span>
             <span className="lg:w-1/2 sm:w-3/4 text-center mt-3 text-xs xs:text-sm lg:px-0 px-3 lg:text-lg font-medium">Have questions , feedback or need support? We're here to help! Reach out to us for inquiries, technical assistance, or partnership opportunities. Our team will respond as soon as possible.</span>
             </div>
             <div className="xs:mt-13 mt-8 mb-6 flex md:flex-row flex-col gap-6">
-                <div className="flex gap-0 outline-1 outline-gray-400 rounded-xl p-3 "> 
-                <input value={formData.name} onChange={(e) => setFormData({...formData , name : e.target.value}) } className="w-64 xs:w-70 outline-none mt-0" type="text" placeholder="Your Name" />
+                <div className="flex focus-within:border-2 focus-within:outline-none focus-within:border-blue-500 gap-0 outline-1 outline-gray-400 rounded-xl p-3 "> 
+                <input value={formData.name} onChange={(e) => setFormData({...formData , name : e.target.value}) } className=" w-64 xs:w-70 outline-none mt-0" type="text" placeholder="Your Name" />
                 <span className="flex w-3 justify-end text-gray-400">*</span>
                 </div>
-                <div className="flex gap-0 outline-1 outline-gray-400 rounded-xl p-3 "> 
+                <div className="focus-within:border-2 focus-within:outline-none focus-within:border-blue-500 flex gap-0 outline-1 outline-gray-400 rounded-xl p-3 "> 
                 <input value={formData.email} onChange={(e) => setFormData({...formData , email : e.target.value})} className="w-64 xs:w-70 outline-none mt-0" type="text" placeholder="Email Address" />
                 <span className="flex w-3 justify-end text-gray-400">*</span>
                 </div>
             </div>
             <div className="mb-8 h-full flex md:flex-row items-center flex-col gap-6">
-            <div className="flex gap-0 outline-1 xs:w-79 w-[92%] outline-gray-400 rounded-xl relative "> 
-                <div className="w-22 flex items-center justify-center text-3xl gap-1 rounded-l-xl outline-1 outline-gray-400 h-100%"
+            <div className="flex gap-0 focus-within:border-2 focus-within:outline-none focus-within:border-blue-500 outline-1 xs:w-79 w-[92%] outline-gray-400 rounded-xl relative "> 
+                <div ref={countryRef} className="w-22 flex items-center justify-center text-3xl gap-1 rounded-l-xl outline-1 outline-gray-400 h-100%"
                 onClick={() => setIsOpen(!isOpen)}>
                    <span>{selectedCountry.flag}</span>
                    <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
@@ -159,7 +187,7 @@ const Support = () => {
         </div>
       )}
             </div>
-             <div className="flex gap-0 outline-1 xs:w-79 w-[92%] outline-gray-400 rounded-xl relative">
+             <div ref={interestRef} className="flex gap-0 outline-1 xs:w-79 w-[92%] outline-gray-400 rounded-xl relative">
             <div
                 className="w-full flex items-center justify-between text-xl px-3 py-3 cursor-pointer rounded-xl outline-1 outline-gray-400"
                 onClick={() => setInterestOpen(!interestOpen)}
@@ -200,7 +228,7 @@ const Support = () => {
             </div>
             
             </div>
-            <div className="outline-1 w-[90%] sm:w-3/5 outline-gray-400 lg:w-164 rounded-xl mb-8 xs:h-24 h-32 sm:h-32 lg:h-40 p-3">
+            <div className=" focus-within:border-2 focus-within:outline-none focus-within:border-blue-500 outline-1 md:w-[660px] w-[90%] sm:w-3/5 outline-gray-400 lg:w-164 rounded-xl mb-8 xs:h-24 h-32 sm:h-32 lg:h-40 p-3">
                 <textarea value={formData.message} onChange={(e) => setFormData({...formData , message : e.target.value})} className=" w-full h-full outline-none placeholder:top-1" type="text" placeholder="Type in your message" />
             </div>
             <Button onClick={handleSendMessage} variant="primary" size="md" className="before:bg-white pl-12 pr-12 rounded-full  outline-blue-400 flex gap-2 items-center">
@@ -210,7 +238,7 @@ const Support = () => {
                 By clicking, you agree to our <span className="underline">Terms & Conditions</span> ,
                     <span className="underline">Privacy and Data Protection Policy</span>
             </span>
-    </div>
+    </motion.div>
     )
 }
 

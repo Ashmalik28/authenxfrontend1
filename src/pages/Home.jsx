@@ -1,4 +1,4 @@
-
+import TrustedBy from '@/components/TrustBy.jsx';
 import { Navbar , HeroSection, Stats, Features, FAQ, Footer , How , Support} from '../components/index.js'
 
 
@@ -7,7 +7,7 @@ function Home() {
     <>
     <Navbar/>
     <HeroSection/>
-    <Stats/>
+    <TrustedBy />
     <Features />
     <How />
     <div id="support">

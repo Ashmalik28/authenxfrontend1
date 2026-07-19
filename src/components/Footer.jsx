@@ -86,6 +86,37 @@ const Footer = () => {
              © {new Date().getFullYear()} AuthenX. All rights reserved.
             </p> 
             </div>
+            <div className="border-t border-white/10 pt-4 pb-3">
+            <div className="flex w-full flex-row items-center justify-center sm:gap-3 gap-2 text-[10px] sm:text-sm text-gray-400">
+
+                <span className="flex items-center gap-2">
+                <span className="text-red-500 text-base">❤️</span>
+                Built solo with passion by
+                <span className="font-semibold text-blue-500">
+                    Ashyam Malik
+                </span>
+                </span>
+
+                <a
+                href="https://www.linkedin.com/in/ashyam-malik/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-blue-500 hover:text-blue-400 transition-colors duration-300 group"
+                >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
+                >
+                    <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19ZM8.34 18V9.5H5.67V18H8.34ZM7 8.34C7.85 8.34 8.54 7.65 8.54 6.8C8.54 5.95 7.85 5.26 7 5.26C6.15 5.26 5.46 5.95 5.46 6.8C5.46 7.65 6.15 8.34 7 8.34ZM18.33 18V13.33C18.33 10.83 16.99 9.33 14.77 9.33C13.7 9.33 12.91 9.92 12.47 10.49V9.5H9.8V18H12.47V13.28C12.47 12.04 13.15 11.31 14.16 11.31C15.16 11.31 15.66 12 15.66 13.28V18H18.33Z" />
+                </svg>
+
+                <span className="font-medium">LinkedIn</span>
+                </a>
+
+            </div>
+           </div>
         </div>
     )
 }

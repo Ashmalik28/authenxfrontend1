@@ -57,7 +57,8 @@ const HowItWorks = () => {
         }
     }
     return (
-        <div className="max-w-screen bg-blue-500 flex justify-center">
+        <div
+         className="max-w-screen bg-gradient-to-r from-indigo-600 to-blue-500 flex justify-center">
             <div className="2xl:w-[1800px] pb-8 lg:pb-0 flex flex-col items-center">
             <div className="flex w-full flex-col items-center">
             <span className="mt-4 text-white text-2xl xs:text-3xl sm:text-4xl 2xl:text-6xl lg:text-5xl font-bold">How AuthenX Works ??</span>

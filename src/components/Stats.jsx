@@ -1,6 +1,7 @@
 
 import { IoShieldCheckmark } from "react-icons/io5";
 import { GoOrganization } from "react-icons/go";
+import { motion } from "motion/react"
 
 const StatsCard = ({svg , metrics , headline , subheadline , classprops }) => {
     return <span className={`md:p-7 p-3 place-content-center xs:p-5 w-32 2xl:w-72 2xl:h-64 xs:w-40 sm:w-48 flex lg:w-56 xl:w-64 flex-col rounded-2xl outline-1 outline-gray-200 hover:scale-105 transition-all duration-300 ease-in-out items-center bg-white`}>
@@ -27,7 +28,7 @@ const statsData = [
 ];
 const Stats = () => {
     return (
-        <div className="max-w-full flex flex-col justify-center items-center rounded-2xl bg-gray-100 lg:mt-20 2xl:h-full lg:h-72">
+        <motion.div initial={{ opacity: 0, y: 80 }}  whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut",}} viewport={{ once: true }} className="max-w-full flex flex-col justify-center items-center rounded-2xl bg-gray-100 lg:mt-20 2xl:h-full lg:h-72">
             <div className="flex flex-col w-full items-center ">
             <div className="flex justify-center items-center lg:mt-0 2xl:mt-2 mt-4 2xl:text-3xl  sm:text-2xl xs:text-lg gap-1 font-semibold">
                 Trusted by Professionals Worldwide
@@ -47,7 +48,7 @@ const Stats = () => {
             ))}
             </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
 
