@@ -659,7 +659,7 @@ const Signin = () => {
         </div>
 
         {/* ---------- Mobile Footer ---------- */}
-        <div className="mt-3 border-t border-gray-200 pt-2 pb-2 text-center">
+        <div className="mt-autoborder-t border-gray-200 pt-2 pb-2 text-center">
           <p className="text-[8px] font-semibold tracking-[0.2em] text-gray-400 uppercase">
             © 2026 AuthenX Platform
           </p>
