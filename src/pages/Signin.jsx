@@ -111,7 +111,7 @@ const Signin = () => {
       </div>
 
       {/* ---------- Main card ---------- */}
-      <div className="flex-1 w-full flex lg:items-center items-start justify-center px-4 sm:px-25 xs:px-6 pt-0 lg:py-2 pb-2 lg:pb-0  2xl:py-16">
+      <div className="w-full flex lg:items-center items-start justify-center px-4 sm:px-25 xs:px-6 pt-0 lg:py-2 pb-2 lg:pb-0  2xl:py-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -624,7 +624,7 @@ const Signin = () => {
         </motion.div>
       </div>
       <div className="mt-2 lg:hidden">
-        {/* Organization Notice */}
+        {/* ---------- Notice for organization ---------- */}
         <div className="rounded-2xl border border-gray-200 bg-[#f8faff] mx-4 xs:mx-6 md:mx-25 px-4 py-3 text-center">
           <div className="flex justify-center">
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-50">
@@ -646,19 +646,19 @@ const Signin = () => {
           </p>
         </div>
 
-        {/* Login */}
+        {/* ---------- Mobile Login Redierect ---------- */}
         <div className="mt-4 text-center text-xs text-gray-500">
           <span>Don't have an account ? </span>
 
           <Link
-            to="/signin"
+            to="/signup"
             className="font-semibold text-indigo-600 hover:text-indigo-700"
           >
             Create one
           </Link>
         </div>
 
-        {/* Footer */}
+        {/* ---------- Mobile Footer ---------- */}
         <div className="mt-3 border-t border-gray-200 pt-2 pb-2 text-center">
           <p className="text-[8px] font-semibold tracking-[0.2em] text-gray-400 uppercase">
             © 2026 AuthenX Platform
