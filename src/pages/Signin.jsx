@@ -111,7 +111,7 @@ const Signin = () => {
       </div>
 
       {/* ---------- Main card ---------- */}
-      <div className="w-full flex lg:items-center items-start justify-center px-4 sm:px-25 xs:px-6 pt-0 lg:py-2 pb-2 lg:pb-0  2xl:py-16">
+      <div className="w-full flex lg:items-center lg:mt-10 items-start justify-center px-4 sm:px-25 xs:px-6 pt-0 lg:py-2 pb-2 lg:pb-0  2xl:py-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
