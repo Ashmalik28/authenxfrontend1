@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import API from "../../api";
+import Wave from "@/components/loading-ui/Wave";
 
 const ProtectedRoute = ({ children }) => {
   const [isAuthorized, setIsAuthorized] = useState(null);
@@ -28,7 +29,7 @@ const ProtectedRoute = ({ children }) => {
   }, []);
 
   if (isAuthorized === null) {
-    return <div>Loading...</div>;
+    return <Wave />;
   }
 
   return isAuthorized ? children : <Navigate to="/signup" replace />;
