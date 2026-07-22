@@ -9,7 +9,7 @@ import AdminCheck from '../protectedRoute/AdminProtectedRoute';
   
   const SideBarItem = ({text , icon , active , path}) => {
     const navigate = useNavigate();
-        return <div onClick={() => navigate(path)} className={`ml-3 flex text-black font-semibold pl-4 py-2 ${active ? "bg-gray-800 text-white" : "bg-blue-700 text-white  hover:bg-white hover:text-black"} rounded-md mr-4 transition-all duration-200`}>
+        return <div onClick={() => navigate(path)} className={`ml-3 flex text-black font-semibold pl-4 py-2 ${active ? "bg-gray-800 text-white" : "bg-white/50 text-black  hover:bg-white hover:text-black"} rounded-md mr-4 transition-all duration-200`}>
        <div className="pr-2 cursor-pointer">
         {icon}
        </div>
@@ -83,7 +83,7 @@ const Sidebar = () => {
     : organizationItem;
   return (
     
-    <div className="h-[calc(100vh-60px)] bg-blue-500 border-gray-200 border-r w-[75vw]  md:w-72 lg:w-72 xl:w-72 2xl:w-96 fixed left-0 rounded-r-xl flex flex-col justify-between">
+    <div className="h-[calc(100vh-60px)] bg-gradient-to-r from-indigo-600 to-blue-500 border-gray-200 border-r w-[75vw]  md:w-72 lg:w-72 xl:w-72 2xl:w-96 fixed left-0 rounded-r-xl flex flex-col justify-between">
      <div className="pt-8 flex flex-col gap-3 px-1">
       {storedType === "verifier" && 
       verifierItems.map((item , index) => (

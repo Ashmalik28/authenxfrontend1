@@ -12,6 +12,8 @@ import { fetchDashboardStats } from "../../api";
 import { fetchUserType } from "../../api";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
+import { IoDocumentAttachSharp } from "react-icons/io5";
+import { FaStamp } from "react-icons/fa6";
 
 const Dashboard = () => {
   const [dateTime, setDateTime] = useState(new Date());
@@ -149,7 +151,7 @@ const Dashboard = () => {
 
   const StatusBadge = ({ status }) => {
     const baseClasses =
-      "px-3 py-1 text-sm 2xl:text-lg font-medium rounded-full inline-block";
+      "px-3 py-1 text-xs 2xl:text-lg font-medium rounded-full inline-block";
     const statusClasses = {
       Success: "bg-green-100 text-green-800",
       Failed: "bg-red-100 text-red-800",
@@ -165,17 +167,17 @@ const Dashboard = () => {
   };
 
   const TransactionRow = ({ transaction }) => (
-    <div className="grid grid-cols-4 items-center gap-4 2xl:py-5 py-3 px-4 border-b border-gray-200 hover:bg-gray-50 text-gray-700">
-      <div className="font-medium flex 2xl:text-xl justify-center text-gray-900">
+    <div className="grid grid-cols-4 2xl:py-5 items-center py-3 px-1 border-b border-gray-200 hover:bg-gray-50 text-gray-700">
+      <div className="font-medium text-sm flex 2xl:text-xl justify-center text-gray-900">
         {transaction.date}
       </div>
-      <div className="flex 2xl:text-xl justify-center">
+      <div className="flex text-sm 2xl:text-xl justify-center">
         {transaction.action}
       </div>
-      <div className="flex  justify-center">
+      <div className="flex justify-center">
         <StatusBadge status={transaction.status} />
       </div>
-      <div className="font-mono 2xl:text-xl flex justify-center text-sm text-gray-600">
+      <div className="font-mono 2xl:text-xl flex justify-center text-xs text-gray-600">
         {shortenAddress(transaction.wallet)}
       </div>
     </div>
@@ -257,8 +259,94 @@ const Dashboard = () => {
             <Sidebar />
           </div>
         )}
-        <div className="flex flex-1 flex-col 2xl:ml-96 lg:ml-72 xl:ml-72 ml-3 mr-3 xs:ml-0 xs:mr-0 sm:mr-20 2xl:mr-10 2xl:mt-5 lg:mr-5 sm:ml-20 mb-3 xs:mb-5">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 mx-auto xs:mx-0 xs:gap-5 2xl:gap-10 mt-3 xs:mt-5 2xl:ml-10 lg:mr-0 xs:mr-5 xs:ml-5">
+        <div className="flex flex-col 2xl:ml-96 lg:ml-72 xl:ml-72 ml-3 mr-3 xs:ml-0 xs:mr-0 sm:mr-20 2xl:mr-10 2xl:mt-5 lg:mr-5 sm:ml-20 mb-3 xs:mb-5">
+          <div className="lg:grid hidden grid-cols-2 lg:grid-cols-4 gap-2 mx-auto xs:mx-0 xs:gap-5 2xl:gap-10 mt-3 xs:mt-5 2xl:ml-10 lg:mr-0 xs:mr-5 xs:ml-5">
+            <div className=" bg-white flex items-center rounded-xl gap-3 xl:gap-3 text-black 2xl:p-6 p-3 xs:p-3">
+              <div className="w-12 h-12 2xl:w-20 2xl:h-20 hidden xl:flex justify-center items-center bg-blue-100 text-blue-700 rounded-md">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-7 2xl:size-14"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M9 1.5H5.625c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5Zm6.61 10.936a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 14.47a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                    clip-rule="evenodd"
+                  />
+                  <path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
+                </svg>
+              </div>
+              <div>
+                <div className="lg:text-sm text-gray-500 2xl:text-3xl text-base xs:text-base font-semibold">
+                  TOTAL VERIFICATIONS
+                </div>
+                <div className=" lg:text-2xl mt-2 xl:mt-0 xl:text-3xl 2xl:text-5xl text-3xl font-bold">
+                  {totalVerifications}
+                </div>
+              </div>
+            </div>
+            <div className=" bg-white flex items-center rounded-xl gap-3 text-black 2xl:p-6 p-3 xs:p-3">
+              <div className="w-12 h-12 2xl:w-20 2xl:h-20 hidden xl:flex justify-center items-center bg-blue-100 text-blue-700 rounded-md">
+                <IoDocumentAttachSharp className="size-7 2xl:size-14 " />
+              </div>
+              <div>
+                <div className="lg:text-sm text-gray-500 2xl:text-3xl text-base xs:text-base font-semibold">
+                  ISSUED DOCUMENTS
+                </div>
+                <div className=" lg:text-2xl mt-2 xl:mt-0 xl:text-3xl 2xl:text-5xl text-3xl font-bold">
+                  {totalDocuments}
+                </div>
+              </div>
+            </div>
+            <div className=" bg-white flex items-center rounded-xl gap-3 text-black 2xl:p-6 p-3 xs:p-3">
+              <div className="w-12 h-12 2xl:w-20 2xl:h-20 hidden xl:flex justify-center items-center bg-green-100 text-green-700 rounded-md">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-7 2xl:size-14"
+                >
+                  <path d="M11.584 2.376a.75.75 0 0 1 .832 0l9 6a.75.75 0 1 1-.832 1.248L12 3.901 3.416 9.624a.75.75 0 0 1-.832-1.248l9-6Z" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M20.25 10.332v9.918H21a.75.75 0 0 1 0 1.5H3a.75.75 0 0 1 0-1.5h.75v-9.918a.75.75 0 0 1 .634-.74A49.109 49.109 0 0 1 12 9c2.59 0 5.134.202 7.616.592a.75.75 0 0 1 .634.74Zm-7.5 2.418a.75.75 0 0 0-1.5 0v6.75a.75.75 0 0 0 1.5 0v-6.75Zm3-.75a.75.75 0 0 1 .75.75v6.75a.75.75 0 0 1-1.5 0v-6.75a.75.75 0 0 1 .75-.75ZM9 12.75a.75.75 0 0 0-1.5 0v6.75a.75.75 0 0 0 1.5 0v-6.75Z"
+                    clip-rule="evenodd"
+                  />
+                  <path d="M12 7.875a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z" />
+                </svg>
+              </div>
+              <div>
+                <div className="lg:text-sm text-gray-500 2xl:text-3xl text-base xs:text-base font-semibold">
+                  VERIFIED ORGS
+                </div>
+                <div className=" lg:text-2xl mt-2 xl:mt-0 xl:text-3xl 2xl:text-5xl text-3xl font-bold">
+                  {totalVerifiedOrgs}
+                </div>
+              </div>
+            </div>
+            <div className=" bg-white flex items-center rounded-xl gap-3 text-black 2xl:p-6 p-3 xs:p-3">
+              <div className="w-12 h-12 2xl:w-20 2xl:h-20 hidden xl:flex justify-center items-center bg-[#fffbeb] text-[#d97706] rounded-md">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="size-6 2xl:size-14"
+                >
+                  <path d="M2.273 5.625A4.483 4.483 0 0 1 5.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 3H5.25a3 3 0 0 0-2.977 2.625ZM2.273 8.625A4.483 4.483 0 0 1 5.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 6H5.25a3 3 0 0 0-2.977 2.625ZM5.25 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H15a.75.75 0 0 0-.75.75 2.25 2.25 0 0 1-4.5 0A.75.75 0 0 0 9 9H5.25Z" />
+                </svg>
+              </div>
+              <div>
+                <div className="lg:text-sm text-gray-500 2xl:text-3xl text-base xs:text-base font-semibold">
+                  WALLET BALANCE
+                </div>
+                <div className=" lg:text-2xl mt-2 xl:mt-0 xl:text-3xl 2xl:text-5xl text-3xl font-bold">
+                  {walletBalance} ETH
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="grid lg:hidden grid-cols-2 lg:grid-cols-4 gap-2 mx-auto xs:mx-0 xs:gap-5 2xl:gap-10 mt-3 xs:mt-5 2xl:ml-10 lg:mr-0 xs:mr-5 xs:ml-5">
             <div className=" bg-white rounded-xl text-black 2xl:p-6 p-3 xs:p-3">
               <div className="lg:text-xl 2xl:text-4xl text-base xs:text-base font-semibold">
                 Total Verifications
@@ -292,77 +380,97 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-
           <div className="grid xl:grid-cols-3 gap-3 xs:gap-5 2xl:gap-10 2xl:ml-10 2xl:mt-10 mt-3 xs:mt-5 xs:ml-5">
             <div className="bg-white rounded-xl p-6 2xl:p-10 hidden xl:flex lg:flex-col lg:col-span-2">
-              <div className="flex flex-1 flex-col">
-                <div className="text-black font-semibold 2xl:text-5xl text-2xl">
+              <div className="flex flex-col">
+                <div className="text-black flex items-center gap-2 font-semibold 2xl:text-5xl text-2xl">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="blue"
+                    class="size-6 2xl:size-11"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                   Quick Actions
                 </div>
                 <div className="grid grid-cols-3 gap-5 2xl:gap-10 mt-5 2xl:mt-10">
                   <div
                     onClick={() => navigate("/verify")}
-                    className="bg-blue-100 hover:bg-gray-100 rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-3"
+                    className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 2xl:p-6"
                   >
-                    <div className="text-blue-500 flex flex-col justify-center items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="2xl:size-20 size-11"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <div className="w-1/2 flex justify-center text-center text-black text-lg mt-1 2xl:text-3xl font-semibold">
+                    <div className="text-blue-500  flex flex-col justify-center items-start">
+                      <div className="w-8 h-8 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="size-5 2xl:size-9"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M12 3.75a6.715 6.715 0 0 0-3.722 1.118.75.75 0 1 1-.828-1.25 8.25 8.25 0 0 1 12.8 6.883c0 3.014-.574 5.897-1.62 8.543a.75.75 0 0 1-1.395-.551A21.69 21.69 0 0 0 18.75 10.5 6.75 6.75 0 0 0 12 3.75ZM6.157 5.739a.75.75 0 0 1 .21 1.04A6.715 6.715 0 0 0 5.25 10.5c0 1.613-.463 3.12-1.265 4.393a.75.75 0 0 1-1.27-.8A6.715 6.715 0 0 0 3.75 10.5c0-1.68.503-3.246 1.367-4.55a.75.75 0 0 1 1.04-.211ZM12 7.5a3 3 0 0 0-3 3c0 3.1-1.176 5.927-3.105 8.056a.75.75 0 1 1-1.112-1.008A10.459 10.459 0 0 0 7.5 10.5a4.5 4.5 0 1 1 9 0c0 .547-.022 1.09-.067 1.626a.75.75 0 0 1-1.495-.123c.041-.495.062-.996.062-1.503a3 3 0 0 0-3-3Zm0 2.25a.75.75 0 0 1 .75.75c0 3.908-1.424 7.485-3.781 10.238a.75.75 0 0 1-1.14-.975A14.19 14.19 0 0 0 11.25 10.5a.75.75 0 0 1 .75-.75Zm3.239 5.183a.75.75 0 0 1 .515.927 19.417 19.417 0 0 1-2.585 5.544.75.75 0 0 1-1.243-.84 17.915 17.915 0 0 0 2.386-5.116.75.75 0 0 1 .927-.515Z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+
+                      <div className="w-full flex justify-start text-center text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
                         Verify Document
+                      </div>
+                      <div className="text-[#97a2b1] text-xs 2xl:text-lg 2xl:mt-1 font-semibold">
+                        Check authenticity instantly
                       </div>
                     </div>
                   </div>
                   {userType == "verifier" ? (
                     <div
                       onClick={() => navigate("/#support")}
-                      className="bg-blue-100  hover:bg-gray-100 rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-3"
+                      className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 2xl:p-6"
                     >
-                      <div className="text-blue-500 flex flex-col justify-center items-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          class="2xl:size-20 size-11"
-                        >
-                          <path d="M4.913 2.658c2.075-.27 4.19-.408 6.337-.408 2.147 0 4.262.139 6.337.408 1.922.25 3.291 1.861 3.405 3.727a4.403 4.403 0 0 0-1.032-.211 50.89 50.89 0 0 0-8.42 0c-2.358.196-4.04 2.19-4.04 4.434v4.286a4.47 4.47 0 0 0 2.433 3.984L7.28 21.53A.75.75 0 0 1 6 21v-4.03a48.527 48.527 0 0 1-1.087-.128C2.905 16.58 1.5 14.833 1.5 12.862V6.638c0-1.97 1.405-3.718 3.413-3.979Z" />
-                          <path d="M15.75 7.5c-1.376 0-2.739.057-4.086.169C10.124 7.797 9 9.103 9 10.609v4.285c0 1.507 1.128 2.814 2.67 2.94 1.243.102 2.5.157 3.768.165l2.782 2.781a.75.75 0 0 0 1.28-.53v-2.39l.33-.026c1.542-.125 2.67-1.433 2.67-2.94v-4.286c0-1.505-1.125-2.811-2.664-2.94A49.392 49.392 0 0 0 15.75 7.5Z" />
-                        </svg>
-                        <div className="w-1/2 flex justify-center text-center text-black text-lg mt-1 2xl:text-3xl font-semibold">
-                          Connect With Us
+                      <div className="text-blue-500  flex flex-col justify-center items-start">
+                        <div className="w-8 h-8 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="ize-5 2xl:size-9"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M12 3.75a6.715 6.715 0 0 0-3.722 1.118.75.75 0 1 1-.828-1.25 8.25 8.25 0 0 1 12.8 6.883c0 3.014-.574 5.897-1.62 8.543a.75.75 0 0 1-1.395-.551A21.69 21.69 0 0 0 18.75 10.5 6.75 6.75 0 0 0 12 3.75ZM6.157 5.739a.75.75 0 0 1 .21 1.04A6.715 6.715 0 0 0 5.25 10.5c0 1.613-.463 3.12-1.265 4.393a.75.75 0 0 1-1.27-.8A6.715 6.715 0 0 0 3.75 10.5c0-1.68.503-3.246 1.367-4.55a.75.75 0 0 1 1.04-.211ZM12 7.5a3 3 0 0 0-3 3c0 3.1-1.176 5.927-3.105 8.056a.75.75 0 1 1-1.112-1.008A10.459 10.459 0 0 0 7.5 10.5a4.5 4.5 0 1 1 9 0c0 .547-.022 1.09-.067 1.626a.75.75 0 0 1-1.495-.123c.041-.495.062-.996.062-1.503a3 3 0 0 0-3-3Zm0 2.25a.75.75 0 0 1 .75.75c0 3.908-1.424 7.485-3.781 10.238a.75.75 0 0 1-1.14-.975A14.19 14.19 0 0 0 11.25 10.5a.75.75 0 0 1 .75-.75Zm3.239 5.183a.75.75 0 0 1 .515.927 19.417 19.417 0 0 1-2.585 5.544.75.75 0 0 1-1.243-.84 17.915 17.915 0 0 0 2.386-5.116.75.75 0 0 1 .927-.515Z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                        </div>
+
+                        <div className="w-full flex justify-start text-center text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
+                          Connect with us
+                        </div>
+                        <div className="text-[#97a2b1] text-xs 2xl:text-lg 2xl:mt-1 font-semibold">
+                          Use the form for queries
                         </div>
                       </div>
                     </div>
                   ) : (
                     <div
                       onClick={() => navigate("/issue")}
-                      className="bg-blue-100  hover:bg-gray-100 rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-3"
+                      className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 2xl:p-6"
                     >
-                      <div className="text-blue-500 flex flex-col justify-center items-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          class="2xl:size-20 size-11"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z"
-                            clip-rule="evenodd"
-                          />
-                          <path d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
-                        </svg>
-                        <div className="w-1/2 flex justify-center text-center text-black text-lg mt-1 2xl:text-3xl font-semibold">
+                      <div className="text-blue-500  flex flex-col justify-center items-start">
+                        <div className="w-8 h-8 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
+                          <FaStamp className="size-5 2xl:size-9" />
+                        </div>
+
+                        <div className="w-full flex justify-start text-center text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
                           Issue Document
+                        </div>
+                        <div className="text-[#97a2b1] text-xs 2xl:text-lg 2xl:mt-1 font-semibold">
+                          Sign and publish to chain
                         </div>
                       </div>
                     </div>
@@ -370,28 +478,25 @@ const Dashboard = () => {
 
                   <div
                     onClick={() => navigate("/about")}
-                    className="bg-blue-100  hover:bg-gray-100 rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-3"
+                    className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 2xl:p-6"
                   >
-                    <div className="text-blue-500 flex flex-col justify-center items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="2xl:size-20 size-11"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
-                          clip-rule="evenodd"
-                        />
-                        <path
-                          fill-rule="evenodd"
-                          d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                      <div className="w-1/2 flex justify-center text-center text-black text-lg mt-1 2xl:text-3xl font-semibold">
+                    <div className="text-blue-500  flex flex-col justify-center items-start">
+                      <div className="w-8 h-8 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="size-5 2xl:size-9"
+                        >
+                          <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
+                        </svg>
+                      </div>
+
+                      <div className="w-full flex justify-start text-center text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
                         Detailed Guide
+                      </div>
+                      <div className="text-[#97a2b1] text-xs 2xl:text-lg 2xl:mt-1 font-semibold">
+                        Learn how AuthenX works
                       </div>
                     </div>
                   </div>
@@ -399,7 +504,7 @@ const Dashboard = () => {
                 <div className="text-black 2xl:text-5xl 2xl:mt-6 font-semibold text-2xl mt-4">
                   Recent Transactions
                 </div>
-                <div className="grid grid-cols-4 gap-4 pb-3 px-4 border-b-2 border-gray-200 text-left text-lg font-semibold text-gray-500 tracking-wider 2xl:mt-10 mt-4">
+                <div className="grid grid-cols-4 pb-3 border-b-2 border-gray-200 text-left text-lg font-semibold text-gray-500 2xl:mt-10 mt-3">
                   <div className="flex justify-center gap-2 items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -407,7 +512,7 @@ const Dashboard = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="2xl:size-10 size-6"
+                      class="2xl:size-10 size-4"
                     >
                       <path
                         stroke-linecap="round"
@@ -415,7 +520,7 @@ const Dashboard = () => {
                         d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"
                       />
                     </svg>
-                    <span className="2xl:text-2xl">Date</span>
+                    <span className="2xl:text-2xl text-base">Date</span>
                   </div>
                   <div className="flex gap-2 justify-center items-center">
                     <svg
@@ -424,7 +529,7 @@ const Dashboard = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="2xl:size-10 size-6"
+                      class="2xl:size-10 size-4"
                     >
                       <path
                         stroke-linecap="round"
@@ -432,7 +537,7 @@ const Dashboard = () => {
                         d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
                       />
                     </svg>
-                    <span className="2xl:text-2xl">Action</span>
+                    <span className="2xl:text-2xl text-base">Action</span>
                   </div>
                   <div className="flex justify-center gap-2 items-center">
                     <svg
@@ -441,7 +546,7 @@ const Dashboard = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="2xl:size-10 size-6"
+                      class="2xl:size-10 size-4"
                     >
                       <path
                         stroke-linecap="round"
@@ -454,7 +559,7 @@ const Dashboard = () => {
                         d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                       />
                     </svg>
-                    <span className="2xl:text-2xl">Status</span>
+                    <span className="2xl:text-2xl text-base">Status</span>
                   </div>
                   <div className="flex justify-center gap-2 items-center">
                     <svg
@@ -463,7 +568,7 @@ const Dashboard = () => {
                       viewBox="0 0 24 24"
                       stroke-width="1.5"
                       stroke="currentColor"
-                      class="2xl:size-10 size-6"
+                      class="2xl:size-10 size-4"
                     >
                       <path
                         stroke-linecap="round"
@@ -471,32 +576,34 @@ const Dashboard = () => {
                         d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3"
                       />
                     </svg>
-                    <span className="2xl:text-2xl">Wallet</span>
+                    <span className="2xl:text-2xl text-base">Wallet</span>
                   </div>
                 </div>
               </div>
-              <div>
-                {isLoading ? (
-                  <div className="text-gray-700 flex justify-center items-center p-4 w-full h-full">
-                    <Loader />
-                  </div>
-                ) : currentDocs.length === 0 ? (
-                  <div className="text-gray-700 p-4 w-full flex justify-center">
-                    No recent transactions found.
-                  </div>
-                ) : (
-                  currentDocs.map((tx, index) => (
-                    <TransactionRow
-                      key={index}
-                      transaction={{
-                        date: tx.date,
-                        action: tx.action,
-                        status: tx.status,
-                        wallet: tx.walletAddress,
-                      }}
-                    />
-                  ))
-                )}
+              <div className="flex flex-col h-full">
+                <div className="min-h-[200px]">
+                  {isLoading ? (
+                    <div className="text-gray-700 h-full flex justify-center items-center w-full">
+                      <Loader />
+                    </div>
+                  ) : currentDocs.length === 0 ? (
+                    <div className="text-gray-700 p-4 w-full flex justify-center">
+                      No recent transactions found.
+                    </div>
+                  ) : (
+                    currentDocs.map((tx, index) => (
+                      <TransactionRow
+                        key={index}
+                        transaction={{
+                          date: tx.date,
+                          action: tx.action,
+                          status: tx.status,
+                          wallet: tx.walletAddress,
+                        }}
+                      />
+                    ))
+                  )}
+                </div>
                 <div className="flex justify-center bg-blue-500 2xl:p-4 p-1 rounded-b-2xl items-center gap-3">
                   <div className="flex p-1 2xl:p-2 rounded-xl bg-white">
                     <div
@@ -572,13 +679,13 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-            <div className="flex xl:flex-col rounded-xl 2xl:gap-10 h-full md:gap-5 xs:mr-5 lg:mr-0">
-              <div className="flex-1 bg-white rounded-xl 2xl:p-10 p-5 ">
-                <div className="text-black xs:font-semibold font-bold flex justify-center 2xl:text-4xl text-2xl xs:text-3xl">
+            <div className="flex xl:flex-col rounded-xl 2xl:gap-10 h-full md:gap-4 xs:mr-5 lg:mr-0">
+              <div className="flex-1 bg-white rounded-xl 2xl:p-10 p-5 lg:p-6">
+                <div className="text-black xs:font-semibold font-bold flex justify-center 2xl:text-4xl text-3xl xs:text-2xl">
                   Welcome , {userName}
                 </div>
-                <div className="text-sm text-white bg-black p-3 rounded-2xl 2xl:mt-7 mt-3 flex justify-around">
-                  <div className="flex gap-2 xs:text-lg text-sm 2xl:text-2xl justify-center items-center">
+                <div className="text-sm text-white bg-black p-2 rounded-2xl 2xl:mt-7 mt-2 flex justify-around">
+                  <div className="flex gap-2 xs:text-md text-sm 2xl:text-2xl justify-center items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
