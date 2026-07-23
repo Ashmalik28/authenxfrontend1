@@ -14,6 +14,8 @@ import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import { IoDocumentAttachSharp } from "react-icons/io5";
 import { FaStamp } from "react-icons/fa6";
+import { div } from "motion/react-client";
+import VerificationSnapshot from "@/components/VerificationSnapshot";
 
 const Dashboard = () => {
   const [dateTime, setDateTime] = useState(new Date());
@@ -684,7 +686,7 @@ const Dashboard = () => {
                 <div className="text-black xs:font-semibold font-bold flex justify-center 2xl:text-4xl text-3xl xs:text-2xl">
                   Welcome , {userName}
                 </div>
-                <div className="text-sm text-white bg-black p-2 rounded-2xl 2xl:mt-7 mt-2 flex justify-around">
+                <div className="text-sm text-white bg-black p-2 2xl:p-3 rounded-2xl 2xl:mt-7 mt-2 flex justify-around">
                   <div className="flex gap-2 xs:text-md text-sm 2xl:text-2xl justify-center items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -722,15 +724,15 @@ const Dashboard = () => {
                 </div>
                 {userType === "verifier" && (
                   <div>
-                    <div className="w-full flex 2xl:mt-8 mt-5 bg-gray-100 rounded-xl ">
-                      <div className="w-1/2 flex justify-center transition-all duration-300 ease-in-out p-2 rounded-xl text-lg bg-blue-500 text-white">
+                    <div className="w-full flex 2xl:mt-8 mt-5 lg:mt-3 bg-gray-100 rounded-xl ">
+                      <div className="w-1/2 flex justify-center transition-all duration-300 ease-in-out p-2 lg:p-1 2xl:p-2 rounded-xl text-lg bg-blue-500 text-white">
                         Verifier
                       </div>
-                      <div className="w-1/2 flex justify-center transition-all duration-300 ease-in-out p-2 rounded-xl text-lg bg-gray-100 text-black">
+                      <div className="w-1/2 flex justify-center transition-all duration-300 ease-in-out p-2 lg:p-1 2xl:p-2 rounded-xl text-lg bg-gray-100 text-black">
                         Organization
                       </div>
                     </div>
-                    <div className="text-black mt-5 text-wrap text-[16px] xs:text-lg">
+                    <div className="text-black mt-5 lg:mt-3 2xl:mt-5 text-wrap text-[16px] 2xl:text-xl xs:text-lg lg:text-sm">
                       As a verifier, you can quickly verify documents with trust
                       and transparency.
                     </div>
@@ -759,6 +761,11 @@ const Dashboard = () => {
                   </div>
                 )}
               </div>
+              {userType === "verifier" && (
+                  <div className="flex-1 hidden min-h-[310px] 2xl:min-h-[550px] lg:flex">
+                  <VerificationSnapshot />
+                  </div>
+                )}
               {userType === "organization" ? (
                 <div
                   className={`flex-1 flex flex-col justify-center items-center ${kycStatus == "Approved" ? "border-2 border-green-500" : "border-2 border-red-500"} bg-white rounded-xl p-5`}
