@@ -183,7 +183,7 @@ const Verify = () => {
           {userType === "verifier" ? (
             ""
           ) : (
-            <div className="text-white flex justify-center items-center gap-2 font-semibold outline-1 outline-gray-500 text-lg px-5 py-1 mr-5 bg-gray-500 rounded-3xl ">
+            <div className="text-white hidden lg:flex justify-center items-center gap-2 font-semibold outline-1 outline-gray-500 text-lg px-5 py-1 mr-5 bg-gray-500 rounded-3xl ">
               <div className="flex justify-center items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ const Verify = () => {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="size-6"
+                  className="size-6 "
                 >
                   <path
                     strokeLinecap="round"
@@ -230,15 +230,15 @@ const Verify = () => {
             <Sidebar />
           </div>
         )}
-        <div className="flex flex-1 lg:ml-72 2xl:ml-96 mr-2 xs:mr-5 lg:mr-6 xl:mr-10 2xl:mr-6 mb-6">
-          <div className="ml-2 xs:ml-5 lg:ml-0 mt-2 grid xl:grid-cols-3 gap-4 lg:gap-6 w-full">
+        <div className="flex flex-1 lg:ml-72 2xl:ml-96 mr-4 xs:mr-5 lg:mr-6 xl:mr-10 2xl:mr-80 mb-6">
+          <div className="ml-2 xs:ml-5 lg:ml-0 mt-2 grid xl:grid-cols-3 gap-4 lg:gap-6 2xl:gap-10 w-full">
             {/* ---------- Left: verification form + result ---------- */}
-            <div className="xl:col-span-2 flex flex-col gap-6 pl-6">
-              <div className="pt-4">
-                <p className="text-2xl text-black font-extrabold">
+            <div className="xl:col-span-2 flex flex-col xl:gap-6 gap-3 2xl:gap-10 lg:pl-6 pl-2 2xl:pl-80">
+              <div className="pt-2 lg:pt-4 2xl:pt-10">
+                <p className="lg:text-2xl text-base 2xl:text-4xl text-black font-extrabold">
                   Check Document Authenticity
                 </p>
-                <p className="mt-1 text-gray-500 font-medium">
+                <p className="mt-1 2xl:text-xl text-xs text-gray-500 font-medium">
                   Upload a document to verify it against the blockchain in
                   seconds
                 </p>
@@ -247,25 +247,25 @@ const Verify = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35 }}
-                className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm"
+                className="bg-white border mt-1 xl:mt-0 border-gray-200 rounded-2xl p-3 lg:p-6 shadow-sm"
               >
-                <p className="text-black font-bold text-sm lg:text-base">
+                <p className="text-black 2xl:text-2xl font-bold text-sm lg:text-base">
                   Document to Verify
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-3 mt-2">
+                <div className="flex flex-col md:flex-row gap-2 lg:gap-3 mt-1 lg:mt-2">
                   <div className="flex-1">
                     <label
                       htmlFor="fullName"
-                      className="text-gray-600 mt-1 text-xs font-semibold"
+                      className="text-gray-600 mt-1 2xl:text-base text-xs font-semibold"
                     >
                       Your Name *
                     </label>
-                    <div className="flex gap-0 outline-1 w-full outline-gray-300 rounded-lg p-2.5 mt-1 focus-within:outline-2 focus-within:outline-indigo-500 transition-all">
+                    <div className="flex gap-0 outline-1 w-full outline-gray-300 rounded-lg p-2.5 mt-1 2xl:mt-2 2xl:p-3 focus-within:outline-2 focus-within:outline-indigo-500 transition-all">
                       <input
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full outline-none text-sm text-black"
+                        className="w-full outline-none text-sm 2xl:text-base text-black"
                         type="text"
                         placeholder="Your full name"
                         id="fullName"
@@ -275,15 +275,15 @@ const Verify = () => {
                   <div className="flex-1">
                     <label
                       htmlFor="email"
-                      className="text-gray-600 mt-1 text-xs font-semibold"
+                      className="text-gray-600 mt-1 2xl:text-base text-xs font-semibold"
                     >
                       Email Address *
                     </label>
-                    <div className="flex gap-0 outline-1 w-full outline-gray-300 rounded-lg p-2.5 mt-1 focus-within:outline-2 focus-within:outline-indigo-500 transition-all">
+                    <div className="flex gap-0 outline-1 w-full outline-gray-300 rounded-lg p-2.5 mt-1 2xl:mt-2 2xl:p-3 focus-within:outline-2 focus-within:outline-indigo-500 transition-all">
                       <input
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full outline-none text-sm text-black"
+                        className="w-full outline-none text-sm 2xl:text-base text-black"
                         type="text"
                         placeholder="Your email address"
                         id="email"
@@ -300,21 +300,21 @@ const Verify = () => {
                   onDragLeave={() => setIsDragging(false)}
                   onDrop={handleDrop}
                   onClick={() => document.getElementById("document").click()}
-                  className={`mt-5 flex flex-col items-start justify-start gap-2 border-2 border-dashed rounded-xl  cursor-pointer overflow-hidden transition-colors ${
+                  className={`mt-5 2xl:mt-7 flex flex-col items-start justify-start gap-2 border-2 border-dashed rounded-xl  cursor-pointer overflow-hidden transition-colors ${
                     isDragging
                       ? "border-indigo-500 bg-indigo-50"
                       : "border-gray-300 hover:border-gray-400 bg-gray-50/50"
                   }`}
                 >
                   {selectedFile ? (
-                    <div className="flex w-full justify-between items-center p-4 lg:p-4 bg-green-50">
+                    <div className="flex w-full justify-between items-center p-4 lg:p-4 2xl:p-7 bg-green-50">
                       <div className="flex gap-3">
-                        <span className="w-14 h-14 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
+                        <span className="xl:w-14 xl:h-14 lg:w-8 lg:h-8 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            className="w-8 h-8"
+                            className="xl:w-8 xl:h-8 w-4 h-4"
                           >
                             <path
                               fillRule="evenodd"
@@ -324,10 +324,10 @@ const Verify = () => {
                           </svg>
                         </span>
                         <div className="flex flex-col justify-center">
-                          <p className="text-gray-600 text-base font-bold">
+                          <p className="text-gray-600 text-[11px] xl:text-base truncate font-bold">
                             {selectedFile.name}
                           </p>
-                          <p className="text-[13px] flex gap-2 font-semibold text-gray-400">
+                          <p className="xl:text-[13px] text-[9px] flex gap-2 font-semibold text-gray-400">
                             {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB{" "}
                             <span>Ready to verify</span>
                           </p>
@@ -344,15 +344,15 @@ const Verify = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="p-4 lg:p-4 flex flex-col items-center w-full">
-                      <span className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-500 text-white flex items-center justify-center">
+                    <div className="p-3 lg:p-4 2xl:p-7 flex flex-col items-center w-full">
+                      <span className="lg:w-12 lg:h-12 w-9 h-9 2xl:w-14 2xl:h-14 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-500 text-white flex items-center justify-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
                           strokeWidth="2"
-                          className="w-6 h-6"
+                          className="w-6 h-6 2xl:w-7 2xl:h-7"
                         >
                           <path
                             strokeLinecap="round"
@@ -361,13 +361,13 @@ const Verify = () => {
                           />
                         </svg>
                       </span>
-                      <p className="text-gray-600 text-sm mt-2 font-medium">
+                      <p className="text-gray-600 text-[11px] lg:text-sm mt-2 2xl:mt-3 2xl:text-base font-medium">
                         Drag &amp; drop or{" "}
                         <button className="text-indigo-600 font-semibold hover:text-indigo-700 underline underline-offset-2">
                           browse file
                         </button>
                       </p>
-                      <p className="text-gray-400 mt-1 text-xs font-medium">
+                      <p className="text-gray-400 mt-1 text-[9px] lg:text-xs 2xl:text-sm font-medium">
                         PDF · JPG · JPEG · PNG — up to 10 MB
                       </p>
                     </div>
@@ -382,21 +382,19 @@ const Verify = () => {
                   />
                 </div>
 
-                <div className="mt-5 flex flex-col items-center gap-3">
+                <div className="mt-5 2xl:mt-6 flex flex-col items-center gap-3">
                   {loading === true ? (
                     <Loader />
                   ) : (
                     <div
                       onClick={handleVerify}
-                      variant="primary"
-                      size="md"
-                      className="bg-gradient-to-r from-indigo-600 to-blue-500 rounded-xl w-full justify-center py-3 flex gap-2 items-center hover:shadow-lg hover:shadow-indigo-200 transition-shadow"
+                      className="bg-gradient-to-r from-indigo-600 to-blue-500 text-xs lg:text-base rounded-xl w-full justify-center py-3 flex gap-2 items-center hover:shadow-lg hover:shadow-indigo-200 transition-shadow"
                     >
                       <FaShieldAlt />
                       Verify Document
                     </div>
                   )}
-                  <div className="flex items-center gap-1.5 text-gray-500 text-xs">
+                  <div className="flex items-center gap-1.5 text-gray-500 text-[9px] lg:text-xs">
                     <SiEthereum />
                     Verification is powered by Ethereum Smart Contract
                   </div>
@@ -407,24 +405,24 @@ const Verify = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: 0.05 }}
-                className="bg-white border border-gray-200 rounded-2xl p-5 lg:p-6 shadow-sm"
+                className="bg-white border border-gray-200 rounded-2xl p-3 lg:p-6 shadow-sm"
               >
-                <p className="text-black font-bold text-sm lg:text-base mb-3">
+                <p className="text-black font-bold text-sm 2xl:text-2xl lg:text-base mb-3">
                   Result
                 </p>
                 <div
-                  className={`flex flex-col items-center justify-center text-center rounded-xl p-6 lg:p-2 border-2 transition-colors ${
+                  className={`flex flex-col items-center justify-center text-center rounded-xl p-2 2xl:p-6 lg:p-2 border-2 transition-colors ${
                     verified === null ? "border-gray-200 bg-gray-50" : ""
                   } ${verified === false ? "border-red-300 bg-red-50" : ""} ${verified === true ? "border-green-300 bg-green-50" : ""}`}
                 >
                   {verified === null && (
-                    <>
-                      <span className="w-14 h-14 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center mb-2">
+                    <div className="flex flex-col items-center lg:p-4 2xl:p-7">
+                      <span className="lg:w-14 lg:h-14 w-10 h-10 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center mb-2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          class="size-6"
+                          class="lg:size-6 size-5"
                         >
                           <path d="M11.625 16.5a1.875 1.875 0 1 0 0-3.75 1.875 1.875 0 0 0 0 3.75Z" />
                           <path
@@ -435,91 +433,109 @@ const Verify = () => {
                           <path d="M14.25 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 16.5 7.5h-1.875a.375.375 0 0 1-.375-.375V5.25Z" />
                         </svg>
                       </span>
-                      <p className="text-black font-semibold text-base lg:text-lg">
+                      <p className="text-black font-semibold text-xs lg:text-lg">
                         No document uploaded yet
                       </p>
-                      <p className="text-gray-500 text-sm mt-1 max-w-sm">
+                      <p className="text-gray-500 text-[9px] lg:text-sm mt-1 max-w-sm">
                         Upload a document above to verify its authenticity using
                         our blockchain-powered verification system.
                       </p>
-                    </>
+                    </div>
                   )}
 
                   {verified === true && (
-                    <div className="flex p-4 w-full">
-                            {/* Success Icon */}
-                            <div className="flex w-full">
-                              <div className="w-12 h-12 rounded-xl bg-emerald-500 flex items-center justify-center shadow-sm shrink-0">
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                className="size-6 text-white"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
-                              </div>
-                              <div className="flex flex-col items-start ml-3 w-full">
-                              {/* Header */}
-                              <h2 className="text-xl font-bold text-green-800">
-                                Document Verified ✓
-                              </h2>
-                              <p className="text-green-700 text-sm mt-0.5">
-                                This document is authentic and recorded on-chain.
-                              </p>
-                              <div className="flex flex-col w-full mt-2 gap-y-2">
-                                <div className="flex text-sm justify-between">
-                                  <span className="text-gray-500 font-semibold">Document</span>
-                                  <span className="text-black font-bold">Employment_Certificate_2024.pdf</span>
-                                </div>
-                                <div className="flex text-sm justify-between ">
-                                  <span className="text-gray-500 font-semibold">Issued By</span>
-                                  <span className="text-black font-bold">Acme Corp Ltd.</span>
-                                </div>
-                                <div className="flex text-sm justify-between">
-                                  <span className="text-gray-500 font-semibold">Issued On</span>
-                                  <span className="text-black font-bold">12 Jan 2024</span>
-                                </div>
-                                <div className="flex text-sm justify-between">
-                                  <span className="text-gray-500 font-semibold">Tx Hash</span>
-                                  <span className="text-gray-500 font-bold">0x9f3a…c72e1b</span>
-                                </div>
-                              </div>
-
-                              {/* Details */}
-                            
-                              </div>
+                    <div className="flex p-4 2xl:p-7 w-full">
+                      {/* Success Icon */}
+                      <div className="flex w-full">
+                        <div className="w-12 h-12 rounded-xl bg-emerald-500 flex items-center justify-center shadow-sm shrink-0">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="size-6 text-white"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex flex-col items-start ml-3 w-full">
+                          {/* Header */}
+                          <h2 className="text-xl font-bold text-green-800">
+                            Document Verified ✓
+                          </h2>
+                          <p className="text-green-700 text-sm mt-0.5">
+                            This document is authentic and recorded on-chain.
+                          </p>
+                          <div className="flex flex-col w-full mt-2 gap-y-2">
+                            <div className="flex text-sm justify-between">
+                              <span className="text-gray-500 font-semibold">
+                                Document
+                              </span>
+                              <span className="text-black font-bold">
+                                Employment_Certificate_2024.pdf
+                              </span>
                             </div>
+                            <div className="flex text-sm justify-between ">
+                              <span className="text-gray-500 font-semibold">
+                                Issued By
+                              </span>
+                              <span className="text-black font-bold">
+                                Acme Corp Ltd.
+                              </span>
+                            </div>
+                            <div className="flex text-sm justify-between">
+                              <span className="text-gray-500 font-semibold">
+                                Issued On
+                              </span>
+                              <span className="text-black font-bold">
+                                12 Jan 2024
+                              </span>
+                            </div>
+                            <div className="flex text-sm justify-between">
+                              <span className="text-gray-500 font-semibold">
+                                Tx Hash
+                              </span>
+                              <span className="text-gray-500 font-bold">
+                                0x9f3a…c72e1b
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Details */}
+                        </div>
+                      </div>
                     </div>
                   )}
 
                   {verified === false && (
-                    <div className="flex p-4 w-full">
-                            {/* Fail Icon */}
-                            <div className="flex w-full">
-                              <div className="w-12 h-12 rounded-xl bg-red-500 flex items-center justify-center shadow-sm shrink-0">
-                              <XCircle className="text-white" />
-                              </div>
-                              <div className="flex flex-col items-start ml-3 w-full">
-                              {/* Header */}
-                              <h2 className="text-xl font-bold text-[#991b1b]">
-                                Verification Failed ✘
-                              </h2>
-                              <p className="text-[#cd6263] text-sm mt-0.5">
-                                This document could not be matched on the Ethereum blockchain.
-                              </p>
-                              <div className="text-gray-500 text-sm mt-2 text-start">
-                                This may mean the document was not issued through AuthenX, has been altered, or the issuer has revoked it. If you believe this is an error, contact the issuing organization.
-                              </div>
+                    <div className="flex p-4 2xl:p-7 w-full">
+                      {/* Fail Icon */}
+                      <div className="flex w-full">
+                        <div className="w-12 h-12 2xl:w-14 2xl:h-14 rounded-xl bg-red-500 flex items-center justify-center shadow-sm shrink-0">
+                          <XCircle className="text-white 2xl:w-8 2xl:h-8" />
+                        </div>
+                        <div className="flex flex-col items-start ml-3 w-full">
+                          {/* Header */}
+                          <h2 className="text-xl 2xl:text-2xl font-bold text-[#991b1b]">
+                            Verification Failed ✘
+                          </h2>
+                          <p className="text-[#cd6263] text-sm 2xl:text-base mt-0.5">
+                            This document could not be matched on the Ethereum
+                            blockchain.
+                          </p>
+                          <div className="text-gray-500 text-sm mt-2 text-start">
+                            This may mean the document was not issued through
+                            AuthenX, has been altered, or the issuer has revoked
+                            it. If you believe this is an error, contact the
+                            issuing organization.
+                          </div>
 
-                              {/* Details */}
-                            
-                              </div>
-                            </div>
+                          {/* Details */}
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -527,41 +543,42 @@ const Verify = () => {
             </div>
 
             {/* ---------- Right: QR + how it works ---------- */}
-            <div className="flex flex-col gap-4 lg:gap-6 mt-4">
+            <div className="flex flex-col gap-4 pl-2 lg:pl-0 lg:gap-6 2xl:gap-10 lg:mt-4 2xl:mt-10">
               <motion.div
                 ref={qrRef}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: 0.1 }}
-                className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm"
+                className="bg-white border border-gray-200 rounded-2xl p-3 lg:p-5 2xl:p-7 shadow-sm"
               >
-                <div className="flex items-center gap-2">
-                  <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 text-white flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-2 2xl:gap-4">
+                  <span className="lg:w-8 lg:h-8 w-7 h-7 2xl:w-12 2xl:h-12 rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 text-white flex items-center justify-center shrink-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="w-4 h-4"
+                      class="lg:size-5 size-4 2xl:size-8"
                     >
                       <path
-                        fillRule="evenodd"
-                        d="M3 4.875C3 3.839 3.84 3 4.875 3h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 0 1 3 9.375v-4.5Z"
-                        clipRule="evenodd"
+                        fill-rule="evenodd"
+                        d="M3 4.875C3 3.839 3.84 3 4.875 3h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 0 1 3 9.375v-4.5ZM4.875 4.5a.375.375 0 0 0-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 0 0 .375-.375v-4.5a.375.375 0 0 0-.375-.375h-4.5Zm7.875.375c0-1.036.84-1.875 1.875-1.875h4.5C20.16 3 21 3.84 21 4.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5a1.875 1.875 0 0 1-1.875-1.875v-4.5Zm1.875-.375a.375.375 0 0 0-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 0 0 .375-.375v-4.5a.375.375 0 0 0-.375-.375h-4.5ZM6 6.75A.75.75 0 0 1 6.75 6h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75A.75.75 0 0 1 6 7.5v-.75Zm9.75 0A.75.75 0 0 1 16.5 6h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75ZM3 14.625c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.035-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 0 1 3 19.125v-4.5Zm1.875-.375a.375.375 0 0 0-.375.375v4.5c0 .207.168.375.375.375h4.5a.375.375 0 0 0 .375-.375v-4.5a.375.375 0 0 0-.375-.375h-4.5Zm7.875-.75a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm6 0a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75ZM6 16.5a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm9.75 0a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm-3 3a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Zm6 0a.75.75 0 0 1 .75-.75h.75a.75.75 0 0 1 .75.75v.75a.75.75 0 0 1-.75.75h-.75a.75.75 0 0 1-.75-.75v-.75Z"
+                        clip-rule="evenodd"
                       />
                     </svg>
                   </span>
-                  <p className="text-black font-bold text-base">
+                  <p className="text-black 2xl:text-2xl font-bold text-sm lg:text-base">
                     Verify with QR Code
                   </p>
                 </div>
+                <div className="text-gray-500 font-medium text-[10px] lg:text-xs 2xl:text-base w-full mt-1 2xl:mt-3">Scan a document's embedded QR code to verify instantly — no upload needed.</div>
 
                 {docHash === null ? (
-                  <div className="text-gray-400 mt-4 flex flex-col items-center bg-gray-50 rounded-xl p-6">
+                  <div className="text-gray-400 lg:mt-4 mt-3 2xl:mt-6 flex flex-col items-center bg-gray-50 rounded-xl lg:p-6 p-3 2xl:p-8">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="w-16 h-16 text-gray-300"
+                      className="lg:w-16 lg:h-16 w-12 h-12 2xl:w-24 2xl:h-24 text-gray-300"
                     >
                       <path
                         fillRule="evenodd"
@@ -569,26 +586,23 @@ const Verify = () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <p className="text-center mt-2 text-sm font-medium">
+                    <p className="text-center mt-2 text-xs lg:text-sm 2xl:text-base font-medium">
                       QR code appears here after a document is verified
                     </p>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center mt-4">
+                  <div className="flex flex-col items-center mt-4 2xl:mt-6">
                     <div className="flex justify-center w-full">
                       <QRCodeDisplay
                         url={`https://authenxfrontend1.vercel.app/verify?hash=${docHash}`}
                       />
                     </div>
-                    <p className="mt-4 text-gray-500 text-center text-xs">
-                      Scan this to instantly verify the document on our website
-                    </p>
                   </div>
                 )}
 
                 <button
                   onClick={downloadQRCode}
-                  className="w-full mt-4 border border-gray-200 hover:bg-gray-50 transition-colors rounded-lg py-2.5 text-sm font-semibold text-gray-700 flex items-center justify-center gap-2"
+                  className="w-full mt-3 lg:mt-4 2xl:mt-6 border border-gray-200 hover:bg-gray-50 transition-colors rounded-lg lg:py-2.5 py-1.5 text-xs lg:text-sm font-semibold text-gray-700 flex items-center justify-center gap-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -615,21 +629,7 @@ const Verify = () => {
                 className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm"
               >
                 <div className="flex items-center gap-2 mb-4">
-                  <span className="w-6 h-6 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-3.5 h-3.5"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.041-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <p className="text-black font-bold text-base">
+                  <p className="text-black 2xl:text-2xl font-bold text-base">
                     How Verification Works
                   </p>
                 </div>
@@ -650,14 +650,14 @@ const Verify = () => {
                     },
                   ].map((step, i) => (
                     <div key={i} className="flex gap-3">
-                      <span className="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-600 to-blue-500 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                      <span className="w-6 h-6 2xl:w-8 2xl:h-8 rounded-full bg-gradient-to-br from-indigo-600 to-blue-500 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                         {i + 1}
                       </span>
                       <div>
-                        <p className="text-black font-semibold text-sm">
+                        <p className="text-black 2xl:text-lg font-bold text-sm">
                           {step.title}
                         </p>
-                        <p className="text-gray-500 text-xs mt-0.5 leading-relaxed">
+                        <p className="text-gray-500 2xl:text-sm text-xs mt-0.5 leading-relaxed">
                           {step.body}
                         </p>
                       </div>

@@ -11,7 +11,6 @@ export const TransactionContext = React.createContext();
 const RPCS = [
   `https://eth-sepolia.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_KEY}`,
   "https://ethereum-sepolia-rpc.publicnode.com",
-  "https://rpc.sepolia.org"
 ];
 
 export const createEthereumContract = async () => {
