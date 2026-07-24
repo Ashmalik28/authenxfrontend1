@@ -97,9 +97,6 @@ const Verify = () => {
       setDocHash(cid);
 
       const { walletAddress } = await getWallet(cid);
-      console.log("CID:", cid);
-      console.log("Wallet:", walletAddress);
-
       const result = await verifyDocument(walletAddress, cid);
 
       if (result) {

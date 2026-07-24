@@ -8,6 +8,12 @@ import { saveTransaction } from "../../api";
 
 export const TransactionContext = React.createContext();
 
+const RPCS = [
+  `https://eth-sepolia.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_KEY}`,
+  "https://ethereum-sepolia-rpc.publicnode.com",
+  "https://rpc.sepolia.org"
+];
+
 export const createEthereumContract = async () => {
   if (typeof window === "undefined" || !window.ethereum) {
     throw new Error("No ethereum object");
@@ -18,11 +24,19 @@ export const createEthereumContract = async () => {
   return new ethers.Contract(contractAddress, contractABI, signer);
 };
 
-export const createReadOnlyContract = () => {
-  const provider = new ethers.JsonRpcProvider(
-    `https://eth-sepolia.g.alchemy.com/v2/${import.meta.env.VITE_ALCHEMY_KEY}`,
-  );
-  return new ethers.Contract(contractAddress, contractABI, provider);
+export const createReadOnlyContract = async () => {
+  for (const url of RPCS) {
+    try {
+      const provider = new ethers.JsonRpcProvider(url);
+      await provider.getBlockNumber();
+
+      return new ethers.Contract(contractAddress, contractABI, provider);
+    } catch (err) {
+      console.warn(`RPC failed: ${url}`, err);
+    }
+  }
+
+  throw new Error("No working RPC provider available.");
 };
 
 export const TransactionsProvider = ({ children }) => {
