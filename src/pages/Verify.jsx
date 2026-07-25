@@ -74,7 +74,7 @@ const Verify = () => {
     try {
       const { walletAddress } = await getWallet(hash);
       const result = await verifyDocument(walletAddress, hash);
-      const doc = await getDocument(cid);
+      const doc = await getDocument(hash);
         setDocumentData(doc);
 
       console.log("AUTO VERIFY RESULT:", result);
