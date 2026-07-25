@@ -608,7 +608,7 @@ const Verify = () => {
                   <div className="flex flex-col items-center mt-4 md:mt-6 md:mb-6 2xl:mt-6">
                     <div className="flex justify-center w-full">
                       <QRCodeDisplay
-                        url={`https://authenxfrontend1.vercel.app/verify?hash=${docHash}`}
+                        url={`https://authenx.in/verify?hash=${docHash}`}
                       />
                     </div>
                   </div>
