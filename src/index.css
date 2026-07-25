@@ -59,3 +59,12 @@ background: #e1dfeb;
 background: linear-gradient(90deg, rgba(225, 223, 235, 1) 0%, rgba(223, 229, 235, 1) 96%);
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: #000 !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+

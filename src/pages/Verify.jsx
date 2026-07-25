@@ -10,7 +10,7 @@ import QRCodeDisplay from "../components/QRCodeDisplay";
 import { useLocation } from "react-router-dom";
 import { CID } from "multiformats/cid";
 import { getWallet } from "../../api";
-import { verifierData } from "../../api";
+import { verifierData , getDocument } from "../../api";
 import { Loader } from "../components";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
@@ -33,6 +33,7 @@ const Verify = () => {
   const [loading, setloading] = useState(null);
   const [toggleMenu, setToggleMenu] = useState(false);
   const location = useLocation();
+  const [documentData, setDocumentData] = useState(null);
 
   const userType = localStorage.getItem("userType");
 
@@ -42,6 +43,15 @@ const Verify = () => {
       setSelectedFile(file);
     }
   };
+
+  const truncateFileName = (name, maxLength = 20) => {
+  if (name.length <= maxLength) return name;
+
+  const extension = name.split(".").pop();
+  const baseName = name.slice(0, maxLength);
+
+  return `${baseName}...${extension}`;
+};
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -64,6 +74,8 @@ const Verify = () => {
     try {
       const { walletAddress } = await getWallet(hash);
       const result = await verifyDocument(walletAddress, hash);
+      const doc = await getDocument(cid);
+        setDocumentData(doc);
 
       console.log("AUTO VERIFY RESULT:", result);
 
@@ -101,6 +113,8 @@ const Verify = () => {
 
       if (result) {
         const res = await verifierData(name, email, cid);
+        const doc = await getDocument(cid);
+        setDocumentData(doc);
         if (res) {
           setVerified(true);
           toast.success("Valid document");
@@ -230,15 +244,15 @@ const Verify = () => {
             <Sidebar />
           </div>
         )}
-        <div className="flex flex-1 lg:ml-72 2xl:ml-96 mr-4 xs:mr-5 lg:mr-6 xl:mr-10 2xl:mr-80 mb-6">
-          <div className="ml-2 xs:ml-5 lg:ml-0 mt-2 grid xl:grid-cols-3 gap-4 lg:gap-6 2xl:gap-10 w-full">
+        <div className="flex flex-1 lg:ml-72 2xl:ml-96 mr-4 md:mr-20 xs:mr-5 lg:mr-6 xl:mr-10 2xl:mr-80 mb-6">
+          <div className="ml-2 xs:ml-3 md:ml-18 lg:ml-0 mt-2 grid xl:grid-cols-3 gap-4 lg:gap-6 2xl:gap-10 w-full">
             {/* ---------- Left: verification form + result ---------- */}
             <div className="xl:col-span-2 flex flex-col xl:gap-6 gap-3 2xl:gap-10 lg:pl-6 pl-2 2xl:pl-80">
               <div className="pt-2 lg:pt-4 2xl:pt-10">
-                <p className="lg:text-2xl text-base 2xl:text-4xl text-black font-extrabold">
+                <p className="lg:text-2xl text-base md:text-2xl 2xl:text-4xl text-black font-extrabold">
                   Check Document Authenticity
                 </p>
-                <p className="mt-1 2xl:text-xl text-xs text-gray-500 font-medium">
+                <p className="mt-1 2xl:text-xl text-xs md:text-base text-gray-500 font-medium">
                   Upload a document to verify it against the blockchain in
                   seconds
                 </p>
@@ -247,17 +261,17 @@ const Verify = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35 }}
-                className="bg-white border mt-1 xl:mt-0 border-gray-200 rounded-2xl p-3 lg:p-6 shadow-sm"
+                className="bg-white border mt-1 xl:mt-0 border-gray-200 rounded-2xl p-3 xs:p-4 lg:p-6 shadow-sm"
               >
-                <p className="text-black 2xl:text-2xl font-bold text-sm lg:text-base">
+                <p className="text-black 2xl:text-2xl font-bold text-sm md:text-base lg:text-base">
                   Document to Verify
                 </p>
 
-                <div className="flex flex-col md:flex-row gap-2 lg:gap-3 mt-1 lg:mt-2">
+                <div className="flex flex-col md:flex-row gap-2 lg:gap-3 mt-1 md:mt-2 lg:mt-2">
                   <div className="flex-1">
                     <label
                       htmlFor="fullName"
-                      className="text-gray-600 mt-1 2xl:text-base text-xs font-semibold"
+                      className="text-gray-600 mt-1 2xl:text-base text-xs md:text-sm font-semibold"
                     >
                       Your Name *
                     </label>
@@ -275,7 +289,7 @@ const Verify = () => {
                   <div className="flex-1">
                     <label
                       htmlFor="email"
-                      className="text-gray-600 mt-1 2xl:text-base text-xs font-semibold"
+                      className="text-gray-600 mt-1 2xl:text-base text-xs md:text-sm font-semibold"
                     >
                       Email Address *
                     </label>
@@ -309,12 +323,12 @@ const Verify = () => {
                   {selectedFile ? (
                     <div className="flex w-full justify-between items-center p-4 lg:p-4 2xl:p-7 bg-green-50">
                       <div className="flex gap-3">
-                        <span className="xl:w-14 xl:h-14 lg:w-8 lg:h-8 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
+                        <span className="xl:w-14 xl:h-14 lg:w-8 lg:h-8 w-8 h-8 md:w-10 md:h-10 rounded-xl bg-green-100 text-green-600 flex items-center justify-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            className="xl:w-8 xl:h-8 w-4 h-4"
+                            className="xl:w-8 xl:h-8 w-4 h-4 md:w-6 md:h-6"
                           >
                             <path
                               fillRule="evenodd"
@@ -324,10 +338,10 @@ const Verify = () => {
                           </svg>
                         </span>
                         <div className="flex flex-col justify-center">
-                          <p className="text-gray-600 text-[11px] xl:text-base truncate font-bold">
-                            {selectedFile.name}
+                          <p className="text-gray-600 text-[11px] xl:text-base md:text-sm truncate font-bold">
+                            {truncateFileName(selectedFile.name)}
                           </p>
-                          <p className="xl:text-[13px] text-[9px] flex gap-2 font-semibold text-gray-400">
+                          <p className="xl:text-[13px] text-[9px] md:text-xs flex gap-2 font-semibold text-gray-400">
                             {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB{" "}
                             <span>Ready to verify</span>
                           </p>
@@ -344,8 +358,8 @@ const Verify = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="p-3 lg:p-4 2xl:p-7 flex flex-col items-center w-full">
-                      <span className="lg:w-12 lg:h-12 w-9 h-9 2xl:w-14 2xl:h-14 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-500 text-white flex items-center justify-center">
+                    <div className="p-3 md:p-4 lg:p-4 2xl:p-7 flex flex-col items-center w-full">
+                      <span className="lg:w-12 lg:h-12 w-9 h-9 md:w-10 md:h-10 2xl:w-14 2xl:h-14 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-500 text-white flex items-center justify-center">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
@@ -361,13 +375,13 @@ const Verify = () => {
                           />
                         </svg>
                       </span>
-                      <p className="text-gray-600 text-[11px] lg:text-sm mt-2 2xl:mt-3 2xl:text-base font-medium">
+                      <p className="text-gray-600 text-[11px] md:text-sm lg:text-sm mt-2 2xl:mt-3 2xl:text-base font-medium">
                         Drag &amp; drop or{" "}
                         <button className="text-indigo-600 font-semibold hover:text-indigo-700 underline underline-offset-2">
                           browse file
                         </button>
                       </p>
-                      <p className="text-gray-400 mt-1 text-[9px] lg:text-xs 2xl:text-sm font-medium">
+                      <p className="text-gray-400 mt-1 md:mt-1.5 md:text-xs text-[9px] lg:text-xs 2xl:text-sm font-medium">
                         PDF · JPG · JPEG · PNG — up to 10 MB
                       </p>
                     </div>
@@ -405,7 +419,7 @@ const Verify = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: 0.05 }}
-                className="bg-white border border-gray-200 rounded-2xl p-3 lg:p-6 shadow-sm"
+                className="bg-white border border-gray-200 rounded-2xl p-3 xs:p-4 lg:p-6 shadow-sm"
               >
                 <p className="text-black font-bold text-sm 2xl:text-2xl lg:text-base mb-3">
                   Result
@@ -416,7 +430,7 @@ const Verify = () => {
                   } ${verified === false ? "border-red-300 bg-red-50" : ""} ${verified === true ? "border-green-300 bg-green-50" : ""}`}
                 >
                   {verified === null && (
-                    <div className="flex flex-col items-center lg:p-4 2xl:p-7">
+                    <div className="flex flex-col items-center md:p-3 lg:p-4 2xl:p-7">
                       <span className="lg:w-14 lg:h-14 w-10 h-10 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center mb-2">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -433,10 +447,10 @@ const Verify = () => {
                           <path d="M14.25 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 16.5 7.5h-1.875a.375.375 0 0 1-.375-.375V5.25Z" />
                         </svg>
                       </span>
-                      <p className="text-black font-semibold text-xs lg:text-lg">
+                      <p className="text-black font-semibold md:text-sm text-xs lg:text-lg">
                         No document uploaded yet
                       </p>
-                      <p className="text-gray-500 text-[9px] lg:text-sm mt-1 max-w-sm">
+                      <p className="text-gray-500 text-[9px] md:text-xs lg:text-sm mt-1 max-w-sm">
                         Upload a document above to verify its authenticity using
                         our blockchain-powered verification system.
                       </p>
@@ -444,15 +458,15 @@ const Verify = () => {
                   )}
 
                   {verified === true && (
-                    <div className="flex p-4 2xl:p-7 w-full">
+                    <div className="flex md:p-3 lg:p-4 2xl:p-7 w-full">
                       {/* Success Icon */}
                       <div className="flex w-full">
-                        <div className="w-12 h-12 rounded-xl bg-emerald-500 flex items-center justify-center shadow-sm shrink-0">
+                        <div className="lg:w-12 lg:h-12 w-8 h-8 md:w-10 md:h-10 rounded-xl bg-emerald-500 flex items-center justify-center shadow-sm shrink-0">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            className="size-6 text-white"
+                            className="size-5 md:size-6 lg:size-6 text-white"
                           >
                             <path
                               fillRule="evenodd"
@@ -463,43 +477,43 @@ const Verify = () => {
                         </div>
                         <div className="flex flex-col items-start ml-3 w-full">
                           {/* Header */}
-                          <h2 className="text-xl font-bold text-green-800">
+                          <h2 className="text-sm lg:text-xl md:text-base font-bold text-green-800">
                             Document Verified ✓
                           </h2>
-                          <p className="text-green-700 text-sm mt-0.5">
+                          <p className="text-green-700 text-[9px] md:text-xs text-start lg:text-sm mt-0.5">
                             This document is authentic and recorded on-chain.
                           </p>
-                          <div className="flex flex-col w-full mt-2 gap-y-2">
-                            <div className="flex text-sm justify-between">
+                          <div className="flex flex-col w-full mt-1 md:mt-2 lg:mt-2 gap-y-0.5 md:gap-y-2 lg:gap-y-2">
+                            <div className="flex text-[8px] md:text-xs lg:text-sm justify-between">
                               <span className="text-gray-500 font-semibold">
                                 Document
                               </span>
-                              <span className="text-black font-bold">
-                                Employment_Certificate_2024.pdf
+                              <span className="text-black truncate font-bold">
+                                {truncateFileName(selectedFile.name)}
                               </span>
                             </div>
-                            <div className="flex text-sm justify-between ">
+                            <div className="flex text-[8px] md:text-xs lg:text-sm justify-between ">
                               <span className="text-gray-500 font-semibold">
                                 Issued By
                               </span>
                               <span className="text-black font-bold">
-                                Acme Corp Ltd.
+                                {documentData?.orgName}
                               </span>
                             </div>
-                            <div className="flex text-sm justify-between">
+                            <div className="flex text-[8px] md:text-xs lg:text-sm justify-between">
                               <span className="text-gray-500 font-semibold">
                                 Issued On
                               </span>
                               <span className="text-black font-bold">
-                                12 Jan 2024
+                                {new Date(documentData?.issuedAt).toLocaleDateString()}
                               </span>
                             </div>
-                            <div className="flex text-sm justify-between">
+                            <div className="flex text-[8px] md:text-xs lg:text-sm justify-between">
                               <span className="text-gray-500 font-semibold">
-                                Tx Hash
+                                Doc Hash
                               </span>
                               <span className="text-gray-500 font-bold">
-                                0x9f3a…c72e1b
+                                {shortenAddress(docHash)}
                               </span>
                             </div>
                           </div>
@@ -511,22 +525,22 @@ const Verify = () => {
                   )}
 
                   {verified === false && (
-                    <div className="flex p-4 2xl:p-7 w-full">
+                    <div className="flex md:p-3 lg:p-4 2xl:p-7 w-full">
                       {/* Fail Icon */}
                       <div className="flex w-full">
-                        <div className="w-12 h-12 2xl:w-14 2xl:h-14 rounded-xl bg-red-500 flex items-center justify-center shadow-sm shrink-0">
-                          <XCircle className="text-white 2xl:w-8 2xl:h-8" />
+                        <div className="lg:w-12 lg:h-12 w-8 h-8 md:w-10 md:h-10 2xl:w-14 2xl:h-14 rounded-xl bg-red-500 flex items-center justify-center shadow-sm shrink-0">
+                          <XCircle className="text-white w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7  2xl:w-8 2xl:h-8" />
                         </div>
-                        <div className="flex flex-col items-start ml-3 w-full">
+                        <div className="flex flex-col items-start ml-2 lg:ml-3 w-full">
                           {/* Header */}
-                          <h2 className="text-xl 2xl:text-2xl font-bold text-[#991b1b]">
+                          <h2 className=" text-sm md:text-base lg:text-xl 2xl:text-2xl font-bold text-[#991b1b]">
                             Verification Failed ✘
                           </h2>
-                          <p className="text-[#cd6263] text-sm 2xl:text-base mt-0.5">
+                          <p className="text-[#cd6263] md:text-xs text-[10px] text-start lg:text-sm 2xl:text-base mt-0.5">
                             This document could not be matched on the Ethereum
                             blockchain.
                           </p>
-                          <div className="text-gray-500 text-sm mt-2 text-start">
+                          <div className="text-gray-500 text-[9px] md:text-xs lg:text-sm mt-1 md:mt-2 lg:mt-2 text-start">
                             This may mean the document was not issued through
                             AuthenX, has been altered, or the issuer has revoked
                             it. If you believe this is an error, contact the
@@ -549,15 +563,15 @@ const Verify = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: 0.1 }}
-                className="bg-white border border-gray-200 rounded-2xl p-3 lg:p-5 2xl:p-7 shadow-sm"
+                className="bg-white border border-gray-200 rounded-2xl p-3 xs:p-4 lg:p-5 2xl:p-7 shadow-sm"
               >
-                <div className="flex items-center gap-2 2xl:gap-4">
-                  <span className="lg:w-8 lg:h-8 w-7 h-7 2xl:w-12 2xl:h-12 rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 text-white flex items-center justify-center shrink-0">
+                <div className="flex items-center gap-2 md:gap-3 2xl:gap-4">
+                  <span className="lg:w-8 lg:h-8 w-7 h-7 md:w-10 md:h-10 2xl:w-12 2xl:h-12 rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 text-white flex items-center justify-center shrink-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      class="lg:size-5 size-4 2xl:size-8"
+                      class="lg:size-5 size-4 md:size-6 2xl:size-8"
                     >
                       <path
                         fill-rule="evenodd"
@@ -566,19 +580,19 @@ const Verify = () => {
                       />
                     </svg>
                   </span>
-                  <p className="text-black 2xl:text-2xl font-bold text-sm lg:text-base">
+                  <p className="text-black md:text-base 2xl:text-2xl font-bold text-sm lg:text-base">
                     Verify with QR Code
                   </p>
                 </div>
-                <div className="text-gray-500 font-medium text-[10px] lg:text-xs 2xl:text-base w-full mt-1 2xl:mt-3">Scan a document's embedded QR code to verify instantly — no upload needed.</div>
+                <div className="text-gray-500 font-medium text-[10px] md:text-xs md:mt-2 lg:text-xs 2xl:text-base w-full mt-1 2xl:mt-3">Scan a document's embedded QR code to verify instantly — no upload needed.</div>
 
                 {docHash === null ? (
-                  <div className="text-gray-400 lg:mt-4 mt-3 2xl:mt-6 flex flex-col items-center bg-gray-50 rounded-xl lg:p-6 p-3 2xl:p-8">
+                  <div className="text-gray-400 lg:mt-4 mt-3 2xl:mt-6 flex flex-col items-center bg-gray-50 rounded-xl lg:p-6 p-3 xs:py-9 2xl:p-8">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="lg:w-16 lg:h-16 w-12 h-12 2xl:w-24 2xl:h-24 text-gray-300"
+                      className="lg:w-16 lg:h-16 w-12 h-12 xs:w-14 xs:h-14 2xl:w-24 2xl:h-24 text-gray-300"
                     >
                       <path
                         fillRule="evenodd"
@@ -591,7 +605,7 @@ const Verify = () => {
                     </p>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center mt-4 2xl:mt-6">
+                  <div className="flex flex-col items-center mt-4 md:mt-6 md:mb-6 2xl:mt-6">
                     <div className="flex justify-center w-full">
                       <QRCodeDisplay
                         url={`https://authenxfrontend1.vercel.app/verify?hash=${docHash}`}
@@ -602,7 +616,7 @@ const Verify = () => {
 
                 <button
                   onClick={downloadQRCode}
-                  className="w-full mt-3 lg:mt-4 2xl:mt-6 border border-gray-200 hover:bg-gray-50 transition-colors rounded-lg lg:py-2.5 py-1.5 text-xs lg:text-sm font-semibold text-gray-700 flex items-center justify-center gap-2"
+                  className="w-full mt-3 lg:mt-4 2xl:mt-6 border border-gray-200 hover:bg-gray-50 transition-colors rounded-lg lg:py-2.5 py-1.5 md:py-3 text-xs lg:text-sm font-semibold text-gray-700 flex items-center justify-center gap-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -626,15 +640,15 @@ const Verify = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: 0.15 }}
-                className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm"
+                className="bg-white border border-gray-200 rounded-2xl p-3 xs:p-4 lg:p-5 shadow-sm"
               >
-                <div className="flex items-center gap-2 mb-4">
-                  <p className="text-black 2xl:text-2xl font-bold text-base">
+                <div className="flex items-center gap-2 mb-3 lg:mb-4">
+                  <p className="text-black 2xl:text-2xl md:text-base font-bold text-sm lg:text-base">
                     How Verification Works
                   </p>
                 </div>
 
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1 lg:gap-4">
                   {[
                     {
                       title: "Upload your document",
@@ -649,15 +663,15 @@ const Verify = () => {
                       body: "You see whether the document is authentic, revoked, or unrecognized — with full issuer metadata.",
                     },
                   ].map((step, i) => (
-                    <div key={i} className="flex gap-3">
-                      <span className="w-6 h-6 2xl:w-8 2xl:h-8 rounded-full bg-gradient-to-br from-indigo-600 to-blue-500 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    <div key={i} className="flex gap-3 lg:gap-3">
+                      <span className="w-5 h-5 lg:w-6 lg:h-6 2xl:w-8 2xl:h-8 rounded-full bg-gradient-to-br from-indigo-600 to-blue-500 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                         {i + 1}
                       </span>
                       <div>
-                        <p className="text-black 2xl:text-lg font-bold text-sm">
+                        <p className="text-black 2xl:text-lg md:text-sm font-bold text-xs lg:text-sm">
                           {step.title}
                         </p>
-                        <p className="text-gray-500 2xl:text-sm text-xs mt-0.5 leading-relaxed">
+                        <p className="text-gray-500 2xl:text-sm md:text-xs text-[11px] lg:text-xs mt-0.5 leading-relaxed">
                           {step.body}
                         </p>
                       </div>

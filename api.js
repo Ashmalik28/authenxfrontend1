@@ -87,4 +87,9 @@ export const fetchTransactions = async () => {
   return res.data.transactions;
 };
 
+export const getDocument = async (docHash) => {
+  const response = await API.post("/getDocument" , {docHash});
+  return response.data.document;
+};
+
 export default API;
