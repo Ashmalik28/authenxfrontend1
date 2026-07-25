@@ -10,7 +10,7 @@ import QRCodeDisplay from "../components/QRCodeDisplay";
 import { useLocation } from "react-router-dom";
 import { CID } from "multiformats/cid";
 import { getWallet } from "../../api";
-import { verifierData , getDocument } from "../../api";
+import { verifierData, getDocument } from "../../api";
 import { Loader } from "../components";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
@@ -45,13 +45,13 @@ const Verify = () => {
   };
 
   const truncateFileName = (name, maxLength = 20) => {
-  if (name.length <= maxLength) return name;
+    if (name.length <= maxLength) return name;
 
-  const extension = name.split(".").pop();
-  const baseName = name.slice(0, maxLength);
+    const extension = name.split(".").pop();
+    const baseName = name.slice(0, maxLength);
 
-  return `${baseName}...${extension}`;
-};
+    return `${baseName}...${extension}`;
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -75,7 +75,7 @@ const Verify = () => {
       const { walletAddress } = await getWallet(hash);
       const result = await verifyDocument(walletAddress, hash);
       const doc = await getDocument(hash);
-        setDocumentData(doc);
+      setDocumentData(doc);
 
       console.log("AUTO VERIFY RESULT:", result);
 
@@ -489,7 +489,9 @@ const Verify = () => {
                                 Document
                               </span>
                               <span className="text-black truncate font-bold">
-                                {truncateFileName(selectedFile.name)}
+                                {selectedFile
+                                  ? truncateFileName(selectedFile.name)
+                                  : documentData?.docType}
                               </span>
                             </div>
                             <div className="flex text-[8px] md:text-xs lg:text-sm justify-between ">
@@ -505,7 +507,9 @@ const Verify = () => {
                                 Issued On
                               </span>
                               <span className="text-black font-bold">
-                                {new Date(documentData?.issuedAt).toLocaleDateString()}
+                                {new Date(
+                                  documentData?.issuedAt,
+                                ).toLocaleDateString()}
                               </span>
                             </div>
                             <div className="flex text-[8px] md:text-xs lg:text-sm justify-between">
@@ -584,7 +588,10 @@ const Verify = () => {
                     Verify with QR Code
                   </p>
                 </div>
-                <div className="text-gray-500 font-medium text-[10px] md:text-xs md:mt-2 lg:text-xs 2xl:text-base w-full mt-1 2xl:mt-3">Scan a document's embedded QR code to verify instantly — no upload needed.</div>
+                <div className="text-gray-500 font-medium text-[10px] md:text-xs md:mt-2 lg:text-xs 2xl:text-base w-full mt-1 2xl:mt-3">
+                  Scan a document's embedded QR code to verify instantly — no
+                  upload needed.
+                </div>
 
                 {docHash === null ? (
                   <div className="text-gray-400 lg:mt-4 mt-3 2xl:mt-6 flex flex-col items-center bg-gray-50 rounded-xl lg:p-6 p-3 xs:py-9 2xl:p-8">
