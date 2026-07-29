@@ -16,6 +16,7 @@ import { IoDocumentAttachSharp } from "react-icons/io5";
 import { FaStamp } from "react-icons/fa6";
 import { div } from "motion/react-client";
 import VerificationSnapshot from "@/components/VerificationSnapshot";
+import { motion } from "motion/react";
 
 const Dashboard = () => {
   const [dateTime, setDateTime] = useState(new Date());
@@ -169,7 +170,7 @@ const Dashboard = () => {
   };
 
   const TransactionRow = ({ transaction }) => (
-    <div className="grid grid-cols-4 2xl:py-5 items-center py-3 px-1 border-b border-gray-200 hover:bg-gray-50 text-gray-700">
+    <div className="grid grid-cols-4 2xl:py-5 items-center xl:py-4 px-1 border-b border-gray-200 hover:bg-gray-50 text-gray-700">
       <div className="font-medium text-sm flex 2xl:text-xl justify-center text-gray-900">
         {transaction.date}
       </div>
@@ -385,7 +386,7 @@ const Dashboard = () => {
           <div className="grid xl:grid-cols-3 gap-3 xs:gap-5 2xl:gap-10 2xl:ml-10 2xl:mt-10 mt-3 xs:mt-5 xs:ml-5">
             <div className="bg-white rounded-xl p-6 2xl:p-10 hidden xl:flex lg:flex-col lg:col-span-2">
               <div className="flex flex-col">
-                <div className="text-black flex items-center gap-2 font-semibold 2xl:text-5xl text-2xl">
+                <div className="text-black flex items-center gap-2 font-semibold 2xl:text-5xl text-2xl xl:text-3xl">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -403,15 +404,15 @@ const Dashboard = () => {
                 <div className="grid grid-cols-3 gap-5 2xl:gap-10 mt-5 2xl:mt-10">
                   <div
                     onClick={() => navigate("/verify")}
-                    className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 2xl:p-6"
+                    className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 xl:p-5 2xl:p-6"
                   >
                     <div className="text-blue-500  flex flex-col justify-center items-start">
-                      <div className="w-8 h-8 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
+                      <div className="w-8 h-8 xl:w-10 xl:h-10 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          class="size-5 2xl:size-9"
+                          class="size-5 xl:size-6 2xl:size-9"
                         >
                           <path
                             fill-rule="evenodd"
@@ -421,7 +422,7 @@ const Dashboard = () => {
                         </svg>
                       </div>
 
-                      <div className="w-full flex justify-start text-center text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
+                      <div className="w-full flex justify-start text-center text-black text-lg xl:text-xl mt-2 2xl:mt-4 2xl:text-4xl font-bold">
                         Verify Document
                       </div>
                       <div className="text-[#97a2b1] text-xs 2xl:text-lg 2xl:mt-1 font-semibold">
@@ -432,15 +433,15 @@ const Dashboard = () => {
                   {userType == "verifier" ? (
                     <div
                       onClick={() => navigate("/#support")}
-                      className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 2xl:p-6"
+                      className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 xl:p-5 2xl:p-6"
                     >
                       <div className="text-blue-500  flex flex-col justify-center items-start">
-                        <div className="w-8 h-8 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
+                        <div className="w-8 h-8 xl:w-10 xl:h-10 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            class="ize-5 2xl:size-9"
+                            class="size-5 xl:size-6 2xl:size-9"
                           >
                             <path
                               fill-rule="evenodd"
@@ -450,7 +451,7 @@ const Dashboard = () => {
                           </svg>
                         </div>
 
-                        <div className="w-full flex justify-start text-center text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
+                        <div className="w-full flex justify-start text-center xl:text-xl text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
                           Connect with us
                         </div>
                         <div className="text-[#97a2b1] text-xs 2xl:text-lg 2xl:mt-1 font-semibold">
@@ -461,14 +462,14 @@ const Dashboard = () => {
                   ) : (
                     <div
                       onClick={() => navigate("/issue")}
-                      className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 2xl:p-6"
+                      className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 xl:p-5 2xl:p-6"
                     >
                       <div className="text-blue-500  flex flex-col justify-center items-start">
-                        <div className="w-8 h-8 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
+                        <div className="w-8 h-8 xl:w-10 xl:h-10 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
                           <FaStamp className="size-5 2xl:size-9" />
                         </div>
 
-                        <div className="w-full flex justify-start text-center text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
+                        <div className="w-full flex justify-start xl:text-xl text-center text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
                           Issue Document
                         </div>
                         <div className="text-[#97a2b1] text-xs 2xl:text-lg 2xl:mt-1 font-semibold">
@@ -480,21 +481,21 @@ const Dashboard = () => {
 
                   <div
                     onClick={() => navigate("/about")}
-                    className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 2xl:p-6"
+                    className="bg-[#f8fafc] group hover:bg-white hover:border-[#d2defd] hover:border-1 border-transparent rounded-2xl hover:scale-110 transition-all ease-in-out duration-200 text-black p-4 xl:p-5 2xl:p-6"
                   >
                     <div className="text-blue-500  flex flex-col justify-center items-start">
-                      <div className="w-8 h-8 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
+                      <div className="w-8 h-8 xl:w-10 xl:h-10 2xl:w-16 2xl:h-16 rounded-md group-hover:bg-blue-600 group-hover:text-white duration-75 transition-all ease-in-out flex justify-center items-center bg-[#dbe4fe]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          class="size-5 2xl:size-9"
+                          class="size-5 xl:size-6 2xl:size-9"
                         >
                           <path d="M11.25 4.533A9.707 9.707 0 0 0 6 3a9.735 9.735 0 0 0-3.25.555.75.75 0 0 0-.5.707v14.25a.75.75 0 0 0 1 .707A8.237 8.237 0 0 1 6 18.75c1.995 0 3.823.707 5.25 1.886V4.533ZM12.75 20.636A8.214 8.214 0 0 1 18 18.75c.966 0 1.89.166 2.75.47a.75.75 0 0 0 1-.708V4.262a.75.75 0 0 0-.5-.707A9.735 9.735 0 0 0 18 3a9.707 9.707 0 0 0-5.25 1.533v16.103Z" />
                         </svg>
                       </div>
 
-                      <div className="w-full flex justify-start text-center text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
+                      <div className="w-full flex justify-start xl:text-xl text-center text-black text-lg mt-2 2xl:mt-4 2xl:text-4xl font-bold">
                         Detailed Guide
                       </div>
                       <div className="text-[#97a2b1] text-xs 2xl:text-lg 2xl:mt-1 font-semibold">
@@ -503,7 +504,7 @@ const Dashboard = () => {
                     </div>
                   </div>
                 </div>
-                <div className="text-black 2xl:text-5xl 2xl:mt-6 font-semibold text-2xl mt-4">
+                <div className="text-black 2xl:text-5xl 2xl:mt-6 font-semibold xl:mb-2 text-2xl mt-4">
                   Recent Transactions
                 </div>
                 <div className="grid grid-cols-4 pb-3 border-b-2 border-gray-200 text-left text-lg font-semibold text-gray-500 2xl:mt-10 mt-3">
@@ -767,86 +768,118 @@ const Dashboard = () => {
                   </div>
                 )}
               {userType === "organization" ? (
-                <div
-                  className={`flex-1 flex flex-col justify-center items-center ${kycStatus == "Approved" ? "border-2 border-green-500" : "border-2 border-red-500"} bg-white rounded-xl p-5`}
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: 0.15 }}
+                  className={`bg-white rounded-2xl 2xl:p-8 p-5 shadow-sm border ${kycStatus === "Approved" ? "border-green-100 py-9" : "border-red-100"}`}
                 >
-                  <div className="text-black flex justify-center 2xl:text-5xl font-bold text-3xl ">
+                  <p className="text-center text-xs font-bold tracking-widest text-gray-400 uppercase">
                     KYC Status
-                  </div>
-                  {kycStatus == "Approved" && (
-                    <div className="flex flex-col items-center">
-                      <div className="mt-4 2xl:mt-6 py-3 px-4 2xl:px-6 2xl:text-xl items-center border-1 border-green-400 w-fit bg-green-100 rounded-2xl shadow-xs shadow-green-500 text-green-700 font-semibold flex gap-2">
-                        <div>
+                  </p>
+
+                  {kycStatus === "Approved" && (
+                    <div className="flex flex-col items-center justify-center mt-3">
+                      <div className="relative">
+                        <span className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            fill="currentColor"
-                            class="size-8 2xl:size-10"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            className="w-8 h-8 text-green-600"
                           >
                             <path
-                              fill-rule="evenodd"
-                              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                              clip-rule="evenodd"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3.75 21h16.5M4.5 21V9.75L12 4.5l7.5 5.25V21M9 21v-5.25h6V21"
                             />
                           </svg>
-                        </div>{" "}
-                        <div className="font-bold"> KYC {kycStatus}</div>
+                        </span>
+                        <span className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center border-2 border-white">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth="3"
+                            className="w-3 h-3"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="m4.5 12.75 6 6 9-13.5"
+                            />
+                          </svg>
+                        </span>
                       </div>
-                      <div className="text-center text-sm font-semibold 2xl:text-lg flex flex-col gap-1 text-gray-700 2xl:mt-6 mb-2 mt-3">
-                        <div>
-                          Your KYC verification is successfully completed!
-                        </div>
-                        You now have full access to all platform features.
-                      </div>
+                      <span className="mt-3 text-xs font-bold text-green-700 bg-green-100 rounded-full px-3 py-1 flex items-center gap-1">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="w-3 h-3"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                        Verified Organization
+                      </span>
+                      <p className="text-center text-xs text-gray-500 mt-3 leading-relaxed">
+                        Your KYC is approved. You have full permissions to issue
+                        verified documents to the blockchain.
+                      </p>
                       <Button
                         onClick={() => navigate("/issue")}
                         variant="primary"
                         size="md"
-                        className="before:bg-white pl-12 pr-12 w-full rounded-xl 2xl:text-lg justify-center 2xl:mt-6 mb-0 outline-blue-400 flex gap-2 items-center"
+                        className="bg-gradient-to-r from-indigo-600 to-blue-500 rounded-lg w-full justify-center py-2.5 mt-4 flex gap-2 items-center text-sm"
                       >
-                        Issue Document
+                        Issue Now
                       </Button>
                     </div>
                   )}
-                  {kycStatus == "Pending" && (
-                    <div className="flex flex-col items-center">
-                      <div className="mt-5 2xl:mt-6 py-3 px-4 2xl:px-6 2xl:text-xl items-center border-1 border-red-400 w-fit bg-red-100 rounded-2xl shadow-2xs shadow-red-500 text-red-700 font-semibold flex gap-2">
-                        <div>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            class="size-8 2xl:size-10"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                              clip-rule="evenodd"
-                            />
-                          </svg>
-                        </div>{" "}
-                        <div>KYC {kycStatus}</div>
-                      </div>
-                      <div>
-                        <p className="text-gray-700 text-center 2xl:text-lg  text-sm mt-3 font-semibold">
-                          Your KYC verification is still pending. Please
-                          complete the process to unlock the ability to issue
-                          documents.
-                        </p>
-                        <div className="flex justify-center">
-                          <Button
-                            onClick={() => navigate("/orgkyc")}
-                            variant="primary"
-                            size="md"
-                            className="before:bg-white 2xl:text-lg rounded-lg w-full hover:scale-0  justify-center text-lg outline-blue-400 mt-6 flex gap-2 items-center"
-                          >
-                            Verify Now
-                          </Button>
-                        </div>
-                      </div>
+
+                  {kycStatus === "Pending" && (
+                    <div className="flex flex-col items-center mt-3">
+                      <span className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          className="w-8 h-8 text-red-500"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+                          />
+                        </svg>
+                      </span>
+                      <span className="mt-3 text-xs font-bold text-red-700 bg-red-100 rounded-full px-3 py-1">
+                        KYC Pending
+                      </span>
+                      <p className="text-gray-500 text-center text-xs mt-3 leading-relaxed">
+                        Your KYC verification is still pending. Please complete
+                        the process to unlock the ability to issue documents.
+                      </p>
+                      <Button
+                        onClick={() => navigate("/orgkyc")}
+                        variant="primary"
+                        size="md"
+                        className="bg-gradient-to-r from-indigo-600 to-blue-500 rounded-lg w-full justify-center py-2.5 mt-4 flex gap-2 items-center text-sm"
+                      >
+                        Verify Now
+                      </Button>
                     </div>
                   )}
-                </div>
+                </motion.div>
               ) : (
                 ""
               )}

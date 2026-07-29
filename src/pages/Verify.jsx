@@ -246,7 +246,7 @@ const Verify = () => {
         )}
         <div className="flex flex-1 lg:ml-72 2xl:ml-96 mr-4 md:mr-20 xs:mr-5 lg:mr-6 xl:mr-10 2xl:mr-80 mb-6">
           <div className="ml-2 xs:ml-3 md:ml-18 lg:ml-0 mt-2 grid xl:grid-cols-3 gap-4 lg:gap-6 2xl:gap-10 w-full">
-            {/* ---------- Left: verification form + result ---------- */}
+            {/* Left verification form and result */}
             <div className="xl:col-span-2 flex flex-col xl:gap-6 gap-3 2xl:gap-10 lg:pl-6 pl-2 2xl:pl-80">
               <div className="pt-2 lg:pt-4 2xl:pt-10">
                 <p className="lg:text-2xl text-base md:text-2xl 2xl:text-4xl text-black font-extrabold">
@@ -560,7 +560,7 @@ const Verify = () => {
               </motion.div>
             </div>
 
-            {/* ---------- Right: QR + how it works ---------- */}
+            {/* Right QR and how it works */}
             <div className="flex flex-col gap-4 pl-2 lg:pl-0 lg:gap-6 2xl:gap-10 lg:mt-4 2xl:mt-10">
               <motion.div
                 ref={qrRef}
@@ -575,7 +575,7 @@ const Verify = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      class="lg:size-5 size-4 md:size-6 2xl:size-8"
+                      class="lg:size-6 size-4 md:size-6 2xl:size-8"
                     >
                       <path
                         fill-rule="evenodd"

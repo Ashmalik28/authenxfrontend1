@@ -15,6 +15,7 @@ import ScrollToHashElement from "./components/ScrollToHashElemet";
 import Wave from "@/components/loading-ui/Wave";
 import { TransactionsProvider } from "./context/TransactionContext";
 import ProtectedRoute from "./protectedRoute/ProtectedRoute";
+import UserGuides from "./pages/UserGuides";
 
 function App() {
   const [userType, setUserType] = useState("");
@@ -70,6 +71,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/signin" element={<Signin />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/about" element={<UserGuides />} />
               <Route
                 path="/verify"
                 element={

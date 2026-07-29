@@ -73,7 +73,7 @@ const Signup = () => {
     }
   };
 
-  // password strength — purely presentational, doesn't affect handleSignup/validation
+  // password strength
   const strength = Math.min(4, Math.floor(formData.password.length / 3));
   const strengthColors = [
     "bg-gray-200",
@@ -98,7 +98,7 @@ const Signup = () => {
 
   return (
     <div className="w-full min-h-screen bg-gray-100 flex flex-col items-center">
-      {/* ---------- Top nav ---------- */}
+      {/* Top nav*/}
       <div className="w-full hidden lg:flex bg-white border-b border-gray-200">
         <div className="flex w-full lg:px-10 px-5 mx-auto justify-between items-center py-3 max-w-7xl">
           <div
@@ -134,7 +134,7 @@ const Signup = () => {
         </p>
       </div>
 
-      {/* ---------- Main card ---------- */}
+      {/* Main card */}
       <div className="flex-1 w-full flex lg:items-center items-start justify-center px-4 sm:px-25 xs:px-6  pt-0 lg:py-2 pb-2 lg:pb-0  2xl:py-16">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -142,7 +142,7 @@ const Signup = () => {
           transition={{ type: "spring", stiffness: 65, damping: 18 }}
           className="w-full max-w-6xl bg-white lg:rounded-3xl rounded-b-3xl shadow-xl shadow-indigo-100/60 border border-gray-100 overflow-hidden flex lg:flex-row flex-col"
         >
-          {/* ---------- Left: dark role-selection panel ---------- */}
+          {/* Left: dark role-selection panel  */}
           <div className="lg:w-[50%] w-full hidden lg:flex lg:flex-col relative overflow-hidden bg-gradient-to-br from-[#0b0f2e] via-[#151a45] to-[#0d1b3f] p-7">
             {/* decorative dot-grid + glow, purely visual */}
             <div
@@ -270,7 +270,7 @@ const Signup = () => {
             </div>
           </div>
 
-          {/* ---------- Right: form panel ---------- */}
+          {/* Right: form panel */}
           <div className="lg:w-[50%] w-full p-3 xs:p-5 sm:p-8 lg:p-7">
             <h2 className="text-2xl hidden lg:flex lg:text-3xl font-bold text-gray-900">
               Create your AuthenX account
@@ -280,7 +280,7 @@ const Signup = () => {
               complete trust.
             </p>
 
-            {/* signing up as bar — replaces the old tab switcher */}
+            {/* signing up as bar  */}
             <div className="lg:flex hidden items-center justify-between bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-3 mb-6">
               <div className="flex items-center gap-2.5">
                 <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-600 to-blue-500 flex items-center justify-center shrink-0">
@@ -408,7 +408,7 @@ const Signup = () => {
                       />
                     )}
                   </div>
-                  {/* password strength bar — presentational only */}
+                  {/* password strength bar */}
                   <div className="flex gap-1.5 mt-3">
                     {[0, 1, 2, 3].map((i) => (
                       <div
