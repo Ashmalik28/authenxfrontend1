@@ -61,7 +61,7 @@ const UserGuides = () => {
     <div className="w-screen h-full flex flex-col text-white bg-[#f8fafc]">
       {/*header bar*/}
       <div className="w-full bg-white fixed top-0 flex border-b-gray-300 border-1 justify-between items-center z-60 px-2 h-[60px]">
-        <div className="lg:hidden flex text-black items-center relative">
+        <div className="xl:hidden flex text-black items-center relative">
           {!toggleMenu ? (
             <HiMenuAlt4
               fontSize={24}
@@ -87,7 +87,7 @@ const UserGuides = () => {
           {userType === "verifier" ? (
             ""
           ) : (
-            <div className="text-white hidden lg:flex justify-center items-center gap-2 font-semibold outline-1 outline-gray-500 text-lg px-5 py-1 mr-5 bg-gray-500 rounded-3xl ">
+            <div className="text-white hidden xl:flex justify-center items-center gap-2 font-semibold outline-1 outline-gray-500 text-lg px-5 py-1 mr-5 bg-gray-500 rounded-3xl ">
               <div className="flex justify-center items-center gap-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -127,16 +127,16 @@ const UserGuides = () => {
 
       {/* sidebar and content*/}
       <div className="flex flex-1 h-100vh mt-[60px] 2xl:ml-100 2xl:mr-100 bg-[#f8fafc]">
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <Sidebar />
         </div>
         {toggleMenu && (
-          <div className="absolute lg:hidden top-[60px] left-0 w-60 h-screen flex animate-slide-in bg-white z-50 shadow-xl">
+          <div className="absolute xl:hidden top-[60px] left-0 w-60 h-screen flex animate-slide-in bg-white z-50 shadow-xl">
             <Sidebar />
           </div>
         )}
-        <div className="flex flex-1 lg:ml-72 2xl:ml-96 2xl:mr-0 lg:mr-9 lg:mb-6">
-          <div className="ml-3 xs:ml-6 lg:ml-15 mt-4 lg:mt-6 2xl:m-10 w-full flex bg-[#f8fafc] flex-col gap-8 mr-3 xs:mr-6 lg:mr-10 lg:gap-10">
+        <div className="flex flex-1 xl:ml-72 2xl:ml-96 2xl:mr-0 xl:mr-9 lg:mb-6">
+          <div className="ml-3 xs:ml-6 md:ml-10 md:mr-10 xl:ml-15 mt-4 lg:mt-6 2xl:m-10 w-full flex bg-[#f8fafc] flex-col gap-8 mr-3 xs:mr-6 lg:mr-10 lg:gap-10">
             {/* Hero: overview and illustration */}
             <motion.div
               {...fadeUp}
@@ -160,14 +160,14 @@ const UserGuides = () => {
                     Overview
                   </span>
                 </div>
-                <h1 className="text-xl 2xl:text-6xl lg:text-5xl font-extrabold text-black text-center lg:text-start mt-4 leading-tight">
+                <h1 className="text-xl md:text-4xl 2xl:text-6xl xl:text-5xl font-extrabold text-black text-center lg:text-start mt-4 leading-tight">
                   The New Standard for
                   <br />
                   <span className="bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">
                     Document Trust
                   </span>
                 </h1>
-                <p className="text-gray-500 text-xs text-center lg:text-start sm:text-sm lg:text-base mt-4 leading-relaxed max-w-lg">
+                <p className="text-gray-500 text-xs text-center lg:text-start sm:text-sm lg:text-base mt-4 leading-relaxed md:w-full lg:max-w-lg">
                   AuthenX solves the multi-billion dollar problem of document
                   fraud and slow verification. We use blockchain and
                   decentralized storage to create immutable, self-sovereign
@@ -175,13 +175,13 @@ const UserGuides = () => {
                 </p>
 
                 <div className="grid sm:grid-cols-2 gap-3 mt-6">
-                  <div className="border border-gray-200 bg-white rounded-xl p-3 lg:p-4 flex flex-col items-start">
+                  <div className="border border-gray-200 bg-white rounded-xl p-3 md:p-4 lg:p-4 flex flex-col items-start">
                     <span className="rounded-lg text-red-500 flex items-center justify-center mb-1">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="lg:size-5 size-4"
+                        class="lg:size-5 size-4 md:size-5"
                         stroke="currentColor"
                         strokeWidth="1.5"
                       >
@@ -192,10 +192,10 @@ const UserGuides = () => {
                         />
                       </svg>
                     </span>
-                    <p className="text-xs lg:text-sm font-bold text-gray-900">
+                    <p className="text-xs md:text-sm md:mt-1 lg:mt-0  font-bold text-gray-900">
                       Eliminate Fraud
                     </p>
-                    <p className="text-[9px] lg:text-xs text-gray-500 lg:mt-1 mt-0.5 leading-relaxed">
+                    <p className="text-[9px] md:text-xs text-gray-500 lg:mt-1 mt-0.5 leading-relaxed">
                       Tamper-proof cryptographic hashes ensure authenticity.
                     </p>
                   </div>
@@ -205,7 +205,7 @@ const UserGuides = () => {
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        className="lg:w-5 lg:h-5 h-4 w-4"
+                        className="lg:w-5 lg:h-5 h-4 w-4 md:w-5 md:h-5"
                         stroke="currentColor"
                         strokeWidth="2"
                       >
@@ -216,10 +216,10 @@ const UserGuides = () => {
                         />
                       </svg>
                     </span>
-                    <p className="text-xs lg:text-sm font-bold text-gray-900">
+                    <p className="text-xs md:text-sm md:mt-1 lg:mt-0 font-bold text-gray-900">
                       Instant Access
                     </p>
-                    <p className="text-[9px] lg:text-xs text-gray-500 mt-0.5 lg:mt-1 leading-relaxed">
+                    <p className="text-[9px] md:text-xs text-gray-500 mt-0.5 lg:mt-1 leading-relaxed">
                       Verified in seconds via QR or direct file upload.
                     </p>
                   </div>
@@ -231,22 +231,22 @@ const UserGuides = () => {
                 <img
                   src={heroleft}
                   alt="hero left image"
-                  className="w-[250px] h-[260px] lg:w-[460px] lg:h-[470px] 2xl:w-[550px] 2xl:h-[570px] lg:ml-15"
+                  className="w-[250px] h-[260px] md:w-[400px] md:h-[410px] xl:w-[460px] xl:h-[470px] 2xl:w-[550px] 2xl:h-[570px] lg:ml-15"
                 />
               </div>
             </motion.div>
 
             {/* Organization Onboarding */}
             <motion.div {...fadeUp}>
-              <div className="text-center lg:mt-3 mb-6">
-                <p className="text-xl lg:text-4xl font-extrabold text-black">
+              <div className="text-center lg:mt-3 md:mt-2 mb-6">
+                <p className="text-xl md:text-3xl lg:text-4xl font-extrabold text-black">
                   Organization Onboarding
                 </p>
-                <p className="text-gray-500 text-xs lg:text-base mt-2">
+                <p className="text-gray-500 text-xs md:text-sm lg:text-base mt-2">
                   How to get started as a verified issuing authority on AuthenX.
                 </p>
               </div>
-              <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-y-1 lg:gap-4">
+              <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-y-1 md:gap-4 lg:gap-4">
                 {[
                   {
                     n: 1,
@@ -271,7 +271,7 @@ const UserGuides = () => {
                 ].map((step) => (
                   <div
                     key={step.n}
-                    className="bg-white border group border-gray-200 transition-all ease-in-out duration-200 hover:border-blue-700 mt-3 rounded-2xl p-3 lg:p-5 shadow-sm"
+                    className="bg-white border group border-gray-200 transition-all ease-in-out duration-200 hover:border-blue-700 mt-3 md:mt-0 lg:mt-3 rounded-2xl p-3 lg:p-5 shadow-sm"
                   >
                     <span className="w-8 h-8 lg:w-12 lg:h-12 rounded-lg bg-indigo-100 group-hover:bg-blue-700 group-hover:text-white text-indigo-600 text-sm lg:text-lg font-bold flex items-center justify-center mb-3">
                       {step.n}
@@ -318,7 +318,7 @@ const UserGuides = () => {
                   verifying ownership of your private key, ensuring absolute
                   account security without traditional passwords.
                 </p>
-                <p className="text-[#6089fa] text-[10px] lg:text-xs font-bold uppercase tracking-wide mt-3 lg:mt-16 flex items-center gap-1.5">
+                <p className="text-[#6089fa] text-[10px] lg:text-xs font-bold uppercase tracking-wide mt-3 md:mt-5 lg:mt-16 flex items-center gap-1.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -373,11 +373,11 @@ const UserGuides = () => {
               className="bg-white border border-gray-200 rounded-2xl p-3 lg:p-10 shadow-sm"
             >
               <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <p className="lg:text-2xl text-xl text-center lg:text-start font-bold text-black">
+                <div className="w-full">
+                  <p className="lg:text-2xl md:text-3xl text-xl text-center lg:text-start font-bold text-black">
                     Document Issuance Architecture
                   </p>
-                  <p className="text-gray-500 text-xs text-center lg:text-start lg:text-sm font-medium mt-2 lg:mt-1">
+                  <p className="text-gray-500 text-xs text-center lg:text-start md:text-sm font-medium mt-2 lg:mt-1">
                     The underlying process that makes every document unique and
                     secure.
                   </p>
@@ -394,7 +394,7 @@ const UserGuides = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col lg:flex-row items-center justify-between mt-5 lg:mt-15 mb-2 overflow-x-auto">
+              <div className="flex flex-col md:flex-row items-center justify-between mt-5 md:mt-10 lg:mt-15 mb-2 overflow-x-auto">
                 {[
                   { title: "Upload & Hash", icon: "upload" },
                   { title: "Generate CID", icon: "hash" },
@@ -493,17 +493,17 @@ const UserGuides = () => {
                     {i < arr.length - 1 && (
                       <>
                         {/* Mobile connector */}
-                        <div className="lg:hidden w-[2px] h-5 bg-gray-300 my-2" />
+                        <div className="md:hidden w-[2px] h-5 bg-gray-300 my-2" />
 
-                        {/* Desktop connector */}
-                        <div className="hidden lg:block flex-1 h-[2px] bg-gray-300 min-w-6" />
+                        {/* Desktop and tablet connector */}
+                        <div className="hidden md:block md:-translate-y-3 lg:-transalate-y-0 flex-1 h-[2px] bg-gray-300 min-w-6" />
                       </>
                     )}
                   </React.Fragment>
                 ))}
               </div>
 
-              <div className="grid bg-[#f8fafc] sm:grid-cols-2 gap-2 lg:gap-4 mt-5 lg:mt-10 p-3 lg:p-6 rounded-3xl">
+              <div className="grid bg-[#f8fafc] sm:grid-cols-2 gap-2 lg:gap-4 mt-5 md:mt-10 lg:mt-10 p-3 lg:p-6 rounded-3xl">
                 <div>
                   <p className="text-sm lg:text-base font-bold text-black flex items-center gap-1.5">
                     <div className="text-blue-700">
@@ -541,46 +541,46 @@ const UserGuides = () => {
             {/* Instant Verification */}
             <motion.div
               {...fadeUp}
-              className="grid lg:grid-cols-2 lg:mt-6 gap-6 lg:gap-10 items-start"
+              className="grid xl:grid-cols-2 md:flex md:w-full xl:grid md:flex-col md:items-center  lg:mt-6 gap-6 lg:gap-10 items-start"
             >
-              <div>
-                <p className="text-xl hidden lg:flex  lg:text-3xl font-extrabold text-black">
+              <div className="flex flex-col md:items-center xl:items-start">
+                <p className="text-xl hidden xl:flex  lg:text-3xl font-extrabold text-black">
                   Instant
                   <br />
                   Verification
                 </p>
-                <p className="text-xl lg:hidden text-center lg:text-3xl font-extrabold text-black">
+                <p className="text-xl md:text-2xl xl:hidden text-center lg:text-3xl font-extrabold text-black">
                   Instant Verification
                 </p>
-                <p className="text-gray-500 text-xs text-center lg:text-start lg:text-base mt-1 lg:mt-4 leading-relaxed">
+                <p className="text-gray-500 md:text-sm text-xs md:w-[75%] text-center xl:text-start lg:text-base mt-1 lg:mt-4 leading-relaxed">
                   Verification is free and doesn't require a wallet. Users can
                   verify authenticity in two primary ways.
                 </p>
 
-                <div className="flex flex-col gap-y-2 lg:gap-4 mt-3 lg:mt-5">
+                <div className="flex flex-col md:mt-5 gap-y-2 md:gap-y-4 md:max-w-[60%] lg:max-w-full lg:gap-4 mt-3 lg:mt-5">
                   <div className="bg-white border hover:border-blue-700 transition-all ease-in-out duration-200 border-gray-200 rounded-xl p-3 lg:p-4 flex gap-3">
-                    <span className="w-7 h-7 lg:w-9 lg:h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-                      <FaFileUpload className="size-3 lg:size-4.5" />
+                    <span className="w-7 h-7 md:w-9 md:h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                      <FaFileUpload className="size-3 md:size-4.5" />
                     </span>
                     <div>
-                      <p className="text-xs lg:text-sm font-bold text-black">
+                      <p className="text-xs md:text-sm font-bold text-black">
                         Direct File Upload
                       </p>
-                      <p className="text-gray-500 text-[9px] lg:text-xs mt-1 leading-relaxed">
+                      <p className="text-gray-500 text-[9px] md:text-xs mt-1 leading-relaxed">
                         Upload the PDF or Image. Our system re-hashes it and
                         compares the result with the blockchain.
                       </p>
                     </div>
                   </div>
                   <div className="bg-white border hover:border-blue-700 transition-all ease-in-out duration-200 border-gray-200 rounded-xl p-3 lg:p-4 flex gap-3">
-                    <span className="w-7 h-7 lg:w-9 lg:h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-                      <BsQrCodeScan className="size-3 lg:size-4.5" />
+                    <span className="w-7 h-7 md:w-9 md:h-9 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                      <BsQrCodeScan className="size-3 md:size-4.5" />
                     </span>
                     <div>
-                      <p className="text-xs lg:text-sm font-bold text-black">
+                      <p className="text-xs md:text-sm font-bold text-black">
                         QR Code Scanning
                       </p>
-                      <p className="text-gray-500 text-[9px] lg:text-xs mt-1 leading-relaxed">
+                      <p className="text-gray-500 text-[9px] md:text-xs mt-1 leading-relaxed">
                         Scan the unique QR embedded in the document to see the
                         verified on-chain record instantly.
                       </p>
@@ -590,27 +590,27 @@ const UserGuides = () => {
               </div>
 
               {/* live result example mock card */}
-              <div className="bg-white border border-gray-200 overflow-hidden rounded-2xl shadow-sm">
-                <div className="flex items-center border-1 p-3 lg:p-5 border-b-gray-200 justify-between">
-                  <p className="text-[11px] lg:text-sm font-bold text-gray-400 tracking-wide uppercase">
+              <div className="bg-white border md:min-w-[500px] lg:min-w-[700px] xl:min-w-full xl:max-w-full border-gray-200 overflow-hidden rounded-2xl shadow-sm">
+                <div className="flex items-center border-1 p-3 md:p-5 border-b-gray-200 justify-between">
+                  <p className="text-[11px] md:text-sm font-bold text-gray-400 tracking-wide uppercase">
                     Live Result Example
                   </p>
                   <div className="flex gap-1.5">
-                    <span className="lg:w-2 lg:h-2 w-1.5 h-1.5 rounded-full bg-red-300" />
-                    <span className="lg:w-2 lg:h-2 w-1.5 h-1.5 rounded-full bg-amber-300" />
-                    <span className="lg:w-2 lg:h-2 w-1.5 h-1.5 rounded-full bg-green-300" />
+                    <span className="md:w-2 md:h-2 w-1.5 h-1.5 rounded-full bg-red-300" />
+                    <span className="md:w-2 md:h-2 w-1.5 h-1.5 rounded-full bg-amber-300" />
+                    <span className="md:w-2 md:h-2 w-1.5 h-1.5 rounded-full bg-green-300" />
                   </div>
                 </div>
                 <div className="flex flex-col bg-gray-50 items-center text-center">
-                  <div className="relative pt-4 lg:pt-7">
-                    <span className="w-12 h-12 lg:w-16 lg:h-16 rounded-full bg-green-100 flex items-center justify-center">
+                  <div className="relative pt-4 md:pt-12 xl:pt-7">
+                    <span className="w-12 h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-16 xl:h-16  rounded-full bg-green-100 flex items-center justify-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="1.6"
-                        className="lg:w-8 lg:h-8 w-6 h-6 text-green-600"
+                        className="md:w-8 md:h-8 lg:w-10 lg:h-10 xl:w-10 xl:h-8 w-6 h-6 text-green-600"
                       >
                         <path
                           strokeLinecap="round"
@@ -619,7 +619,7 @@ const UserGuides = () => {
                         />
                       </svg>
                     </span>
-                    <span className="absolute -bottom-1 -right-1 lg:w-6 lg:h-6 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center border-2 border-white">
+                    <span className="absolute -bottom-1 -right-1 md:w-6 md:h-6 xl:w-6 xl:h-6 lg:w-7 lg:h-7 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center border-2 border-white">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -636,21 +636,21 @@ const UserGuides = () => {
                       </svg>
                     </span>
                   </div>
-                  <p className="font-bold text-sm  text-black lg:mt-3 mt-2 lg:text-lg">
+                  <p className="font-bold text-sm xl:text-lg xl:mt-3 lg:mt-4 lg:text-xl  text-black md:mt-3 mt-2 md:text-lg">
                     Document Verified
                   </p>
-                  <p className="text-gray-400 mb-4 text-[10px] lg:text-xs font-medium italic mt-1">
+                  <p className="text-gray-400 mb-4 text-[10px] xl:text-xs lg:text-sm md:text-xs font-medium italic mt-1">
                     Issued by Acme University on 14/07/2026
                   </p>
                 </div>
-                <div className="flex flex-col gap-2 lg:gap-3 bg-gray-50 px-4 pb-4 lg:p-10 lg:pt-6">
-                  <div className="flex justify-between px-3 py-1 lg:py-2 border-1 border-gray-200 bg-white rounded-lg text-[10px] lg:text-xs">
+                <div className="flex flex-col gap-2 md:gap-3 xl:gap-3 lg:gap-4 bg-gray-50 px-4 pb-4 md:p-10 md:pt-6">
+                  <div className="flex justify-between px-3 py-1 md:py-2 xl:py-2 lg:py-3 border-1 border-gray-200 bg-white rounded-lg text-[10px] md:text-xs">
                     <span className="text-gray-400 font-semibold">TX Hash</span>
                     <span className="font-bold text-blue-700">
                       0x71c...a2f9
                     </span>
                   </div>
-                  <div className="flex justify-between px-3 py-1 lg:py-2 border-1 border-gray-200 bg-white rounded-lg text-[10px] lg:text-xs">
+                  <div className="flex justify-between px-3 py-1 md:py-2 xl:py-2 lg:py-3 border-1 border-gray-200 bg-white rounded-lg text-[10px] md:text-xs">
                     <span className="text-gray-400 font-semibold">Owner</span>
                     <span className="font-mono text-gray-700">
                       0x3b8...1cd4
@@ -663,14 +663,14 @@ const UserGuides = () => {
             {/* Security Architecture */}
             <motion.div {...fadeUp}>
               <div className="text-center mb-6">
-                <p className="text-xl lg:text-4xl lg:mt-6 font-extrabold text-black">
+                <p className="text-xl md:text-2xl lg:text-4xl lg:mt-6 font-extrabold text-black">
                   Security Architecture
                 </p>
-                <p className="text-gray-500 text-xs lg:text-base font-medium mt-1">
+                <p className="text-gray-500 text-xs md:text-base font-medium mt-1">
                   Built on the foundation of decentralization and cryptography.
                 </p>
               </div>
-              <div className="grid sm:grid-cols-3 gap-y-3 lg:gap-6">
+              <div className="grid sm:grid-cols-3 gap-y-3 md:gap-4 lg:gap-6">
                 {[
                   {
                     title: "Blockchain Immutability",
@@ -736,10 +736,10 @@ const UserGuides = () => {
             {/* Technology Stack */}
             <motion.div {...fadeUp}>
               <div className="text-center lg:mb-6">
-                <p className="text-xl lg:text-3xl font-extrabold lg:mt-5 text-black">
+                <p className="text-xl md:text-2xl lg:text-3xl font-extrabold lg:mt-5 text-black">
                   The Technology Stack
                 </p>
-                <p className="text-gray-500 text-xs lg:text-sm mt-1">
+                <p className="text-gray-500 text-xs md:text-sm mt-1">
                   Powering the future of secure document management.
                 </p>
               </div>
@@ -773,19 +773,19 @@ const UserGuides = () => {
               {...fadeUp}
               className="text-center mt-4 lg:mt-15 mb-8 lg:mb-15 pb-4"
             >
-              <p className="text-xl lg:text-3xl font-extrabold text-black">
+              <p className="text-xl md:text-2xl lg:text-3xl font-extrabold text-black">
                 Ready to Secure Your Documents?
               </p>
               <div className="flex justify-center gap-3 mt-5 lg:mt-8">
                 <button
                   onClick={() => navigate("/signin")}
-                  className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white font-bold text-xs px-3 py-2 lg:text-base lg:px-7 lg:py-4 rounded-xl hover:shadow-lg hover:shadow-indigo-200 transition-shadow"
+                  className="bg-gradient-to-r from-indigo-600 to-blue-500 text-white font-bold text-xs px-3 py-2 md:px-5 md:py-3 lg:text-base lg:px-7 lg:py-4 rounded-xl hover:shadow-lg hover:shadow-indigo-200 transition-shadow"
                 >
                   Connect MetaMask
                 </button>
                 <button
                   onClick={() => navigate("/verify")}
-                  className="border border-gray-300 text-gray-700 font-bold text-xs px-3 py-2 lg:text-base lg:px-7 lg:py-4 rounded-xl hover:bg-gray-50 transition-colors"
+                  className="border border-gray-300 text-gray-700 font-bold text-xs px-3 py-2 lg:text-base md:px-5 md:py-3 lg:px-7 lg:py-4 rounded-xl hover:bg-gray-50 transition-colors"
                 >
                   Verify a Document
                 </button>
