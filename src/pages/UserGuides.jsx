@@ -644,13 +644,13 @@ const UserGuides = () => {
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 md:gap-3 xl:gap-3 lg:gap-4 bg-gray-50 px-4 pb-4 md:p-10 md:pt-6">
-                  <div className="flex justify-between px-3 py-1 md:py-2 xl:py-2 lg:py-3 border-1 border-gray-200 bg-white rounded-lg text-[10px] md:text-xs">
+                  <div className="flex justify-between px-3 py-1 md:py-2 xl:py-2 lg:py-3 border border-gray-200 bg-white rounded-lg text-[10px] md:text-xs">
                     <span className="text-gray-400 font-semibold">TX Hash</span>
                     <span className="font-bold text-blue-700">
                       0x71c...a2f9
                     </span>
                   </div>
-                  <div className="flex justify-between px-3 py-1 md:py-2 xl:py-2 lg:py-3 border-1 border-gray-200 bg-white rounded-lg text-[10px] md:text-xs">
+                  <div className="flex justify-between px-3 py-1 md:py-2 xl:py-2 lg:py-3 border border-gray-200 bg-white rounded-lg text-[10px] md:text-xs">
                     <span className="text-gray-400 font-semibold">Owner</span>
                     <span className="font-mono text-gray-700">
                       0x3b8...1cd4

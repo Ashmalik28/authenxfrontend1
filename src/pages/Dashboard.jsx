@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { Button, Loader } from "../components";
 import { ethers } from "ethers";
 import logo from "../../images/AuthenXLogo.webp";
@@ -17,10 +17,12 @@ import { FaStamp } from "react-icons/fa6";
 import { div } from "motion/react-client";
 import VerificationSnapshot from "@/components/VerificationSnapshot";
 import { motion } from "motion/react";
+import KycSkeleton from "@/components/KycSkeleton";
 
 const Dashboard = () => {
   const [dateTime, setDateTime] = useState(new Date());
-  const [kycStatus, setKycStatus] = useState("Pending");
+  const [kycStatus, setKycStatus] = useState(null);
+  const [kycLoading, setKycLoading] = useState(true);
   const { currentAccount, getTransactionHistory } =
     useContext(TransactionContext);
   const [totalDocuments, setTotalDocuments] = useState(0);
@@ -142,13 +144,17 @@ const Dashboard = () => {
     const fetchDetails = async () => {
       try {
         const res = await fetchOrgDetails();
+
         if (res.success && res.kycDetails) {
           setKycStatus(res.kycDetails.status);
         }
       } catch (err) {
         console.error("Failed to fetch org details:", err);
+      } finally {
+        setKycLoading(false);
       }
     };
+
     fetchDetails();
   }, []);
 
@@ -763,126 +769,129 @@ const Dashboard = () => {
                 )}
               </div>
               {userType === "verifier" && (
-                  <div className="flex-1 hidden min-h-[310px] 2xl:min-h-[550px] lg:flex">
+                <div className="flex-1 hidden min-h-[310px] 2xl:min-h-[550px] lg:flex">
                   <VerificationSnapshot />
-                  </div>
-                )}
+                </div>
+              )}
               {userType === "organization" ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: 0.15 }}
-                  className={`bg-white rounded-2xl 2xl:p-8 p-5 shadow-sm border ${kycStatus === "Approved" ? "border-green-100 py-9" : "border-red-100"}`}
-                >
-                  <p className="text-center text-xs font-bold tracking-widest text-gray-400 uppercase">
-                    KYC Status
-                  </p>
+                kycLoading ? (
+                  <KycSkeleton />
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, delay: 0.15 }}
+                    className={`bg-white rounded-2xl 2xl:p-8 p-5 shadow-sm border ${kycStatus === "Approved" ? "border-green-100 py-9" : "border-red-100"}`}
+                  >
+                    <p className="text-center text-xs font-bold tracking-widest text-gray-400 uppercase">
+                      KYC Status
+                    </p>
 
-                  {kycStatus === "Approved" && (
-                    <div className="flex flex-col items-center justify-center mt-3">
-                      <div className="relative">
-                        <span className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+                    {kycStatus === "Approved" && (
+                      <div className="flex flex-col items-center justify-center mt-3">
+                        <div className="relative">
+                          <span className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              className="w-8 h-8 text-green-600"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M3.75 21h16.5M4.5 21V9.75L12 4.5l7.5 5.25V21M9 21v-5.25h6V21"
+                              />
+                            </svg>
+                          </span>
+                          <span className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center border-2 border-white">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="white"
+                              strokeWidth="3"
+                              className="w-3 h-3"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="m4.5 12.75 6 6 9-13.5"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <span className="mt-3 text-xs font-bold text-green-700 bg-green-100 rounded-full px-3 py-1 flex items-center gap-1">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-3 h-3"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          Verified Organization
+                        </span>
+                        <p className="text-center text-xs text-gray-500 mt-3 leading-relaxed">
+                          Your KYC is approved. You have full permissions to
+                          issue verified documents to the blockchain.
+                        </p>
+                        <Button
+                          onClick={() => navigate("/issue")}
+                          variant="primary"
+                          size="md"
+                          className="bg-gradient-to-r from-indigo-600 to-blue-500 rounded-lg w-full justify-center py-2.5 mt-4 flex gap-2 items-center text-sm"
+                        >
+                          Issue Now
+                        </Button>
+                      </div>
+                    )}
+
+                    {kycStatus === "Pending" && (
+                      <div className="flex flex-col items-center mt-3">
+                        <span className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="1.5"
-                            className="w-8 h-8 text-green-600"
+                            className="w-8 h-8 text-red-500"
                           >
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              d="M3.75 21h16.5M4.5 21V9.75L12 4.5l7.5 5.25V21M9 21v-5.25h6V21"
+                              d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
                             />
                           </svg>
                         </span>
-                        <span className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center border-2 border-white">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="white"
-                            strokeWidth="3"
-                            className="w-3 h-3"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="m4.5 12.75 6 6 9-13.5"
-                            />
-                          </svg>
+                        <span className="mt-3 text-xs font-bold text-red-700 bg-red-100 rounded-full px-3 py-1">
+                          KYC Pending
                         </span>
+                        <p className="text-gray-500 text-center text-xs mt-3 leading-relaxed">
+                          Your KYC verification is still pending. Please
+                          complete the process to unlock the ability to issue
+                          documents.
+                        </p>
+                        <Button
+                          onClick={() => navigate("/orgkyc")}
+                          variant="primary"
+                          size="md"
+                          className="bg-gradient-to-r from-indigo-600 to-blue-500 rounded-lg w-full justify-center py-2.5 mt-4 flex gap-2 items-center text-sm"
+                        >
+                          Verify Now
+                        </Button>
                       </div>
-                      <span className="mt-3 text-xs font-bold text-green-700 bg-green-100 rounded-full px-3 py-1 flex items-center gap-1">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-3 h-3"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        Verified Organization
-                      </span>
-                      <p className="text-center text-xs text-gray-500 mt-3 leading-relaxed">
-                        Your KYC is approved. You have full permissions to issue
-                        verified documents to the blockchain.
-                      </p>
-                      <Button
-                        onClick={() => navigate("/issue")}
-                        variant="primary"
-                        size="md"
-                        className="bg-gradient-to-r from-indigo-600 to-blue-500 rounded-lg w-full justify-center py-2.5 mt-4 flex gap-2 items-center text-sm"
-                      >
-                        Issue Now
-                      </Button>
-                    </div>
-                  )}
-
-                  {kycStatus === "Pending" && (
-                    <div className="flex flex-col items-center mt-3">
-                      <span className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          className="w-8 h-8 text-red-500"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
-                          />
-                        </svg>
-                      </span>
-                      <span className="mt-3 text-xs font-bold text-red-700 bg-red-100 rounded-full px-3 py-1">
-                        KYC Pending
-                      </span>
-                      <p className="text-gray-500 text-center text-xs mt-3 leading-relaxed">
-                        Your KYC verification is still pending. Please complete
-                        the process to unlock the ability to issue documents.
-                      </p>
-                      <Button
-                        onClick={() => navigate("/orgkyc")}
-                        variant="primary"
-                        size="md"
-                        className="bg-gradient-to-r from-indigo-600 to-blue-500 rounded-lg w-full justify-center py-2.5 mt-4 flex gap-2 items-center text-sm"
-                      >
-                        Verify Now
-                      </Button>
-                    </div>
-                  )}
-                </motion.div>
-              ) : (
-                ""
-              )}
+                    )}
+                  </motion.div>
+                )
+              ) : null}
             </div>
             <div className="bg-white rounded-xl xs:p-4 lg:p-6 p-3 xl:hidden xs:mr-5 lg:mr-0 xl:col-span-2">
               <div className="flex flex-1 flex-col">

@@ -18,6 +18,7 @@ import { RxCross2 } from "react-icons/rx";
 import { FaStamp } from "react-icons/fa6";
 import { FaLightbulb } from "react-icons/fa";
 import { FaGasPump } from "react-icons/fa";
+import KycSkeleton from "@/components/KycSkeleton";
 
 const DocType = [
   { id: 1, label: "Employment Certificate" },
@@ -44,7 +45,8 @@ const IssueDoc = () => {
   const [loading, setLoading] = useState(false);
   const { issueDocument, isLoading } = useContext(TransactionContext);
   const [DocTypeOpen, setDocTypeOpen] = useState(false);
-  const [kycStatus, setKycStatus] = useState("Pending");
+  const [kycStatus, setKycStatus] = useState(null);
+  const [kycLoading , setKycLoading] = useState(true);
   const { currentAccount } = useContext(TransactionContext);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -68,19 +70,22 @@ const IssueDoc = () => {
   }, []);
 
   useEffect(() => {
-    const fetchDetails = async () => {
-      try {
-        const res = await fetchOrgDetails();
-        if (res.success && res.kycDetails) {
-          setOrgName(res.kycDetails.orgName);
-          setKycStatus(res.kycDetails.status);
+      const fetchDetails = async () => {
+        try {
+          const res = await fetchOrgDetails();
+  
+          if (res.success && res.kycDetails) {
+            setKycStatus(res.kycDetails.status);
+          }
+        } catch (err) {
+          console.error("Failed to fetch org details:", err);
+        } finally {
+          setKycLoading(false);
         }
-      } catch (err) {
-        console.error("Failed to fetch org details:", err);
-      }
-    };
-    fetchDetails();
-  }, []);
+      };
+  
+      fetchDetails();
+    }, []);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -620,7 +625,8 @@ const IssueDoc = () => {
                 </motion.div>
 
                 {/* KYC status */}
-                <motion.div
+                {kycLoading ? (<KycSkeleton />) : (
+                  <motion.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: 0.15 }}
@@ -724,6 +730,8 @@ const IssueDoc = () => {
                     </div>
                   )}
                 </motion.div>
+
+                )}
 
                 {/* security note */}
                 <motion.div

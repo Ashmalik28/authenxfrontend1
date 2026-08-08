@@ -20,6 +20,7 @@ import { FaShieldAlt } from "react-icons/fa";
 import { SiEthereum } from "react-icons/si";
 import { RxCross2 } from "react-icons/rx";
 import { XCircle } from "lucide-react";
+import KycResultLoader from "@/components/KycResultLoader";
 
 const Verify = () => {
   const { currentAccount, verifyDocument } = useContext(TransactionContext);
@@ -427,9 +428,12 @@ const Verify = () => {
                 <div
                   className={`flex flex-col items-center justify-center text-center rounded-xl p-2 2xl:p-6 lg:p-2 border-2 transition-colors ${
                     verified === null ? "border-gray-200 bg-gray-50" : ""
-                  } ${verified === false ? "border-red-300 bg-red-50" : ""} ${verified === true ? "border-green-300 bg-green-50" : ""}`}
+                  } ${loading === true ? "border-2 border-indigo-200 bg-indigo-50" : ""} ${loading !== true && verified === false ? "border-red-300 bg-red-50" : ""} ${loading !== true && verified === true ? "border-green-300 bg-green-50" : ""}`}
                 >
-                  {verified === null && (
+                  {loading === true && (
+                    <KycResultLoader />
+                  )}
+                  {loading !== true && verified === null && (
                     <div className="flex flex-col items-center md:p-3 lg:p-4 2xl:p-7">
                       <span className="lg:w-14 lg:h-14 w-10 h-10 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center mb-2">
                         <svg
@@ -457,7 +461,7 @@ const Verify = () => {
                     </div>
                   )}
 
-                  {verified === true && (
+                  {loading !== true && verified === true && (
                     <div className="flex md:p-3 lg:p-4 2xl:p-7 w-full">
                       {/* Success Icon */}
                       <div className="flex w-full">
@@ -528,7 +532,7 @@ const Verify = () => {
                     </div>
                   )}
 
-                  {verified === false && (
+                  {loading !== true && verified === false && (
                     <div className="flex md:p-3 lg:p-4 2xl:p-7 w-full">
                       {/* Fail Icon */}
                       <div className="flex w-full">
