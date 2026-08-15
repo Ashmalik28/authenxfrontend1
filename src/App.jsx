@@ -16,6 +16,7 @@ import Wave from "@/components/loading-ui/Wave";
 import { TransactionsProvider } from "./context/TransactionContext";
 import ProtectedRoute from "./protectedRoute/ProtectedRoute";
 import UserGuides from "./pages/UserGuides";
+import Profile from "./pages/Profile";
 
 function App() {
   const [userType, setUserType] = useState("");
@@ -101,6 +102,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <IssueDoc />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile />
                   </ProtectedRoute>
                 }
               />
