@@ -144,22 +144,22 @@ const Profile = () => {
         )}
 
         <div className="flex flex-1 justify-center xl:ml-96 2xl:ml-130 2xl:mr-0 xl:mr-9 lg:mb-6">
-          <div className="ml-3 xs:ml-6 md:ml-10 md:mr-10 lg:ml-23 xl:ml-15 mt-4 lg:mt-6 2xl:m-10 w-full flex bg-[#f8fafc] flex-col gap-6 lg:gap-8 mr-3 xs:mr-6 lg:mr-10">
+          <div className="ml-3 xs:ml-4 md:ml-10 md:mr-10 lg:ml-23 xl:ml-15 mt-4 lg:mt-6 2xl:m-10 w-full flex bg-[#f8fafc] flex-col gap-6 lg:gap-8 mr-3 xs:mr-4 lg:mr-10">
 
             {/* page header */}
-            <div>
+            <div className="w-full flex md:items-start items-center flex-col">
               <p className="text-2xl lg:text-3xl font-extrabold text-black">Account Settings</p>
-              <p className="text-gray-500 text-sm lg:text-base mt-1">Manage your profile information and account preferences.</p>
+              <p className="text-gray-500 text-sm md:text-start text-center lg:text-base mt-1">Manage your profile information and account preferences.</p>
             </div>
 
-            <div className="flex w-full flex-row gap-4 lg:gap-6 2xl:gap-8 items-start">
+            <div className="flex w-full flex-col md:flex-row gap-4 lg:gap-6 2xl:gap-8 md:items-start items-center">
 
               {/* ---------- Left: avatar card ---------- */}
               <motion.div
                 {...fadeUp}
-                className="bg-white border border-gray-200 rounded-2xl py-8 px-10 shadow-sm flex flex-col items-center text-center"
+                className="bg-white border border-gray-200 rounded-2xl p-4 xs:p-6 md:py-4 md:px-5 lg:py-8 lg:px-10 shadow-sm flex flex-col items-center text-center"
               >
-                <div className="relative w-32 h-32 rounded-full overflow-hidden group cursor-pointer" onClick={() => fileInputRef.current.click()}>
+                <div className="relative w-20 h-20 xs:w-24 xs:h-24 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full overflow-hidden group cursor-pointer" onClick={() => fileInputRef.current.click()}>
                   {avatarPreview ? (
                     <img src={avatarPreview} alt="avatar" className="w-full h-full object-cover" />
                   ) : (
@@ -180,12 +180,12 @@ const Profile = () => {
                   />
                 </div>
 
-                <p className="text-black font-bold text-lg mt-4 2xl:mt-6">{profile.fullName}</p>
-                <p className="text-indigo-600 text-xs font-bold uppercase tracking-wide mt-0.5">{profile.roleLabel}</p>
+                <p className="text-black font-bold md:text-base lg:text-lg mt-4 2xl:mt-6">{profile.fullName}</p>
+                <p className="text-indigo-600 text-[11px] lg:text-xs font-bold uppercase tracking-wide mt-0.5">{profile.roleLabel}</p>
 
                 <button
                   onClick={() => fileInputRef.current.click()}
-                  className="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors mt-5"
+                  className="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-2.5 text-[11px] lg:text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors mt-3 lg:mt-5 md:mt-3"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-4 h-4">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 7.5 12 3m0 0L7.5 7.5M12 3v13.5" />
@@ -195,49 +195,49 @@ const Profile = () => {
 
                 <button
                   onClick={handleRemovePhoto}
-                  className="text-red-500 text-sm font-semibold mt-3 hover:text-red-600 transition-colors"
+                  className="text-red-500 text-xs md:text-xs lg:text-sm font-semibold mt-3 hover:text-red-600 transition-colors"
                 >
                   Remove Photo
                 </button>
 
-                <p className="text-gray-400 text-xs mt-4">JPG, GIF or PNG. Max size of 800K</p>
+                <p className="text-gray-400 text-[11px] lg:text-xs mt-2 lg:mt-4">JPG, GIF or PNG. Max size of 800K</p>
               </motion.div>
 
               {/* ---------- Right: info cards ---------- */}
-              <div className=" flex flex-col gap-4 lg:gap-6 2xl:gap-8">
+              <div className=" flex flex-col gap-4 mb-6 lg:gap-6 2xl:gap-8">
 
                 {/* Personal Information */}
                 <motion.div
                   {...fadeUp}
-                  className="bg-white border border-gray-200 rounded-2xl p-6 2xl:p-8 shadow-sm"
+                  className="bg-white border border-gray-200 rounded-2xl p-4 xs:p-5 2xl:p-8 shadow-sm"
                 >
-                  <p className="text-black font-bold text-lg pb-4 mb-5 border-b border-gray-100">Personal Information</p>
+                  <p className="text-black font-bold text-sm xs:text-base md:text-lg pb-2 xs:pb-4 mb-3 xs:mb-5 border-b border-gray-100">Personal Information</p>
 
-                  <div className="grid sm:grid-cols-2 gap-x-30 gap-y-8 2xl:mt-6 mr-20">
+                  <div className="grid grid-cols-2 md:gap-x-20 lg:gap-x-30 gap-y-6 md:gap-y-8 2xl:mt-6 lg:mr-20 md:mr-10">
                     <div>
-                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide">Full Name</p>
-                      <p className="text-black font-semibold text-sm mt-2">{profile.fullName}</p>
+                      <p className="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-wide">Full Name</p>
+                      <p className="text-black font-semibold text-[11px] xs:text-sm mt-1 xs:mt-2">{profile.fullName}</p>
                     </div>
                     <div>
-                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide">Email Address</p>
-                      <p className="text-black font-semibold text-sm mt-2">{profile.email}</p>
+                      <p className="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-wide">Email Address</p>
+                      <p className="text-black font-semibold text-[11px] xs:text-sm mt-1 xs:mt-2">{profile.email}</p>
                     </div>
                     <div>
-                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide">User Type</p>
-                      <span className="inline-block mt-2 text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">
+                      <p className="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-wide">User Type</p>
+                      <span className="inline-block mt-1 xs:mt-2 text-[8px] xs:text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md">
                         {profile.role}
                       </span>
                     </div>
                     <div>
-                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide">Account Status</p>
-                      <p className="flex items-center gap-1.5 text-black font-semibold text-sm mt-2">
-                        <span className="w-2 h-2 rounded-full bg-green-500" />
+                      <p className="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-wide">Account Status</p>
+                      <p className="flex items-center gap-1.5 text-black font-semibold  text-[11px] xs:text-sm mt-1 xs:mt-2">
+                        <span className="w-2 h-2 sm:text-sm rounded-full bg-green-500" />
                         {profile.status}
                       </p>
                     </div>
                     <div>
-                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide">Account Created At</p>
-                      <p className="text-black font-semibold text-sm mt-1">{profile.createdAt}</p>
+                      <p className="text-gray-400 text-[10px] md:text-xs font-bold uppercase tracking-wide">Account Created At</p>
+                      <p className="text-black font-semibold text-[11px] xs:text-sm mt-1">{profile.createdAt}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -246,12 +246,12 @@ const Profile = () => {
                 {userType === "organization" && (
                   <motion.div
                     {...fadeUp}
-                    className="bg-white border border-gray-200 rounded-2xl p-6 2xl:p-8 shadow-sm"
+                    className="bg-white border border-gray-200 rounded-2xl p-4 xs:p-5 2xl:p-8 shadow-sm"
                   >
-                    <div className="flex items-center justify-between pb-4 mb-5 border-b border-gray-100">
-                      <p className="text-black font-bold text-lg">Organization Profile</p>
+                    <div className="flex items-center justify-between pb-3 xs:pb-4 mb-3 xs:mb-5 border-b border-gray-100">
+                      <p className="text-black font-bold text-sm xs:text-base md:text-lg">Organization Profile</p>
                       {org.verified && (
-                        <span className="flex items-center gap-1 text-xs font-bold text-green-700 bg-green-100 px-2.5 py-1 rounded-full">
+                        <span className="flex items-center gap-1 text-[10px] xs:text-xs font-bold text-green-700 bg-green-100 px-2.5 py-1 rounded-full">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3">
                             <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" />
                           </svg>
@@ -260,9 +260,9 @@ const Profile = () => {
                       )}
                     </div>
 
-                    <p className="text-gray-400 text-[11px] font-bold uppercase 2xl:mt-6 tracking-wide mb-2">Wallet Address</p>
-                    <div className="flex items-center justify-between bg-gray-50 border border-gray-100 rounded-lg px-4 py-4 mb-8">
-                      <span className="font-mono text-xs text-gray-700 truncate font-semibold">{org.walletAddress}</span>
+                    <p className="text-gray-400 text-[10px] xs:text-[11px] font-bold uppercase 2xl:mt-6 tracking-wide mb-2">Wallet Address</p>
+                    <div className="flex items-center justify-between bg-gray-50 border border-gray-100 rounded-lg px-2 xs:px-4 py-2 xs:py-4 mb-4 xs:mb-8">
+                      <span className="font-mono text-[8px] xs:text-[9px] sm:text-[11px] md:text-xs text-gray-700 truncate font-semibold">{org.walletAddress}</span>
                       <button onClick={copyWallet} className="text-gray-400 hover:text-gray-600 transition-colors shrink-0 ml-2">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-4 h-4">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75" />
@@ -270,22 +270,22 @@ const Profile = () => {
                       </button>
                     </div>
 
-                    <div className="grid sm:grid-cols-2 gap-x-6 gap-y-5 2xl:gap-y-8">
+                    <div className="grid grid-cols-2 gap-x-6 gap-y-5 2xl:gap-y-8">
                       <div>
-                        <p className="text-gray-400 text-xs font-bold uppercase tracking-wide">KYC Status</p>
-                        <p className="text-green-600 font-bold text-sm mt-2">{org.kycStatus}</p>
+                        <p className="text-gray-400 text-[10px] xs:text-xs font-bold uppercase tracking-wide">KYC Status</p>
+                        <p className="text-green-600 font-bold text-[11px] xs:text-sm mt-1 xs:mt-2">{org.kycStatus}</p>
                       </div>
                       <div>
-                        <p className="text-gray-400 text-xs font-bold uppercase tracking-wide">Documents Issued</p>
-                        <p className="text-black font-bold text-sm mt-2">{org.documentsIssued.toLocaleString()}</p>
+                        <p className="text-gray-400 text-[10px] xs:text-xs font-bold uppercase tracking-wide">Documents Issued</p>
+                        <p className="text-black font-bold text-[11px] xs:text-sm mt-1 xs:mt-2">{org.documentsIssued.toLocaleString()}</p>
                       </div>
                       <div>
-                        <p className="text-gray-400 text-xs font-bold uppercase tracking-wide">Documents Verified</p>
-                        <p className="text-black font-bold text-sm mt-2">{org.documentsVerified.toLocaleString()}</p>
+                        <p className="text-gray-400 text-[10px] xs:text-xs font-bold uppercase tracking-wide">Documents Verified</p>
+                        <p className="text-black font-bold text-[11px] xs:text-sm mt-1 xs:mt-2">{org.documentsVerified.toLocaleString()}</p>
                       </div>
                       <div>
-                        <p className="text-gray-400 text-xs font-bold uppercase tracking-wide">Active Credentials</p>
-                        <p className="text-black font-bold text-sm mt-2">{org.activeCredentials}</p>
+                        <p className="text-gray-400 text-[10px] xs:text-xs font-bold uppercase tracking-wide">Active Credentials</p>
+                        <p className="text-black font-bold text-[11px] xs:text-sm mt-2">{org.activeCredentials}</p>
                       </div>
                     </div>
                   </motion.div>
