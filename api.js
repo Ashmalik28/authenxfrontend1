@@ -47,6 +47,11 @@ export const fetchOrgDetails = async () => {
     return res.data;
 };
 
+export const fetchProfile = async () => {
+    const res = await API.get("/profile");
+    return res.data;
+};
+
 export const viewDocument = async (cid) => {
   const res = await API.get(`/view/${cid}`);
   return res.data;
