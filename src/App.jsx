@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import Home from "./pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Signin from "./pages/Signin";
@@ -10,51 +10,16 @@ const IssueDoc = lazy(() => import("./pages/IssueDoc"));
 const MyIssuedDocs = lazy(() => import("./pages/MyIssuedDocs"));
 const OrgKYC = lazy(() => import("./pages/OrgKYC"));
 const Admin = lazy(() => import("./pages/Admin"));
-import { fetchUserType } from "../api";
 import ScrollToHashElement from "./components/ScrollToHashElemet";
 import Wave from "@/components/loading-ui/Wave";
 import { TransactionsProvider } from "./context/TransactionContext";
 import ProtectedRoute from "./protectedRoute/ProtectedRoute";
+import RoleProtectedRoute from "./protectedRoute/RoleProtectedRoute";
 import UserGuides from "./pages/UserGuides";
 import Profile from "./pages/Profile";
 
-function App() {
-  const [userType, setUserType] = useState("");
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-  const getUserType = async () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const data = await fetchUserType();
-
-      if (data?.success) {
-        setUserType(data.type);
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  getUserType();
-}, []);
-
-  if (loading) {
-    return (
-      <div className="flex w-screen justify-center items-center h-screen">
-        <Wave className="text-blue-500 w-32 h-16" />
-      </div>
-    );
-  }
-
+  function App() {
+   const userType = localStorage.getItem("userType") || "";
   return (
     <>
       <TransactionsProvider>
@@ -90,22 +55,6 @@ function App() {
                 }
               />
               <Route
-                path="/orgkyc"
-                element={
-                  <ProtectedRoute>
-                    <OrgKYC />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/issue"
-                element={
-                  <ProtectedRoute>
-                    <IssueDoc />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
                 path="/profile"
                 element={
                   <ProtectedRoute>
@@ -113,43 +62,59 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-
-              {userType === "organization" || userType === "admin" ? (
                 <>
                   <Route
                     path="/issue"
                     element={
                       <ProtectedRoute>
-                        <IssueDoc />
+                        <RoleProtectedRoute
+                          allowedRoles={["organization", "admin"]}
+                        >
+                          <IssueDoc />
+                        </RoleProtectedRoute>
                       </ProtectedRoute>
                     }
                   />
+
                   <Route
                     path="/mydocuments"
                     element={
                       <ProtectedRoute>
-                        <MyIssuedDocs />
+                        <RoleProtectedRoute
+                          allowedRoles={["organization", "admin"]}
+                        >
+                          <MyIssuedDocs />
+                        </RoleProtectedRoute>
                       </ProtectedRoute>
                     }
                   />
+
                   <Route
                     path="/orgkyc"
                     element={
                       <ProtectedRoute>
-                        <OrgKYC />
+                        <RoleProtectedRoute
+                          allowedRoles={["organization", "admin"]}
+                        >
+                          <OrgKYC />
+                        </RoleProtectedRoute>
                       </ProtectedRoute>
                     }
                   />
+                 {userType === "admin" || "organization" ? (
+                  <>
                   <Route
                     path="/admin"
                     element={
                       <ProtectedRoute>
-                        <Admin />
+                          <Admin />
                       </ProtectedRoute>
                     }
                   />
+                  </>
+                 ): null}
+                  
                 </>
-              ) : null}
             </Routes>
           </Suspense>
         </BrowserRouter>

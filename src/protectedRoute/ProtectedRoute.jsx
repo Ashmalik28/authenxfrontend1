@@ -10,26 +10,38 @@ const ProtectedRoute = ({ children }) => {
   const params = new URLSearchParams(location.search);
   const hash = params.get("hash");
 
-  if (location.pathname === "/verify" && hash) {
-    return children; 
-  }
-
-  const checkAuth = async () => {
-    try {
-      await API.get("/auth/check");
-      setIsAuthorized(true);
-    } catch (err) {
-      localStorage.removeItem("token");
-      setIsAuthorized(false);
-    }
-  };
+  const isQRVerification =
+    location.pathname === "/verify" && Boolean(hash);
 
   useEffect(() => {
+    if (isQRVerification) {
+      return;
+    }
+
+    const checkAuth = async () => {
+      try {
+        await API.get("/auth/check");
+        setIsAuthorized(true);
+      } catch (err) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userType");
+        setIsAuthorized(false);
+      }
+    };
+
     checkAuth();
-  }, []);
+  }, [isQRVerification]);
+
+  if (isQRVerification) {
+    return children;
+  }
 
   if (isAuthorized === null) {
-    return <Wave />;
+    return (
+      <div className="flex w-screen h-screen justify-center items-center">
+        <Wave className="text-blue-500 w-32 h-16" />
+      </div>
+    );
   }
 
   return isAuthorized ? children : <Navigate to="/signup" replace />;
