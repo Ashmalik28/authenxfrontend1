@@ -12,9 +12,19 @@ const TopBar = ({ toggleMenu, setToggleMenu, userType, currentAccount }) => {
   useEffect(() => {
     const getProfilePicture = async () => {
       try {
-        const data = await fetchProfile();
+        const cachedPicture = localStorage.getItem("profilePicture");
+        setProfilePicture(cachedPicture);
+        if (cachedPicture) {
+          return;
+        }
 
-        setProfilePicture(data?.profile?.profilePicture || "");
+        const data = await fetchProfile();
+        const picture = data?.profile?.profilePicture || "";
+
+        if (picture) {
+          localStorage.setItem("profilePicture", picture);
+          setProfilePicture(picture);
+        }
       } catch (error) {
         console.error("Failed to fetch profile picture:", error);
       }
