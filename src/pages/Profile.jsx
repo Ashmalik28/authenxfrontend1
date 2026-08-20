@@ -1,32 +1,24 @@
-import React, {
-  useContext,
-  useEffect,
-  useState,
-  useRef,
-} from "react";
-
-import logo from "../../images/AuthenXLogo.webp";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import Sidebar from "../components/Sidebar";
 import { TransactionContext } from "../context/TransactionContext";
-import { shortenAddress } from "../utils/shortenAddress";
-import { fetchProfile } from "../../api";
-
+import { fetchProfile, uploadProfilePicture } from "../../api";
 import Wave from "@/components/loading-ui/Wave";
 import { motion } from "motion/react";
-import { HiMenuAlt4 } from "react-icons/hi";
-import { AiOutlineClose } from "react-icons/ai";
 import { toast } from "react-toastify";
+import TopBar from "@/components/TopBar";
+
 
 const Profile = () => {
   const { currentAccount } = useContext(TransactionContext);
 
   const [toggleMenu, setToggleMenu] = useState(false);
   const [avatarPreview, setAvatarPreview] = useState(null);
-
+  const [isUploading, setIsUploading] = useState(false);
   const [profile, setProfile] = useState(null);
   const [org, setOrg] = useState(null);
   const userType = localStorage.getItem("userType");
   const [isLoading, setIsLoading] = useState(true);
+ 
 
   const fileInputRef = useRef(null);
 
@@ -58,15 +50,44 @@ const Profile = () => {
     transition: { duration: 0.4 },
   };
 
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
+  const handlePhotoChange = async (e) => {
+  const file = e.target.files[0];
 
-    if (!file) return;
+  if (!file) return;
 
-    setAvatarPreview(URL.createObjectURL(file));
+  if (file.size > 5 * 1024 * 1024) {
+    toast.error("Image size must be less than 5MB");
+    return;
+  }
 
-    toast.success("Photo updated — save your changes to keep it.");
-  };
+  try {
+    setIsUploading(true);
+
+    const previewUrl = URL.createObjectURL(file);
+    setAvatarPreview(previewUrl);
+
+    const data = await uploadProfilePicture(file);
+
+    if (data?.profilePicture) {
+      setProfile((prev) => ({
+        ...prev,
+        profilePicture: data.profilePicture,
+      }));
+      setAvatarPreview(null);
+    }
+    toast.success("Profile picture updated successfully");
+  } catch (error) {
+    console.error("Profile picture upload failed:", error);
+    setAvatarPreview(null);
+    toast.error(
+      error.response?.data?.message ||
+        "Failed to upload profile picture"
+    );
+  } finally {
+    setIsUploading(false);
+    e.target.value = "";
+  }
+};
 
   const handleRemovePhoto = () => {
     setAvatarPreview(null);
@@ -101,84 +122,13 @@ const Profile = () => {
 
   return (
     <div className="w-screen h-full flex flex-col text-white bg-[#f8fafc]">
-      {/* ---------- header bar ---------- */}
-      <div className="w-full bg-white fixed top-0 flex border-b-gray-300 border-1 justify-between items-center z-60 px-2 h-[60px]">
-        <div className="xl:hidden flex text-black items-center relative">
-          {!toggleMenu ? (
-            <HiMenuAlt4
-              fontSize={24}
-              className="cursor-pointer"
-              onClick={() => setToggleMenu(true)}
-            />
-          ) : (
-            <AiOutlineClose
-              fontSize={24}
-              className="cursor-pointer"
-              onClick={() => setToggleMenu(false)}
-            />
-          )}
-        </div>
+      {/*header bar*/}
+       <TopBar toggleMenu={toggleMenu}
+         setToggleMenu={setToggleMenu}
+         userType={userType}
+         currentAccount={currentAccount} />
 
-        <div>
-          <img
-            src={logo}
-            alt="logo"
-            className="lg:w-40 lg:h-10 w-24 h-6 cursor-pointer"
-          />
-        </div>
-
-        <div className="flex justify-center items-center">
-          {userType === "verifier" ? (
-            ""
-          ) : (
-            <div className="text-white hidden xl:flex justify-center items-center gap-2 font-semibold outline-1 outline-gray-500 text-lg px-5 py-1 mr-5 bg-gray-500 rounded-3xl">
-              <div className="flex justify-center items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21 12a2.25 2.25 0 0 0-2.25-2.25H15a3 3 0 1 1-6 0H5.25A2.25 2.25 0 0 0 3 12m18 0v6a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 18v-6m18 0V9M3 12V9m18 0a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 9m18 0V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v3"
-                  />
-                </svg>
-
-                {shortenAddress(org?.walletAddress || currentAccount)}
-              </div>
-            </div>
-          )}
-
-          <div className="border-1 rounded-full lg:h-12 lg:w-12 w-6 h-6 bg-gray-700 flex justify-center items-center overflow-hidden">
-            {avatarPreview ? (
-              <img
-                src={avatarPreview}
-                alt="avatar"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="lg:size-7 size-4"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* ---------- sidebar + content ---------- */}
+      {/*sidebar + content*/}
       <div className="flex flex-1 mt-[60px] 2xl:ml-100 min-h-screen 2xl:mr-100 bg-[#f8fafc]">
         <div className="hidden xl:block">
           <Sidebar />
@@ -192,7 +142,7 @@ const Profile = () => {
 
         <div className="flex flex-1 justify-center xl:ml-96 2xl:ml-130 2xl:mr-0 xl:mr-9 lg:mb-6">
           <div className="ml-3 xs:ml-4 md:ml-10 md:mr-10 lg:ml-23 xl:ml-15 mt-4 lg:mt-6 2xl:m-10 w-full flex bg-[#f8fafc] flex-col gap-6 lg:gap-8 mr-3 xs:mr-4 lg:mr-10">
-            {/* ---------- page header ---------- */}
+            {/*page header*/}
             <div className="w-full flex md:items-start items-center flex-col">
               <p className="text-2xl lg:text-3xl font-extrabold text-black">
                 Account Settings
@@ -204,7 +154,7 @@ const Profile = () => {
             </div>
 
             <div className="flex w-full flex-col md:flex-row gap-4 lg:gap-6 2xl:gap-8 md:items-start items-center">
-              {/* ---------- Left: avatar card ---------- */}
+              {/*Left: avatar card*/}
               <motion.div
                 {...fadeUp}
                 className="bg-white border border-gray-200 rounded-2xl p-4 xs:p-6 md:py-4 md:px-5 lg:py-8 lg:px-10 shadow-sm flex flex-col items-center text-center"
@@ -213,9 +163,9 @@ const Profile = () => {
                   className="relative w-20 h-20 xs:w-24 xs:h-24 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full overflow-hidden group cursor-pointer"
                   onClick={() => fileInputRef.current?.click()}
                 >
-                  {avatarPreview ? (
+                  {avatarPreview || profile.profilePicture ? (
                     <img
-                      src={avatarPreview}
+                      src={avatarPreview || profile.profilePicture}
                       alt="avatar"
                       className="w-full h-full object-cover"
                     />
@@ -238,7 +188,7 @@ const Profile = () => {
                     </svg>
 
                     <span className="text-white text-[10px] font-bold tracking-wide">
-                      CHANGE
+                      {isUploading ? "UPLOADING..." : "CHANGE"}
                     </span>
                   </div>
 
@@ -260,6 +210,7 @@ const Profile = () => {
                 </p>
 
                 <button
+                  disabled={isUploading}
                   onClick={() => fileInputRef.current?.click()}
                   className="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-2.5 text-[11px] lg:text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors mt-3 lg:mt-5 md:mt-3"
                 >

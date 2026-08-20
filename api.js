@@ -52,6 +52,17 @@ export const fetchProfile = async () => {
     return res.data;
 };
 
+export const uploadProfilePicture = async (file) => {
+    const formData = new FormData();
+    formData.append("profilePicture", file);
+    const res = await API.post("/profile-picture", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+    return res.data;
+};
+
 export const viewDocument = async (cid) => {
   const res = await API.get(`/view/${cid}`);
   return res.data;
