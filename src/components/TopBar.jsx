@@ -7,14 +7,36 @@ import { fetchProfile } from "../../api";
 import { useEffect, useState } from "react";
 
 const TopBar = ({ toggleMenu, setToggleMenu, userType, currentAccount }) => {
-  const [profilePicture, setProfilePicture] = useState("");
+  const [profilePicture, setProfilePicture] = useState(
+    () => localStorage.getItem("profilePicture") || "",
+  );
+
+  useEffect(() => {
+    const handleProfilePictureUpdate = () => {
+      const picture = localStorage.getItem("profilePicture");
+
+      setProfilePicture(picture || "");
+    };
+
+    window.addEventListener(
+      "profilePictureUpdated",
+      handleProfilePictureUpdate,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "profilePictureUpdated",
+        handleProfilePictureUpdate,
+      );
+    };
+  }, []);
 
   useEffect(() => {
     const getProfilePicture = async () => {
       try {
         const cachedPicture = localStorage.getItem("profilePicture");
-        setProfilePicture(cachedPicture);
         if (cachedPicture) {
+          setProfilePicture(cachedPicture);
           return;
         }
 

@@ -75,6 +75,13 @@ const Profile = () => {
       }));
       setAvatarPreview(null);
     }
+    const newPicture = data.profilePicture;
+    localStorage.setItem("profilePicture", newPicture);
+
+    window.dispatchEvent(
+    new Event("profilePictureUpdated")
+    );
+
     toast.success("Profile picture updated successfully");
   } catch (error) {
     console.error("Profile picture upload failed:", error);
@@ -193,6 +200,7 @@ const Profile = () => {
                   </div>
 
                   <input
+                    disabled={isUploading}
                     ref={fileInputRef}
                     type="file"
                     accept="image/jpeg,image/png,image/gif"
@@ -228,7 +236,7 @@ const Profile = () => {
                       d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 7.5 12 3m0 0L7.5 7.5M12 3v13.5"
                     />
                   </svg>
-                  Upload New Photo
+                  {isUploading ? "Uploading..." : "Upload New Photo"}
                 </button>
 
                 <button
