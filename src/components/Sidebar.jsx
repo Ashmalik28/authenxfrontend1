@@ -349,7 +349,7 @@ const Sidebar = () => {
               path={item.path}
             />
           ))}
-        {(storedType === "organization" || storedType === "admin") &&
+        {(storedType === "organization" || isAdmin) &&
           organizationItems.map((item, index) => (
             <SideBarItem
               key={index}
