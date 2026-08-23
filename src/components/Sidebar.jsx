@@ -303,6 +303,8 @@ const Sidebar = () => {
     window.addEventListener("adminStatusChanged", updateAdminStatus);
     window.addEventListener("userTypeChanged", updateAdminStatus);
 
+    updateUserStatus();
+
     return () => {
       window.removeEventListener("adminStatusChanged", updateAdminStatus);
       window.removeEventListener("userTypeChanged", updateAdminStatus);
