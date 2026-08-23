@@ -17,13 +17,15 @@ import ProtectedRoute from "./protectedRoute/ProtectedRoute";
 import RoleProtectedRoute from "./protectedRoute/RoleProtectedRoute";
 import UserGuides from "./pages/UserGuides";
 import Profile from "./pages/Profile";
+import AdminCheck from "./protectedRoute/AdminProtectedRoute";
 
-  function App() {
-   const userType = localStorage.getItem("userType") || "";
+function App() {
+  const userType = localStorage.getItem("userType") || "";
   return (
     <>
       <TransactionsProvider>
         <BrowserRouter>
+        <AdminCheck />
           <ScrollToHashElement />
           <Suspense
             fallback={
@@ -62,59 +64,60 @@ import Profile from "./pages/Profile";
                   </ProtectedRoute>
                 }
               />
-                <>
-                  <Route
-                    path="/issue"
-                    element={
-                      <ProtectedRoute>
-                        <RoleProtectedRoute
-                          allowedRoles={["organization", "admin"]}
-                        >
-                          <IssueDoc />
-                        </RoleProtectedRoute>
-                      </ProtectedRoute>
-                    }
-                  />
+              <>
+                <Route
+                  path="/issue"
+                  element={
+                    <ProtectedRoute>
+                      <RoleProtectedRoute
+                        allowedRoles={["organization", "admin"]}
+                      >
+                        <IssueDoc />
+                      </RoleProtectedRoute>
+                    </ProtectedRoute>
+                  }
+                />
 
-                  <Route
-                    path="/mydocuments"
-                    element={
-                      <ProtectedRoute>
-                        <RoleProtectedRoute
-                          allowedRoles={["organization", "admin"]}
-                        >
-                          <MyIssuedDocs />
-                        </RoleProtectedRoute>
-                      </ProtectedRoute>
-                    }
-                  />
+                <Route
+                  path="/mydocuments"
+                  element={
+                    <ProtectedRoute>
+                      <RoleProtectedRoute
+                        allowedRoles={["organization", "admin"]}
+                      >
+                        <MyIssuedDocs />
+                      </RoleProtectedRoute>
+                    </ProtectedRoute>
+                  }
+                />
 
-                  <Route
-                    path="/orgkyc"
-                    element={
-                      <ProtectedRoute>
-                        <RoleProtectedRoute
-                          allowedRoles={["organization", "admin"]}
-                        >
-                          <OrgKYC />
-                        </RoleProtectedRoute>
-                      </ProtectedRoute>
-                    }
-                  />
-                 {userType === "admin" || "organization" ? (
+                <Route
+                  path="/orgkyc"
+                  element={
+                    <ProtectedRoute>
+                      <RoleProtectedRoute
+                        allowedRoles={["organization", "admin"]}
+                      >
+                        <OrgKYC />
+                      </RoleProtectedRoute>
+                    </ProtectedRoute>
+                  }
+                />
+                {userType === "admin" || userType === "organization" ? (
                   <>
-                  <Route
-                    path="/admin"
-                    element={
-                      <ProtectedRoute>
-                          <Admin />
-                      </ProtectedRoute>
-                    }
-                  />
+                    <Route
+                      path="/admin"
+                      element={
+                        <ProtectedRoute>
+                          <RoleProtectedRoute allowedRoles={["admin"]}>
+                            <Admin />
+                          </RoleProtectedRoute>
+                        </ProtectedRoute>
+                      }
+                    />
                   </>
-                 ): null}
-                  
-                </>
+                ) : null}
+              </>
             </Routes>
           </Suspense>
         </BrowserRouter>

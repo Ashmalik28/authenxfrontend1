@@ -4,32 +4,47 @@ const ADMIN_WALLET = "0x03034f8896c807b5077ABE110e1a9C7e8358ba50";
 
 const AdminCheck = () => {
   useEffect(() => {
-    const checkAdmin = async () => {
+    if (!window.ethereum) {
+      localStorage.setItem("userType", "");
+      return;
+    }
+
+    const checkAdmin = (accounts) => {
       try {
-        if (!window.ethereum) {
-          localStorage.setItem("Admin", "false");
-          return;
-        }
-
-        const accounts = await window.ethereum.request({
-          method: "eth_accounts",
-        });
-
         if (
           accounts.length > 0 &&
           accounts[0].toLowerCase() === ADMIN_WALLET.toLowerCase()
         ) {
-          localStorage.setItem("Admin", "true");
+          localStorage.setItem("userType", "admin");
         } else {
-          localStorage.setItem("Admin", "false");
+          if (localStorage.getItem("userType") === "admin") {
+            localStorage.setItem("userType", "");
+          }
         }
       } catch (error) {
         console.error("Admin check failed:", error);
-        localStorage.setItem("Admin", "false");
       }
     };
 
-    checkAdmin();
+    const initializeAdmin = async () => {
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_accounts",
+        });
+
+        checkAdmin(accounts);
+      } catch (error) {
+        console.error("Admin check failed:", error);
+      }
+    };
+
+    initializeAdmin();
+
+    window.ethereum.on("accountsChanged", checkAdmin);
+
+    return () => {
+      window.ethereum.removeListener("accountsChanged", checkAdmin);
+    };
   }, []);
 
   return null;
