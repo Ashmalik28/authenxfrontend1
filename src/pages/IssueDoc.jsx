@@ -77,6 +77,7 @@ const IssueDoc = () => {
   
           if (res.success && res.kycDetails) {
             setKycStatus(res.kycDetails.status);
+            setOrgName(res.kycDetails.orgName);
           }
         } catch (err) {
           console.error("Failed to fetch org details:", err);
