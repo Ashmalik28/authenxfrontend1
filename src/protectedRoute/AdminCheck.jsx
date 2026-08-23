@@ -12,9 +12,10 @@ const AdminCheck = () => {
     const checkAdmin = (accounts) => {
       try {
         const account = accounts?.[0]?.toLowerCase();
+        const userType = localStorage.getItem("userType");
 
         const isAdmin =
-          account === ADMIN_WALLET.toLowerCase();
+          userType === "organization" && account === ADMIN_WALLET.toLowerCase();
 
         localStorage.setItem("isAdmin", String(isAdmin));
 
