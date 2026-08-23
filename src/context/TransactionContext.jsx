@@ -92,6 +92,8 @@ export const TransactionsProvider = ({ children }) => {
       );
 
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userType", resdata.userType);
+      window.dispatchEvent(new Event("userTypeChanged"));
       toast.success("Login Successful");
       window.location.href = "/dashboard";
     } catch (error) {

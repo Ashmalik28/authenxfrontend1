@@ -20,6 +20,8 @@ export const signup = async (data) => {
 export const signin = async (data) => {
     const res = await API.post("/signin" , data);
     localStorage.setItem("token" , res.data.token);
+    localStorage.setItem("userType", res.data.userType);
+    window.dispatchEvent(new Event("userTypeChanged"));
     return res.data;
 }
 
