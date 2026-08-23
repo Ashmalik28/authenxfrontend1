@@ -90,6 +90,7 @@ export const fetchDashboardStats = async () => {
 export const fetchUserType = async () => {
   const res = await API.get("/check-user-type");
   localStorage.setItem("userType" , res.data.type);
+  window.dispatchEvent(new Event("userTypeChanged"));
   return res.data;
 };
 
