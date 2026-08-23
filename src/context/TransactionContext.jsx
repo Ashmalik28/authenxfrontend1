@@ -92,7 +92,7 @@ export const TransactionsProvider = ({ children }) => {
       );
 
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userType", resdata.userType);
+      localStorage.setItem("userType", res.data.userType);
       window.dispatchEvent(new Event("userTypeChanged"));
       toast.success("Login Successful");
       window.location.href = "/dashboard";
