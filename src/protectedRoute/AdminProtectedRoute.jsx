@@ -5,7 +5,6 @@ const ADMIN_WALLET = "0x03034f8896c807b5077ABE110e1a9C7e8358ba50";
 const AdminCheck = () => {
   useEffect(() => {
     if (!window.ethereum) {
-      localStorage.setItem("userType", "");
       return;
     }
 
@@ -21,6 +20,8 @@ const AdminCheck = () => {
             localStorage.setItem("userType", "");
           }
         }
+
+        window.dispatchEvent(new Event("userTypeChanged"));
       } catch (error) {
         console.error("Admin check failed:", error);
       }
