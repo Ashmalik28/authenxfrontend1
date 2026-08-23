@@ -9,13 +9,14 @@ const AdminCheck = () => {
       return;
     }
 
-    const checkAdmin = (accounts) => {
+    const checkAdmin = async (accounts) => {
       try {
         const account = accounts?.[0]?.toLowerCase();
         const userType = localStorage.getItem("userType");
 
         const isAdmin =
-          userType === "organization" && account === ADMIN_WALLET.toLowerCase();
+          userType === "organization" &&
+          account === ADMIN_WALLET.toLowerCase();
 
         localStorage.setItem("isAdmin", String(isAdmin));
 
@@ -39,12 +40,21 @@ const AdminCheck = () => {
       }
     };
 
+    const handleUserTypeChange = () => {
+      initializeAdmin();
+    };
+
     initializeAdmin();
 
     window.ethereum.on("accountsChanged", checkAdmin);
+    window.addEventListener("userTypeChanged", handleUserTypeChange);
 
     return () => {
       window.ethereum.removeListener("accountsChanged", checkAdmin);
+      window.removeEventListener(
+        "userTypeChanged",
+        handleUserTypeChange
+      );
     };
   }, []);
 
