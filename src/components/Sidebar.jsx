@@ -290,19 +290,24 @@ const Sidebar = () => {
     localStorage.getItem("userType") || "",
   );
 
+  const [isAdmin, setIsAdmin] = useState(
+    localStorage.getItem("isAdmin") === "true",
+  );
+
   useEffect(() => {
-    const updateUserType = () => {
+    const updateAdminStatus = () => {
+      setIsAdmin(localStorage.getItem("isAdmin") === "true");
       setStoredType(localStorage.getItem("userType") || "");
     };
 
-    window.addEventListener("userTypeChanged", updateUserType);
+    window.addEventListener("adminStatusChanged", updateAdminStatus);
+    window.addEventListener("userTypeChanged", updateAdminStatus);
 
     return () => {
-      window.removeEventListener("userTypeChanged", updateUserType);
+      window.removeEventListener("adminStatusChanged", updateAdminStatus);
+      window.removeEventListener("userTypeChanged", updateAdminStatus);
     };
   }, []);
-
-  const isAdmin = storedType === "admin";
 
   const organizationItems = isAdmin
     ? [
@@ -342,7 +347,7 @@ const Sidebar = () => {
               path={item.path}
             />
           ))}
-        {(storedType === "organization"  || storedType === "admin")&&
+        {(storedType === "organization" || storedType === "admin") &&
           organizationItems.map((item, index) => (
             <SideBarItem
               key={index}

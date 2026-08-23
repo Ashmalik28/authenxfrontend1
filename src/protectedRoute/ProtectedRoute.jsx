@@ -24,7 +24,6 @@ const ProtectedRoute = ({ children }) => {
         setIsAuthorized(true);
       } catch (err) {
         localStorage.removeItem("token");
-        localStorage.removeItem("userType");
         setIsAuthorized(false);
       }
     };

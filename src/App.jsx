@@ -17,15 +17,17 @@ import ProtectedRoute from "./protectedRoute/ProtectedRoute";
 import RoleProtectedRoute from "./protectedRoute/RoleProtectedRoute";
 import UserGuides from "./pages/UserGuides";
 import Profile from "./pages/Profile";
-import AdminCheck from "./protectedRoute/AdminProtectedRoute";
+import AdminCheck from "./protectedRoute/AdminCheck";
+import AdminProtectedRoute from "./protectedRoute/AdminProtectedRoute";
 
 function App() {
   const userType = localStorage.getItem("userType") || "";
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
   return (
     <>
       <TransactionsProvider>
         <BrowserRouter>
-        <AdminCheck />
+          <AdminCheck />
           <ScrollToHashElement />
           <Suspense
             fallback={
@@ -103,20 +105,17 @@ function App() {
                     </ProtectedRoute>
                   }
                 />
-                {userType === "admin" || userType === "organization" ? (
-                  <>
-                    <Route
-                      path="/admin"
-                      element={
-                        <ProtectedRoute>
-                          <RoleProtectedRoute allowedRoles={["admin"]}>
-                            <Admin />
-                          </RoleProtectedRoute>
-                        </ProtectedRoute>
-                      }
-                    />
-                  </>
-                ) : null}
+
+                <Route
+                  path="/admin"
+                  element={
+                    <ProtectedRoute>
+                      <AdminProtectedRoute>
+                        <Admin />
+                      </AdminProtectedRoute>
+                    </ProtectedRoute>
+                  }
+                />
               </>
             </Routes>
           </Suspense>
